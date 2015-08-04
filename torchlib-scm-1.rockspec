@@ -1,17 +1,17 @@
-package = "examplepackage"
+package = "torchlib"
 version = "scm-1"
 
 source = {
-   url = "git://github.com/soumith/examplepackage.torch",
+   url = "git://github.com/vzhong/torchlib",
    tag = "master"
 }
 
 description = {
-   summary = "A hello-world for torch packages",
+   summary = "libraries for torch",
    detailed = [[
-   	    A hello-world for torch packages
+      libraries for torch
    ]],
-   homepage = "https://github.com/soumith/examplepackage.torch"
+   homepage = "https://github.com/vzhong/torchlib"
 }
 
 dependencies = {

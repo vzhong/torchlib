@@ -10,4 +10,4 @@ FIND_PACKAGE(Torch REQUIRED)
 
 FILE(GLOB luasrc *.lua)
 SET(luasrc ${luasrc} test/test.lua)
-ADD_TORCH_PACKAGE(examplepackage "" "${luasrc}" "Example Package")
+ADD_TORCH_PACKAGE(torchlib "" "${luasrc}" "Torch Libs")

@@ -1,3 +1,6 @@
-example = require 'examplepackage'
+require 'torchlib'
 
-example.hellomodule.sayhello()
+require 'test_list'
+require 'test_map'
+require 'test_queue'
+require 'test_vocab'

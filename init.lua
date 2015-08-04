@@ -1,7 +1,11 @@
 require 'torch'
 
-local examplepackage = {}
+local torchlib = {}
 
-examplepackage.hellomodule = require 'examplepackage.hellomodule'
+torch.include('torchlib', 'list.lua')
+torch.include('torchlib', 'map.lua')
+torch.include('torchlib', 'queue.lua')
+torch.include('torchlib', 'graph.lua')
+torch.include('torchlib', 'vocab.lua')
 
-return examplepackage
+return torchlib
