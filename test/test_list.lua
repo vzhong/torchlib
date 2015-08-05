@@ -35,6 +35,7 @@ function testSet(ListClass)
   tester:asserteq(100, l:get(2))
 end
 
+
 function testSublist(ListClass)
   local l = ListClass.new():addMany(10, 1, 3, 2, 4)
   local s = l:sublist(2, 4)
@@ -52,11 +53,17 @@ end
 function testEquals(ListClass)
   local a = ListClass.new():addMany(1, 2, 3)
   local b = ListClass.new():addMany(1, 2)
-  tester:asserteq(false, a:equals(b))
-  tester:asserteq(false, b:equals(a))
-  b:add(3)
-  tester:asserteq(true, a:equals(b))
-  tester:asserteq(true, b:equals(a))
+  tester:asserteq(false, a:equals(ListClass.new():addMany(1, 2)))
+  tester:asserteq(false, a:equals(ListClass.new():addMany(1, 2, 4)))
+  tester:asserteq(true, a:equals(ListClass.new():addMany(1, 2, 3)))
+end
+
+function testRemove(ListClass)
+  local l = ListClass.new():addMany(10, 1, 3, 2, 4)
+  l:remove(3)
+  tester:asserteq(true, l:equals(ListClass.new():addMany(10, 1, 2, 4)))
+  l:remove(4)
+  tester:asserteq(true, l:equals(ListClass.new():addMany(10, 1, 2)))
 end
 
 function testSwap(ListClass)
@@ -72,6 +79,11 @@ function testSort(ListClass)
   tester:assert(l:equals(expect))
 end
 
+function testToTable(ListClass)
+  local l = ListClass.new():addMany(5, 4, 2, 3, 1)
+  tester:assertTableEq({5, 4, 2, 3, 1}, l:toTable())
+end
+
 function testList(ListClass)
   testAdd(ListClass)
   testSet(ListClass)
@@ -79,6 +91,7 @@ function testList(ListClass)
   testEquals(ListClass)
   testSwap(ListClass)
   testSort(ListClass)
+  testToTable(ListClass)
 end
 
 

@@ -22,6 +22,22 @@ function TestMap.testAdd()
   m:add(tab, 'bar')
   t[tab] = 'bar'
   tester:assertTableEq(t, m._map)
+
+  t['a'] = 1
+  t['b'] = 2
+  t['c'] = 3
+  m:addMany({a=1, b=2, c=3})
+  tester:assertTableEq(t, m._map)
+end
+
+function TestMap.testEquals()
+  local m = HashMap.new():addMany({foo=1, bar=2, baz=3})
+  local n = HashMap.new():addMany({foo=1, baz=3})
+  tester:asserteq(false, m:equals(n))
+  n:add('bar', 10)
+  tester:asserteq(false, m:equals(n))
+  n:add('bar', 2)
+  tester:asserteq(true, m:equals(n))
 end
 
 function TestMap.testContains()
@@ -75,6 +91,10 @@ function TestMap.testToString()
   tostring(m)
 end
 
+function TestMap.testToTable()
+  local m = HashMap.new():addMany({foo=1, bar=2, baz=3})
+  tester:assertTableEq({foo=1, bar=2, baz=3}, m:toTable())
+end
 
 tester = torch.Tester()
 tester:add(TestMap)

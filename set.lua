@@ -48,7 +48,7 @@ function Set:remove(val)
   return self
 end
 
-function Set:asTable()
+function Set:toTable()
   tab = {}
   for k, v in pairs(self._map) do
     table.insert(tab, v)
@@ -61,7 +61,7 @@ function Set:equals(another)
     return false 
   end
 
-  for i, v in ipairs(another:asTable()) do
+  for i, v in ipairs(another:toTable()) do
     if not self:contains(v) then
       return false
     end
@@ -70,14 +70,14 @@ function Set:equals(another)
 end
 
 function Set:union(another)
-  for i, v in ipairs(another:asTable()) do
+  for i, v in ipairs(another:toTable()) do
     self:add(v)
   end
   return self
 end
 
 function Set:intersect(another)
-  for i, v in ipairs(self:asTable()) do
+  for i, v in ipairs(self:toTable()) do
     if not another:contains(v) then
       self:remove(v)
     end
@@ -88,7 +88,7 @@ end
 function Set:toString()
   local s = torch.type(self) .. '('
   local max = 5
-  local keys = self:asTable()
+  local keys = self:toTable()
   
   for i = 1, math.min(self:size(), max) do
     key = keys[i]

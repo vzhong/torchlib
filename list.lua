@@ -132,6 +132,14 @@ function ArrayList:swap(i, j)
   return self
 end
 
+function ArrayList:toTable()
+  tab = {}
+  for i = 1, self:size() do
+    table.insert(tab, self._arr[i])
+  end
+  return tab
+end
+
 
 local LinkedList = torch.class('LinkedList', 'List')
 LinkedList.Node = torch.class('LinkedListNode')
@@ -141,7 +149,7 @@ function LinkedList.Node:__init(val)
   self.next = nil
 end
 
-function LinkedList.Node.toString()
+function LinkedList.Node:toString()
   return 'LinkedListNode(' .. self.val .. ')'
 end
 
@@ -217,6 +225,7 @@ function LinkedList:remove(index)
     count = count + 1
   end
   prev.next = curr.next
+  if curr == self._tail then self._tail = prev end
   self._size = self._size - 1
   return curr.val
 end
@@ -264,4 +273,12 @@ function LinkedList:equals(another)
   return true
 end
 
-
+function LinkedList:toTable()
+  tab = {}
+  curr = self:head()
+  while curr do
+    table.insert(tab, curr.val)
+    curr = curr.next
+  end
+  return tab
+end

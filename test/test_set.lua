@@ -37,7 +37,7 @@ function TestSet.testAdd()
   tester:assertTableEq(t, s._map)
 end
 
-function TestSet.testAsTable()
+function TestSet.testToTable()
   local s = Set.new()
   s:add(5)
   s:add('bar')
@@ -48,12 +48,12 @@ function TestSet.testAsTable()
   local got = {}
 
   -- make got a dictionary for easy lookup
-  for i, v in ipairs(s:asTable()) do
+  for i, v in ipairs(s:toTable()) do
     got[v] = true
   end
 
   -- check length equal
-  tester:asserteq(#expect, #s:asTable())
+  tester:asserteq(#expect, #s:toTable())
 
   -- check each expected item is here
   for i, e in ipairs(expect) do
