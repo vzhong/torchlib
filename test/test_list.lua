@@ -16,10 +16,10 @@ function testList(l)
   v = l:remove(1)
   tester:asserteq(7, v)
   tester:asserteq(1, l:size())
-  tester:asserteq(10, l:get(1))
 
-  l:addTable({1, 3, 2, 4})
+  l:addMany(1, 3, 2, 4)
   tester:asserteq(5, l:size())
+  tester:asserteq(10, l:get(1))
   tester:asserteq(1, l:get(2))
   tester:asserteq(3, l:get(3))
   tester:asserteq(2, l:get(4))
@@ -33,11 +33,17 @@ end
 function TestList.testArray()
   local l = ArrayList.new()
   testList(l)
+  l = ArrayList.new():addMany(1, 2, 3)
+  tester:asserteq('ArrayList[1, 2, 3]', tostring(l))
+  l = ArrayList.new():addMany(1, 2, 3, 1, 2, 3, 1, 2, 3, 4, 5)
+  tester:asserteq('ArrayList[1, 2, 3, 1, 2, ...]', tostring(l))
 end
 
 function TestList.testLinkedList()
   local l = LinkedList.new()
   testList(l)
+  l = LinkedList.new():addMany(1, 2, 3)
+  tester:asserteq('LinkedList[1, 2, 3]', tostring(l))
 end
 
 

@@ -11,6 +11,8 @@ function testQueue(q)
   q:enqueue(20)
   tester:asserteq(2, q:size())
 
+  tester:asserteq('Queue[10, 20]', tostring(q))
+
   v = q:dequeue()
   tester:asserteq(10, v)
   tester:asserteq(1, q:size())

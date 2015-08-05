@@ -30,16 +30,42 @@ function HashMap:get(key, default)
     if default ~= nil then
       return default
     else
-      error('key ' .. key .. ' not found in HashMap')
+      error('Error: key ' .. tostring(key) .. ' not found in HashMap')
     end
   end
 end
 
 function HashMap:remove(key)
-  assert(self:contains(key), 'key ' .. key .. ' not found in HashMap')
+  assert(self:contains(key), 'Error: key ' .. tostring(key) .. ' not found in HashMap')
   val = self:get(key)
   self._map[key] = nil
   self._size = self._size - 1
   return val
 end
 
+function HashMap:keySet()
+  keys = Set.new()
+  for k, v in pairs(self._map) do
+    keys:add(k)
+  end
+  return keys
+end
+
+function HashMap:toString()
+  local s = torch.type(self) .. '{'
+  local max = 5
+  local keys = self:keySet():asTable()
+  
+  for i = 1, math.min(self:size(), max) do
+    key = keys[i]
+    s = s .. key .. ' -> ' .. self:get(key)
+    if i ~= self:size() then
+      s = s .. ', '
+    end
+  end
+  if self:size() > max then s = s .. '...' end
+  s = s .. '}'
+  return s
+end
+
+torch.getmetatable('HashMap').__tostring__ = HashMap.toString

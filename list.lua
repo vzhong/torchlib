@@ -8,10 +8,12 @@ function List:size()
   return self._size
 end
 
-function List:addTable(tab)
-  for k, v in ipairs(tab) do
+function List:addMany(...)
+  local args = table.pack(...)
+  for k, v in ipairs(args) do
     self:add(v)
   end
+  return self
 end
 
 function List:contains(val)
@@ -26,6 +28,23 @@ end
 function List:isEmpty()
   return self:size() == 0
 end
+
+function List:toString()
+  local s = torch.type(self) .. '['
+  local max = 5
+  
+  for i = 1, math.min(self:size(), max) do
+    s = s .. self:get(i)
+    if i ~= self:size() then
+      s = s .. ', '
+    end
+  end
+  if self:size() > max then s = s .. '...' end
+  s = s .. ']'
+  return s
+end
+
+torch.getmetatable('List').__tostring__ = List.toString
 
 
 local ArrayList = torch.class('ArrayList', 'List')
@@ -43,6 +62,7 @@ function ArrayList:add(val, index)
     table.insert(self._arr, index, val)
   end
   self._size = self._size + 1
+  return self
 end
 
 function ArrayList:get(index)
@@ -64,6 +84,12 @@ function LinkedList.Node:__init(val)
   self.val = val
   self.next = nil
 end
+
+function LinkedList.Node.toString()
+  return 'LinkedListNode(' .. self.val .. ')'
+end
+
+torch.getmetatable('LinkedListNode').__tostring__ = LinkedList.Node.toString
 
 function LinkedList:__init()
   self._sentinel = LinkedList.Node.new()
@@ -98,6 +124,7 @@ function LinkedList:add(val, index)
     prev.next.next = curr
   end
   self._size = self._size + 1
+  return self
 end
 
 function LinkedList:get(index)

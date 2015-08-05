@@ -1,36 +1,39 @@
-local graph = require "graph"
-local DirectedGraph = map.DirectedGraph
+require 'torchlib'
 
-
-local TestMap = {}
+local TestDirectedGraph = {}
+local TestUndirectedGraph = {}
 local tester
 
 
-function testMap(m)
-  tester:asserteq(0, m:size())
-  tester:asserteq(false, m:contains(10))
-  m:add(10, 'hi')
-  tester:asserteq(true, m:contains(10))
-  tester:asserteq(false, m:contains('hi'))
-  tester:asserteq(1, m:size())
-  tester:asserteq('hi', m:get(10))
-  m:add('key', 42)
-  tester:asserteq(2, m:size())
-  tester:asserteq(42, m:get('key'))
-  tester:asserteq('hi', m:get(10))
-  v = m:remove('key')
-  tester:asserteq(42, v)
-  tester:asserteq(1, m:size())
-  tester:asserteq('hi', m:get(10))
+function TestDirectedGraph.testAddNode()
+  local g = DirectedGraph.new()
+  local na = g:addNode('a')
+  local nb = g:addNode('b')
+  local nc = g:addNode('c')
+  tester:asserteq(3, g:size())
+
+  g:connect(na, nb)
+  g:connect(nc, na)
+  tester:assertTableEq({nb}, g:connectionsOf(na))
+  tester:assertTableEq({na}, g:connectionsOf(nc))
 end
 
 
-function TestMap.testHashMap()
-  local m = HashMap.new()
-  testMap(m)
+function TestUndirectedGraph.testAddNode()
+  local g = UndirectedGraph.new()
+  local na = g:addNode('a')
+  local nb = g:addNode('b')
+  local nc = g:addNode('c')
+  tester:asserteq(3, g:size())
+
+  g:connect(na, nb)
+  g:connect(nc, na)
+  tester:assert(Util.tableValuesEqual({nb, nc}, g:connectionsOf(na)))
+  tester:assertTableEq({na}, g:connectionsOf(nc))
 end
 
 
 tester = torch.Tester()
-tester:add(TestMap)
+tester:add(TestDirectedGraph)
+tester:add(TestUndirectedGraph)
 tester:run()
