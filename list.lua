@@ -65,14 +65,14 @@ end
 function List:toString()
   local s = torch.type(self) .. '['
   local max = 5
-  
   for i = 1, math.min(self:size(), max) do
-    s = s .. self:get(i)
-    if i ~= self:size() then
+    s = s .. tostring(self:get(i))
+    if i == max then
+      s = s .. ', ...'
+    elseif i ~= self:size() then
       s = s .. ', '
     end
   end
-  if self:size() > max then s = s .. '...' end
   s = s .. ']'
   return s
 end
@@ -91,7 +91,7 @@ function ArrayList:add(val, index)
   if index == nil then
     table.insert(self._arr, val)
   else
-    assert(index > 0 and index <= self:size(), 'index ' .. index .. ' is out of bounds for array of size ' .. self:size())
+    self:assertValidIndex(index)
     table.insert(self._arr, index, val)
   end
   self._size = self._size + 1
