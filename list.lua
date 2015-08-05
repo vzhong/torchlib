@@ -29,6 +29,39 @@ function List:isEmpty()
   return self:size() == 0
 end
 
+function List:sublist(start, finish)
+  finish = finish or self:size()
+  local sub = self.new()
+  self:assertValidIndex(start)
+  self:assertValidIndex(finish)
+  for i = start, finish do sub:add(self:get(i)) end
+  return sub
+end
+
+function List:sort(start, finish)
+  function partition(l, start, finish)
+    pivotIndex = math.random(start, finish)
+    pivot = self:get(pivotIndex)
+    self:swap(pivotIndex, finish)
+    write = start
+    for i = start, finish-1 do
+      if self:get(i) < pivot then
+        self:swap(i, write)
+        write = write + 1
+      end
+    end
+    self:swap(write, finish)
+    return write
+  end
+  start = start or 1
+  finish = finish or self:size()
+  if start < finish then
+    pivot = partition(self, start, finish)
+    self:sort(start, pivot-1)
+    self:sort(pivot+1, finish)
+  end
+end
+
 function List:toString()
   local s = torch.type(self) .. '['
   local max = 5
@@ -70,10 +103,33 @@ function ArrayList:get(index)
   return self._arr[index]
 end
 
+function ArrayList:set(index, val)
+  self:assertValidIndex(index)
+  self._arr[index] = val
+  return self
+end
+
 function ArrayList:remove(index)
   self:assertValidIndex(index)
   self._size = self._size - 1
   return table.remove(self._arr, index)
+end
+
+function ArrayList:equals(another)
+  if self:size() ~= another:size() then return false end
+  for i = 1, self:size() do
+    if self:get(i) ~= another:get(i) then return false end
+  end
+  return true
+end
+
+function ArrayList:swap(i, j)
+  self:assertValidIndex(i)
+  self:assertValidIndex(j)
+  temp = self._arr[i]
+  self._arr[i] = self._arr[j]
+  self._arr[j] = temp
+  return self
 end
 
 
@@ -138,6 +194,18 @@ function LinkedList:get(index)
   return curr.val
 end
 
+function LinkedList:set(index, val)
+  self:assertValidIndex(index)
+  count = 1
+  curr = self:head()
+  while count ~= index do
+    curr = curr.next
+    count = count + 1
+  end
+  curr.val = val
+  return self
+end
+
 function LinkedList:remove(index)
   self:assertValidIndex(index)
   count = 1
@@ -152,4 +220,48 @@ function LinkedList:remove(index)
   self._size = self._size - 1
   return curr.val
 end
+
+function LinkedList:swap(i, j)
+  self:assertValidIndex(i)
+  self:assertValidIndex(j)
+  count = 1
+  prev = self._sentinel
+  curr = self:head()
+  while count <= math.max(i, j) do
+    if count == i then
+      prevI = prev
+      currI = curr
+    end
+    if count == j then
+      prevJ = prev
+      currJ = curr
+    end
+    count = count + 1
+    prev = curr
+    curr = curr.next
+  end
+  assert(prevI)
+  assert(currI)
+  assert(prevJ)
+  assert(currJ)
+  prevI.next = currJ
+  prevJ.next = currI
+  temp = currI.next
+  currI.next = currJ.next
+  currJ.next = temp
+  return self
+end
+
+function LinkedList:equals(another)
+  if self:size() ~= another:size() then return false end
+  curr = self:head()
+  currAnother = another:head()
+  while curr ~= nil do
+    if curr.val ~= currAnother.val then return false end
+    curr = curr.next
+    currAnother = currAnother.next
+  end
+  return true
+end
+
 
