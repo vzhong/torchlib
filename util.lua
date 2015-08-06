@@ -6,6 +6,14 @@ function Util.printTable(t)
   end
 end
 
+function Util.equals(a, b)
+  if torch.type(a) ~= torch.type(b) then return false end
+  if a.equals ~= nil and b.equals ~= nil then
+    return a:equals(b)
+  end
+  return a == b
+end
+
 function Util.tableValuesEqual(t1, t2)
   if #t1 ~= #t2 then return false end
   d = {}

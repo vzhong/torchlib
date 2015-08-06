@@ -56,12 +56,13 @@ end
 
 function Heap:push(key, val)
   -- adds a value with priority key and maintains max heap property
+  if val == nil then val = key end
   self:add(table.pack(key, val), 1)
   self:maxHeapify(1)
   return self
 end
 
-function Heap:pop(key, val)
+function Heap:pop()
   -- removes the max key item from the heap and return it
   assert(not self:isEmpty(), 'Error: cannot pop from empty heap')
   self:swap(1, self:size())

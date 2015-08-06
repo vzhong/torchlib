@@ -1,4 +1,4 @@
-Stack = torch.class('Stack', 'LinkedList')
+local Stack = torch.class('Stack', 'LinkedList')
 
 function Stack:push(val)
   self:add(val)

@@ -31,12 +31,12 @@ function HashMap:contains(key)
   return self._map[key] ~= nil
 end
 
-function HashMap:get(key, default)
+function HashMap:get(key, returnNilIfMissing)
   if self:contains(key) then
     return self._map[key]
   else
-    if default ~= nil then
-      return default
+    if returnNilIfMissing ~= nil then
+      return nil
     else
       error('Error: key ' .. tostring(key) .. ' not found in HashMap')
     end
