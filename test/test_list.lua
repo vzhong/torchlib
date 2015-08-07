@@ -3,7 +3,9 @@ local torchlib = require 'torchlib'
 local TestList = {}
 local tester
 
-function testAdd(ListClass)
+local TestGeneric = {}
+
+function TestGeneric.testAdd(ListClass)
   local l = ListClass.new()
   tester:asserteq(0, l:size())
   l:add(10)
@@ -29,14 +31,20 @@ function testAdd(ListClass)
   tester:asserteq(false, l:contains(0))
 end
 
-function testSet(ListClass)
+function TestGeneric.testSet(ListClass)
   local l = ListClass.new():addMany(10, 1, 3, 2, 4)
   l:set(2, 100)
   tester:asserteq(100, l:get(2))
 end
 
+function TestGeneric.testCopy(ListClass)
+  local l = ListClass.new():addMany(10, 1, 3, 2, 4)
+  tester:assert(ListClass.new():addMany(10, 1, 3, 2, 4):equals(l))
+  tester:assert(not ListClass.new():addMany(10, 1, 3, 4):equals(l))
+  tester:assert(not ListClass.new():addMany(10, 1, 3, 2, 4, 5):equals(l))
+end
 
-function testSublist(ListClass)
+function TestGeneric.testSublist(ListClass)
   local l = ListClass.new():addMany(10, 1, 3, 2, 4)
   local s = l:sublist(2, 4)
   tester:asserteq(3, s:size())
@@ -50,7 +58,7 @@ function testSublist(ListClass)
   tester:asserteq(4, s:get(2))
 end
 
-function testEquals(ListClass)
+function TestGeneric.testEquals(ListClass)
   local a = ListClass.new():addMany(1, 2, 3)
   local b = ListClass.new():addMany(1, 2)
   tester:asserteq(false, a:equals(ListClass.new():addMany(1, 2)))
@@ -58,7 +66,7 @@ function testEquals(ListClass)
   tester:asserteq(true, a:equals(ListClass.new():addMany(1, 2, 3)))
 end
 
-function testRemove(ListClass)
+function TestGeneric.testRemove(ListClass)
   local l = ListClass.new():addMany(10, 1, 3, 2, 4)
   l:remove(3)
   tester:asserteq(true, l:equals(ListClass.new():addMany(10, 1, 2, 4)))
@@ -66,32 +74,28 @@ function testRemove(ListClass)
   tester:asserteq(true, l:equals(ListClass.new():addMany(10, 1, 2)))
 end
 
-function testSwap(ListClass)
+function TestGeneric.testSwap(ListClass)
   local l = ListClass.new():addMany('a', 'b', 'c', 'd', 'e')
   local expect = ListClass.new():addMany('a', 'e', 'c', 'd', 'b')
   tester:assert(l:swap(2, 5):equals(expect))
 end
 
-function testSort(ListClass)
+function TestGeneric.testSort(ListClass)
   local l = ListClass.new():addMany(5, 4, 2, 3, 1)
   local expect = ListClass.new():addMany(1, 2, 3, 4, 5)
   l:sort()
   tester:assert(l:equals(expect))
 end
 
-function testToTable(ListClass)
+function TestGeneric.testToTable(ListClass)
   local l = ListClass.new():addMany(5, 4, 2, 3, 1)
   tester:assertTableEq({5, 4, 2, 3, 1}, l:toTable())
 end
 
 function testList(ListClass)
-  testAdd(ListClass)
-  testSet(ListClass)
-  testSublist(ListClass)
-  testEquals(ListClass)
-  testSwap(ListClass)
-  testSort(ListClass)
-  testToTable(ListClass)
+  for k, func in pairs(TestGeneric) do
+    func(ListClass)
+  end
 end
 
 

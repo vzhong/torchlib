@@ -141,6 +141,12 @@ function TestSet.testToString()
   tester:asserteq('Set(5, 6, 7)', tostring(s))
 end
 
+function TestSet.testCopy()
+  local s = Set.new():addMany(5, 6, 7)
+  tester:assert(s:equals(Set.new():addMany(5, 6, 7)))
+  tester:assert(not s:equals(Set.new():addMany(5, 7)))
+  tester:assert(not s:equals(Set.new():addMany(5, 8, 6, 7)))
+end
 
 tester = torch.Tester()
 tester:add(TestSet)

@@ -27,6 +27,10 @@ function HashMap:addMany(tab)
   return self
 end
 
+function HashMap:copy()
+  return HashMap.new():addMany(self:toTable())
+end
+
 function HashMap:contains(key)
   return self._map[key] ~= nil
 end

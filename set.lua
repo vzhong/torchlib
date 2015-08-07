@@ -34,6 +34,10 @@ function Set:addMany(...)
   return self
 end
 
+function Set:copy()
+  return Set.new():addMany(table.unpack(self:toTable()))
+end
+
 function Set:contains(val)
   key = Set.keyOf(val)
   return self._map[key] ~= nil

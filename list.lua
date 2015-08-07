@@ -25,6 +25,12 @@ function List:contains(val)
   return false
 end
 
+function List:copy()
+  local new = torch.getmetatable(torch.type(self)).new()
+  new:addMany(self:toTable())
+  return new
+end
+
 function List:isEmpty()
   return self:size() == 0
 end

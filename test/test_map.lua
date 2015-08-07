@@ -30,6 +30,12 @@ function TestMap.testAdd()
   tester:assertTableEq(t, m._map)
 end
 
+function TestMap.testCopy()
+  tester:assert(HashMap.new():addMany({a=1, b=2, c=3}):equals(HashMap.new():addMany({a=1, b=2, c=3})))
+  tester:assert(not HashMap.new():addMany({a=1, b=2, c=3}):equals(HashMap.new():addMany({a=1, c=3})))
+  tester:assert(not HashMap.new():addMany({a=1, b=2, c=3}):equals(HashMap.new():addMany({a=1, b=2, c=3, d=4})))
+end
+
 function TestMap.testEquals()
   local m = HashMap.new():addMany({foo=1, bar=2, baz=3})
   local n = HashMap.new():addMany({foo=1, baz=3})
