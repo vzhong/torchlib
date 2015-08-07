@@ -172,6 +172,31 @@ function TestDirectedGraph.testHasCycle()
   tester:assert(not g:hasCycle())
 end
 
+function TestDirectedGraph.testTranspose()
+  local g = DirectedGraph.new()
+  local a = g:addNode('a')
+  local b = g:addNode('b')
+  local c = g:addNode('c')
+  g:connect(a, b)
+  g:connect(c, a)
+
+  local t = g:transpose()
+  tester:assertTableEq(t:connectionsOf(a), {c})
+  tester:assertTableEq(t:connectionsOf(b), {a})
+  tester:assertTableEq(t:connectionsOf(c), {})
+
+  tester:assertTableEq(g:connectionsOf(a), {b})
+  tester:assertTableEq(g:connectionsOf(b), {})
+  tester:assertTableEq(g:connectionsOf(c), {a})
+end
+
+function TestDirectedGraph.testStronglyConnectedComponents()
+  local g = getDirectedGraph()
+  local roots = g:stronglyConnectedComponents()
+  -- test correctness automatically
+  -- Util.printTable(roots)
+end
+
 
 
 tester = torch.Tester()

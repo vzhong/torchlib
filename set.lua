@@ -96,7 +96,7 @@ function Set:toString()
   
   for i = 1, math.min(self:size(), max) do
     key = keys[i]
-    s = s .. key
+    s = s .. tostring(key)
     if i ~= self:size() then
       s = s .. ', '
     end

@@ -95,10 +95,10 @@ function Graph:shortestPath(source, destination, skipBFS)
   return path
 end
 
-function Graph:depthFirstSearch(finishCallback)
+function Graph:depthFirstSearch(finishCallback, discoverCallback, nodes)
   self:resetState()
   local timestamp = 0
-  local nodes = self:nodeSet():toTable()
+  local nodes = nodes or self:nodeSet():toTable()
 
   local function DFSVisit(graph, node)
     timestamp = timestamp + 1
@@ -120,10 +120,14 @@ function Graph:depthFirstSearch(finishCallback)
     end
   end
 
+  local roots = {}
   for i = 1, #nodes do
     local node = nodes[i]
     if node.state == Graph.state.UNDISCOVERED then
       DFSVisit(graph, node)
+      if discoverCallback ~= nil then
+        discoverCallback(node)
+      end
     end
   end
 end
@@ -174,6 +178,38 @@ function DirectedGraph:hasCycle()
     end
   end
   return false
+end
+
+function DirectedGraph:transpose()
+  local g = DirectedGraph.new()
+  g._nodeMap = self._nodeMap:copy()
+  local nodes = g:nodeSet():toTable()
+  -- clear out the connections first
+  for i = 1, #nodes do
+    local node = nodes[i]
+    g._nodeMap:add(node, Set.new())
+  end
+  -- add in transpose connections
+  for i = 1, #nodes do
+    local node = nodes[i]
+    local conns = self:connectionsOf(node)
+    for j = 1, #conns do
+      local conn = conns[j]
+      g:connect(conn, node)
+    end
+  end
+  return g
+end
+
+function DirectedGraph:stronglyConnectedComponents()
+  local firstToLastFinish = self:topologicalSort()
+  local transpose = self:transpose()
+  local roots = {}
+  function discoverCallback(node)
+    table.insert(roots, node)
+  end
+  self:depthFirstSearch(nil, discoverCallback, Util.reverseTable(firstToLastFinish))
+  return roots
 end
 
 

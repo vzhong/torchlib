@@ -78,7 +78,7 @@ function HashMap:toString()
   
   for i = 1, math.min(self:size(), max) do
     key = keys[i]
-    s = s .. key .. ' -> ' .. self:get(key)
+    s = s .. tostring(key) .. ' -> ' .. tostring(self:get(key))
     if i ~= self:size() then
       s = s .. ', '
     end

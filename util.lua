@@ -16,7 +16,7 @@ end
 
 function Util.tableValuesEqual(t1, t2)
   if #t1 ~= #t2 then return false end
-  d = {}
+  local d = {}
   for k, v in pairs(t1) do
     d[v] = true
   end
@@ -24,4 +24,12 @@ function Util.tableValuesEqual(t1, t2)
     if d[v] ~= true then return false end
   end
   return true
+end
+
+function Util.reverseTable(t)
+  local tab = {}
+  for i, e in ipairs(t) do
+    table.insert(tab, 1, e)
+  end
+  return tab
 end
