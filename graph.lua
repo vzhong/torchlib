@@ -41,7 +41,7 @@ function Graph:nodeSet()
   return self._nodeMap:keySet()
 end
 
-function Graph:breadthFirstSearch(source)
+function Graph:resetState()
   -- initialize all nodes to undiscovered, source to visited
   local nodes = self:nodeSet():toTable()
   for i = 1, #nodes do
@@ -50,6 +50,10 @@ function Graph:breadthFirstSearch(source)
     node.timestamp = math.huge
     node.parent = nil
   end
+end
+
+function Graph:breadthFirstSearch(source)
+  self:resetState()
   source.state = Graph.state.VISITED
   source.timestamp = 0
   
@@ -58,7 +62,7 @@ function Graph:breadthFirstSearch(source)
 
   while not q:isEmpty() do
     local node = q:dequeue()
-    conns = self:connectionsOf(node)
+    local conns = self:connectionsOf(node)
     for i = 1, #conns do
       local conn = conns[i]
       if conn.state == Graph.state.UNDISCOVERED then
@@ -91,6 +95,39 @@ function Graph:shortestPath(source, destination, skipBFS)
   return path
 end
 
+function Graph:depthFirstSearch(finishCallback)
+  self:resetState()
+  local timestamp = 0
+  local nodes = self:nodeSet():toTable()
+
+  local function DFSVisit(graph, node)
+    timestamp = timestamp + 1
+    node.timestamp = timestamp
+    node.state = Graph.state.VISITED
+    local conns = self:connectionsOf(node)
+    for i = 1, #conns do
+      local conn = conns[i]
+      if conn.state == Graph.state.UNDISCOVERED then
+        conn.parent = node
+        DFSVisit(graph, conn)
+      end
+    end
+    node.state = Graph.state.FINISHED
+    timestamp = timestamp + 1
+    node.finishTime = timestamp
+    if finishCallback ~= nil then
+      finishCallback(node)
+    end
+  end
+
+  for i = 1, #nodes do
+    local node = nodes[i]
+    if node.state == Graph.state.UNDISCOVERED then
+      DFSVisit(graph, node)
+    end
+  end
+end
+
 
 local DirectedGraph = torch.class('DirectedGraph', 'Graph')
 
@@ -98,6 +135,45 @@ function DirectedGraph:connect(nodeA, nodeB)
   self:assertValidNode(nodeA)
   self:assertValidNode(nodeB)
   self._nodeMap:get(nodeA):add(nodeB)
+end
+
+function DirectedGraph:topologicalSort()
+  ordered = {}
+  local function callback(node)
+    table.insert(ordered, 1, node)
+  end
+  self:depthFirstSearch(callback)
+  return ordered
+end
+
+function DirectedGraph:hasCycle()
+  self:resetState()
+  local nodes = self:nodeSet():toTable()
+
+  local function DFSVisit(graph, node)
+    node.state = Graph.state.VISITED
+    local conns = self:connectionsOf(node)
+    for i = 1, #conns do
+      local conn = conns[i]
+      if conn.state == Graph.state.VISITED then
+        return true -- looped back to ancestor
+      elseif conn.state == Graph.state.UNDISCOVERED then
+        DFSVisit(graph, conn)
+      end
+    end
+    node.state = Graph.state.FINISHED
+    return false
+  end
+
+  for i = 1, #nodes do
+    local node = nodes[i]
+    if node.state == Graph.state.UNDISCOVERED then
+      if DFSVisit(graph, node) then
+        return true
+      end
+    end
+  end
+  return false
 end
 
 

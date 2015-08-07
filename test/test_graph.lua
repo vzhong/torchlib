@@ -108,6 +108,71 @@ function TestUndirectedGraph.testShortestPath()
   tester:assertTableEq({v, r, s, w, x, y}, got)
 end
 
+function getDirectedGraph()
+  -- from CLRS fig 22.4
+  local g = DirectedGraph.new()
+  local u = g:addNode('u')
+  local v = g:addNode('v')
+  local w = g:addNode('w')
+  local x = g:addNode('x')
+  local y = g:addNode('y')
+  local z = g:addNode('z')
+  g:connect(u, v)
+  g:connect(u, x)
+  g:connect(x, v)
+  g:connect(v, y)
+  g:connect(y, x)
+  g:connect(w, y)
+  g:connect(w, z)
+  g:connect(z, z)
+  return g
+end
+
+function getDirectedAcyclicGraph()
+  -- from CLRS fig 22.7
+  local g = DirectedGraph.new()
+  local undershorts = g:addNode('undershorts')
+  local pants = g:addNode('pants')
+  local belt = g:addNode('belt')
+  local shirt = g:addNode('shirt')
+  local tie = g:addNode('tie')
+  local jacket = g:addNode('jacket')
+  local socks = g:addNode('socks')
+  local shoes = g:addNode('shoes')
+  local watch = g:addNode('watch')
+  g:connect(undershorts, pants)
+  g:connect(undershorts, shoes)
+  g:connect(socks, shoes)
+  g:connect(pants, shoes)
+  g:connect(pants, belt)
+  g:connect(shirt, belt)
+  g:connect(shirt, tie)
+  g:connect(tie, jacket)
+  g:connect(belt, jacket)
+  return g, undershorts, pands, belt, shirt, tie, jacket, socks, shoes, watch
+end
+
+function TestDirectedGraph.testDFS()
+  local g = getDirectedGraph()
+  g:depthFirstSearch()
+  -- test correctness
+end
+
+function TestDirectedGraph.testTopologicalSort()
+  local g, undershorts, pands, belt, shirt, tie, jacket, socks, shoes, watch = getDirectedAcyclicGraph()
+  local sorted = g:topologicalSort()
+  -- test correctness automatically
+  -- Util.printTable(sorted)
+end
+
+function TestDirectedGraph.testHasCycle()
+  local g = getDirectedGraph()
+  tester:assert(g:hasCycle())
+  g = getDirectedAcyclicGraph()
+  tester:assert(not g:hasCycle())
+end
+
+
 
 tester = torch.Tester()
 tester:add(TestDirectedGraph)
