@@ -85,3 +85,30 @@ function Vocab:copyAndPruneRares(cutoff)
   return v
 end
 
+function Vocab:pretrained(folder)
+  local wordlist = paths.concat(folder, 'words.lst')
+  local embeddings = paths.concat(folder, 'embeddings.txt')
+  assert(paths.filep(wordlist), 'Error: wordlists does not exist at ' .. wordlist)
+  assert(paths.filep(embeddings), 'Error: wordlists does not exist at ' .. embeddings)
+  -- add each word in the wordlist
+  local words = {}
+  for line in io.lines(wordlist) do
+    -- remove the last character, which is newline
+    local word = string.sub(line, 1, -1)
+    table.insert(words, word)
+    self:add(word)
+  end
+  -- load vectors
+  local emb = torch.FloatTensor(self:size(), 50):uniform(-0.1, 0.1)
+  local i = 1
+  for line in io.lines(embeddings) do
+    -- remove the last character, which is newline
+    local numbers = string.split(line, '%s+')
+    local ind = self:indexOf(words[i])
+    assert(#numbers == 50, 'Error: cannot parse embedding ' .. tostring(line))
+    emb[ind] = torch.FloatTensor(numbers)
+    i = i + 1
+  end
+  return emb
+end
+
