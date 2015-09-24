@@ -6,6 +6,29 @@ function Util.printTable(t)
   end
 end
 
+function Util.range(from, to, inc)
+  inc = inc or 1
+  if to == nil then
+    to = from
+    from = 1
+  end
+
+  local t = {}
+  for i = from, to, inc do
+    table.insert(t, i)
+  end
+  return t
+end 
+
+function Util.shuffle(t)
+  local iter = #t
+  local j
+  for i = iter, 2, -1 do
+    j = math.random(i)
+    t[i], t[j] = t[j], t[i] -- swap
+  end
+end
+
 function Util.equals(a, b)
   if torch.type(a) ~= torch.type(b) then return false end
   if a.equals ~= nil and b.equals ~= nil then
