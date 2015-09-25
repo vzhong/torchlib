@@ -3,6 +3,7 @@ local Split = torch.class('Split')
 function Split:__init(X, Y, max_len)
   self.X = {}
   self.Y = {}
+  self.max_len = max_len
   for i = 1, #X do
     if max_len == nil or X[i]:size(1) <= max_len then
       table.insert(self.X, X[i])
@@ -76,7 +77,9 @@ function Split:split_fold(test_fold)
       table.insert(Ytrain, self.Y[i])
     end
   end
-  return Xtrain, Ytrain, Xtest, Ytest
+  local train = Split.new(Xtrain, Ytrain, self.max_len)
+  local test = Split.new(Xtest, Ytest, self.max_len)
+  return train, test
 end
 
 function Split:size()
