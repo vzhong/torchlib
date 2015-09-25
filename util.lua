@@ -1,9 +1,15 @@
 local Util = torch.class('Util')
 
 function Util.printTable(t)
-  for k, v in pairs(t) do
-    print(k, v)
-  end
+    function printTableHelper(t, spacing)
+        for k,v in pairs(t) do
+            print(spacing..tostring(k), v)
+            if (type(v) == "table") then 
+                printTableHelper(v, spacing.."\t")
+            end
+        end
+    end
+    printTableHelper(t, "");
 end
 
 function Util.range(from, to, inc)
