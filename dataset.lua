@@ -1,122 +1,79 @@
 local Split = torch.class('Split')
 
-function Split:__init(X, Y, max_len)
-  self.X = {}
-  self.Y = {}
-  self.max_len = max_len
-  for i = 1, #X do
-    if max_len == nil or X[i]:size(1) <= max_len then
-      table.insert(self.X, X[i])
-      table.insert(self.Y, Y[i])
+function Split:__init(X, Y, mask)
+  self.X = X
+  self.Y = Y
+  self.mask = mask
+  self.max_len = self.X:size(2)
+end
+
+function Split.fromTable(X, Y, max_len)
+  local total = 0
+  for i, x in ipairs(X) do
+    if x:size(1) <= max_len then
+      total = total + 1
     end
   end
-  self:reset()
-end
+  local myX = torch.IntTensor(total, max_len)
+  local myY = torch.IntTensor(total)
+  local mask = torch.IntTensor(total, max_len):fill(0)
 
-function Split:reset()
-  self:generateBatches()
-  self.batch_id = 1
-end
-
-function Split:generateBatches()
-  self.lengthMap = self:groupByLength()
-  self.Xbatch, self.Ybatch = self:getBatches()
-end
-
-function Split:groupByLength()
-  local lengthMap = HashMap.new()
-  for i = 1, #self.X do
-    local x = self.X[i]
-    local len = x:size(1)
-    if not lengthMap:contains(len) then
-      lengthMap:add(len, {})
+  local filled = 0
+  for i, x in pairs(X) do
+    if x:size(1) <= max_len then
+      filled = filled + 1
+      myX[{filled, {1, x:size(1)}}] = x
+      mask[{filled, {1, x:size(1)}}]:fill(1)
+      myY[filled] = Y[i]
     end
-    table.insert(lengthMap:get(len), i)
   end
-  return lengthMap
+
+  return Split.new(myX, myY, mask)
+end
+
+function Split:size()
+  return self.X:size(1)
 end
 
 function Split:shuffle()
-  local indices = Util.range(self:size())
-  Util.shuffle(indices)
-  local X = {}
-  local Y = {}
-  for _, i in ipairs(indices) do
-    table.insert(X, self.X[i])
-    table.insert(Y, self.Y[i])
-  end
-  self.X = X
-  self.Y = Y
-  self:reset()
+  local perm = torch.randperm(self:size()):long()
+  self.X = self.X:index(1, perm)
+  self.Y = self.Y:index(1, perm)
+  self.mask = self.mask:index(1, perm)
+  return perm
 end
 
 function Split:kfold(n_fold)
-  local folds = {}
+  local folds = torch.IntTensor(n_fold, 2)
+  local fold_size = math.ceil(self:size() / n_fold)
+  local start = 1
   for i = 1, n_fold do
-    folds[i] = Set.new()
-  end
-  local selector = 1
-  for i, x in ipairs(self.X) do
-    folds[selector]:add(i)
-    selector = selector + 1
-    if selector > n_fold then
-      selector = 1
-    end
+    local finish = math.min(start + fold_size - 1, self:size())
+    folds[i][1] = start
+    folds[i][2] = finish
+    start = finish + 1
   end
   return folds
 end
 
-function Split:split_fold(test_fold)
-  local Xtrain, Ytrain, Xtest, Ytest = {}, {}, {}, {}
-  for i = 1, self:size() do
-    if test_fold:contains(i) then
-      table.insert(Xtest, self.X[i])
-      table.insert(Ytest, self.Y[i])
-    else
-      table.insert(Xtrain, self.X[i])
-      table.insert(Ytrain, self.Y[i])
-    end
+function Split:splitFold(test_fold)
+  local start = test_fold[1]
+  local finish = test_fold[2]
+
+  local test_indices = torch.range(start, finish):long()
+  local train_indices
+  if start == 1 then
+    train_indices = torch.range(finish + 1, self:size()):long()
+  elseif finish == self:size() then
+    train_indices = torch.range(1, start - 1):long()
+  else
+    train_indices = torch.zeros(self:size() - test_indices:size(1)):long()
+    train_indices[{{1, start - 1}}] = torch.range(1, start - 1)
+    train_indices[{{start, train_indices:size(1)}}] = torch.range(finish + 1, self:size())
   end
-  local train = Split.new(Xtrain, Ytrain, self.max_len)
-  local test = Split.new(Xtest, Ytest, self.max_len)
+
+  local train = Split.new(self.X:index(1, train_indices), self.Y:index(1, train_indices), self.mask:index(1, train_indices))
+  local test = Split.new(self.X:index(1, test_indices), self.Y:index(1, test_indices), self.mask:index(1, test_indices))
   return train, test
-end
-
-function Split:size()
-  return #self.X
-end
-
-function Split:getBatches()
-  local lengths = self.lengthMap:keySet():toTable()
-  local X = {}
-  local Y = {}
-  for i, length in ipairs(lengths) do
-    local inds = torch.IntTensor(self.lengthMap:get(length))
-    local Xbatch = torch.IntTensor(inds:size(1), length)
-    local Ybatch = torch.IntTensor(inds:size(1))
-    for j = 1, inds:size(1) do
-      local ind = inds[j]
-      local x = self.X[ind]
-      local y = self.Y[ind]
-      Xbatch[j] = x
-      Ybatch[j] = y
-    end
-    table.insert(X, Xbatch)
-    table.insert(Y, Ybatch)
-  end
-  return X, Y
-end
-
-function Split:step()
-  self.batch_id = self.batch_id + 1
-  if self.batch_id == #self.Xbatch then
-    self.batch_id = 1
-  end
-end
-
-function Split:getBatch()
-  local x, y = self.Xbatch[self.batch_id], self.Ybatch[self.batch_id]
-  self:step()
-  return x, y
 end
 
