@@ -1,6 +1,6 @@
 local Vocab = torch.class("Vocab")
 
-function Vocab:__init(unk)
+function Vocab:__init(unk, skip_dummy)
   self.unk = unk or nil
   self.index2word = {}
   self.word2index = {}
@@ -9,6 +9,10 @@ function Vocab:__init(unk)
     table.insert(self.index2word, self.unk)
     self.word2index[self.unk] = self:size()
     self.counter[self.unk] = 0;
+  end
+
+  if not skip_dummy then
+    self:add('DUMMY')
   end
 end
 

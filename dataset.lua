@@ -14,7 +14,7 @@ function Split.fromTable(X, Y, max_len)
       total = total + 1
     end
   end
-  local myX = torch.IntTensor(total, max_len)
+  local myX = torch.IntTensor(total, max_len):fill(1)
   local myY = torch.IntTensor(total)
   local mask = torch.IntTensor(total, max_len):fill(0)
 
