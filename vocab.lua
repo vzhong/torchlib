@@ -102,7 +102,7 @@ function Vocab:pretrained(folder)
     table.insert(words, word)
   end
   -- load vectors
-  local emb = torch.FloatTensor(self:size(), 50):uniform(-0.1, 0.1)
+  local emb = torch.Tensor(self:size(), 50):uniform(-0.1, 0.1)
   local i = 1
   for line in io.lines(embeddings) do
     -- remove the last character, which is newline
@@ -111,7 +111,7 @@ function Vocab:pretrained(folder)
     if self:contains(word) then
       local ind = self:indexOf(word)
       assert(#numbers == 50, 'Error: cannot parse embedding ' .. tostring(line))
-      emb[ind] = torch.FloatTensor(numbers)
+      emb[ind] = torch.Tensor(numbers)
     end
     i = i + 1
   end
