@@ -1,7 +1,8 @@
 local Vocab = torch.class("Vocab")
 
-function Vocab:__init(unk, skip_dummy)
-  self.unk = unk or nil
+function Vocab:__init(opt)
+  self.unk = (opt and opt.unk) or nil
+  self.skip_dummy = (opt and opt.skip_dummy) or false
   self.index2word = {}
   self.word2index = {}
   self.counter = {}
@@ -11,7 +12,7 @@ function Vocab:__init(unk, skip_dummy)
     self.counter[self.unk] = 0;
   end
 
-  if not skip_dummy then
+  if not self.skip_dummy then
     self:add('DUMMY')
   end
 end
@@ -79,10 +80,10 @@ function Vocab:wordsAt(indices)
 end
 
 function Vocab:copyAndPruneRares(cutoff)
-  v = Vocab.new(self.unk)
+  v = Vocab.new{unk=self.unk, skip_dummy=self.skip_dummy}
   for i, word in ipairs(self.index2word) do
     count = self:count(word)
-    if (count >= cutoff or word == self.unk) then
+    if (count >= cutoff or word == self.unk or word == 'DUMMY') then
       v:add(word, count)
     end
   end

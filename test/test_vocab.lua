@@ -4,20 +4,20 @@ local TestVocab = {}
 local tester
 
 function TestVocab.testInit()
-  local v = Vocab.new()
+  local v = Vocab.new{skip_dummy=true}
   tester:assertTableEq(v.index2word, {}, "index2word of empty")
   tester:assertTableEq(v.word2index, {}, "word2index of empty")
   tester:assertTableEq(v.counter, {}, "count of empty vocab")
 
   -- with unk
-  v = Vocab.new("UNKNOWN")
+  v = Vocab.new{unk="UNKNOWN", skip_dummy=true}
   tester:assertTableEq(v.index2word, {"UNKNOWN"}, "index2word of empty vocab with unk")
   tester:assertTableEq(v.word2index, {UNKNOWN=1}, "word2index of empty vocab with unk")
   tester:assertTableEq(v.counter, {UNKNOWN=0}, "counter of empty vocab with unk")
 end
 
 function TestVocab.testAdd()
-  local v = Vocab.new()
+  local v = Vocab.new{skip_dummy=true}
   local index = v:add("foo")
   tester:asserteq(index, 1)
   tester:assertTableEq(v.index2word, {"foo"}, "index2word after add")
@@ -26,7 +26,7 @@ function TestVocab.testAdd()
 end
 
 function TestVocab.testContains()
-  local v = Vocab.new('unk')
+  local v = Vocab.new{unk='unk', skip_dummy=true}
   tester:assert(v:contains('unk'), 'contains of unk')
   tester:assert(v:contains('foo') == false, 'contains before add')
   v:add("foo")
@@ -34,7 +34,7 @@ function TestVocab.testContains()
 end
 
 function TestVocab.testCount()
-  local v = Vocab.new('unk')
+  local v = Vocab.new{unk='unk', skip_dummy=true}
   tester:asserteq(v:count('unk'), 0)
   local status, err = pcall(v.count, v, 'foo')
   tester:assert(string.match(err, 'Error: attempted to get count of word foo which is not in the vocabulary'))
@@ -47,7 +47,7 @@ function TestVocab.testCount()
 end
 
 function TestVocab.testSize()
-  local v = Vocab.new()
+  local v = Vocab.new{skip_dummy=true}
   tester:asserteq(v:size(), 0)
   v = Vocab.new('unk')
   tester:asserteq(v:size(), 1)
@@ -60,7 +60,7 @@ function TestVocab.testSize()
 end
 
 function TestVocab.testWordAt()
-  local v = Vocab.new('unk')
+  local v = Vocab.new{unk='unk', skip_dummy=true}
   local status, err = pcall(v.wordAt, v, 2)
   tester:assert(string.match(err, 'Error: attempted to get word at index 2 which exceeds the vocab size'))
   tester:asserteq(v:wordAt(1), 'unk')
@@ -69,19 +69,19 @@ function TestVocab.testWordAt()
 end
 
 function TestVocab.testIndexOf()
-  local v = Vocab.new()
+  local v = Vocab.new{skip_dummy=true}
   local status, err = pcall(v.indexOf, v, 'bar')
   tester:assert(string.match(err, 'Error: attempted to get index of word bar which is not in the vocabulary'))
   v:add('bar')
   tester:asserteq(v:indexOf('bar'), 1)
 
   -- with add
-  local v = Vocab.new()
+  local v = Vocab.new{skip_dummy=true}
   v:indexOf('bar', true)
   tester:asserteq(v:indexOf('bar'), 1)
 
   -- with unk
-  v = Vocab.new('unk')
+  v = Vocab.new{unk='unk', skip_dummy=true}
   tester:asserteq(v:indexOf('bar'), v:indexOf('unk'))
   v:add('bar')
   tester:asserteq(v:indexOf('unk'), 1)
@@ -89,7 +89,7 @@ function TestVocab.testIndexOf()
 end
 
 function TestVocab.testIndices()
-  local v = Vocab.new()
+  local v = Vocab.new{skip_dummy=true}
   v:add('foo')
   local status, err = pcall(v.indicesOf, v, {'foo', 'bar', 'this'})
   tester:assert(string.match(err, 'Error: attempted to get index of word bar which is not in the vocabulary'))
@@ -101,13 +101,13 @@ function TestVocab.testIndices()
   tester:asserteq(v:count('this'), 3)
 
   -- with unk
-  v = Vocab.new('unk')
+  v = Vocab.new{unk='unk', skip_dummy=true}
   v:add('bar')
   tester:assertTableEq(v:indicesOf({'foo', 'bar', 'this'}), {1, 2, 1})
 end
 
 function TestVocab.testWordsAt()
-  local v = Vocab.new()
+  local v = Vocab.new{skip_dummy=true}
   v:indicesOf({'foo', 'bar', 'this'}, true)
   local status, err = pcall(v.wordsAt, v, {1, 4, 3})
   tester:assert(string.match(err, 'Error: attempted to get word at index 4 which exceeds the vocab size'))
@@ -115,13 +115,13 @@ function TestVocab.testWordsAt()
 end
 
 function TestVocab.testCopyAndPruneRares()
-  local v = Vocab.new()
+  local v = Vocab.new{skip_dummy=true}
   v:indicesOf({'foo', 'bar', 'this', 'this', 'this', 'bar'}, true)
   local pruned = v:copyAndPruneRares(2)
   tester:assertTableEq(pruned.counter, {bar=2, this=3})
 
   -- with unk
-  v = Vocab.new('unk')
+  local v = Vocab.new{unk='unk', skip_dummy=true}
   v:indicesOf({'foo', 'bar', 'this', 'this', 'this', 'bar'}, true)
   local pruned = v:copyAndPruneRares(2)
   tester:assertTableEq(pruned.counter, {unk=0, bar=2, this=3})
