@@ -18,6 +18,10 @@ function SparseTensor:__init(opt)
   self.store_write_head = 1
 end
 
+function SparseTensor:cuda()
+  self.store = self.store:cuda()
+end
+
 function SparseTensor:size()
   return self.write_head - 1
 end
@@ -34,6 +38,10 @@ function SparseTensor:push(tensor)
   self.indices[self.write_head][2] = self.store_write_head + tensor:nElement()-1
   self.store_write_head = self.store_write_head + tensor:nElement()
   self.write_head = self.write_head + 1
+end
+
+function SparseTensor:get(i)
+  return self.store[{{self.indices[i][1], self.indices[i][2]}}]
 end
 
 return SparseTensor

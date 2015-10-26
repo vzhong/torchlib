@@ -71,10 +71,27 @@ function Vocab:indicesOf(words, add)
   return indices
 end
 
+function Vocab:tensorIndicesOf(words, add)
+  add = add or false
+  indices = torch.IntTensor(#words)
+  for i, word in ipairs(words) do
+    indices[i] = self:indexOf(word, add)
+  end
+  return indices
+end
+
 function Vocab:wordsAt(indices)
   words = {}
   for i, index in ipairs(indices) do
     table.insert(words, self:wordAt(index))
+  end
+  return words
+end
+
+function Vocab:tensorWordsAt(indices)
+  words = {}
+  for i = 1, indices:size(1) do
+    table.insert(words, self:wordAt(indices[i]))
   end
   return words
 end
