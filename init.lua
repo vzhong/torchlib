@@ -13,6 +13,6 @@ torch.include('torchlib', 'graph.lua')
 torch.include('torchlib', 'tree.lua')
 torch.include('torchlib', 'bst.lua')
 torch.include('torchlib', 'vocab.lua')
-torch.include('torchlib', 'sparse_tensor.lua')
+torch.include('torchlib', 'variable_tensor.lua')
 
 return torchlib
