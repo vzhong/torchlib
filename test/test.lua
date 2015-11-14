@@ -9,5 +9,5 @@ require 'test_queue'
 require 'test_tree'
 require 'test_graph'
 require 'test_vocab'
-require 'test_sparse_tensor'
+require 'test_variable_tensor'
 
