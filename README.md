@@ -5,6 +5,16 @@ torchlib
 
 Data structures and libraries for Torch
 
-You can install the package by opening a terminal, changing directory into the folder and typing:
+# Installation
 
-luarocks make
+You can install `torchlib` as follows:
+
+```
+git clone https://github.com/vzhong/torchlib.git
+cd torchlib && luarocks make
+```
+
+# Documentation
+
+The documentation is hosted [here](http://www.victorzhong.com/torchlib/torchlib/index.html).
+Alternatively you can build your own documentation with `torch-dokx`, which you can get [here](https://github.com/deepmind/torch-dokx).
