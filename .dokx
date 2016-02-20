@@ -33,6 +33,6 @@ return {
     --includePrivate = false,
 
     -- section: string; name of the section under which this package should be grouped in the main menu
-    --section = Miscellaneous,
+    section = torchlib,
 
 }
