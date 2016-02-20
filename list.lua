@@ -147,7 +147,7 @@ local ArrayList = torch.class('ArrayList', 'List')
 
 function ArrayList:__init(values)
   values = values or {}
-  self._arr = Util.copyTable(values)
+  self._arr = Util.tableCopy(values)
   self._size = #self._arr
 end
 

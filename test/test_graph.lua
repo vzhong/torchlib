@@ -209,8 +209,6 @@ function TestDirectedGraph.testStronglyConnectedComponents()
   -- Util.printTable(roots)
 end
 
-
-
 tester = torch.Tester()
 tester:add(TestDirectedGraph)
 tester:add(TestUndirectedGraph)

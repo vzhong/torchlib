@@ -1,86 +1,105 @@
 require 'torchlib'
 
-local TestSplit = {}
+local TestDataset = {}
 local tester
 
 local eps = 1e-5
 
-local function makeSplit()
-  local x = (torch.rand(3, 2)*10):int()
-  local y = torch.IntTensor{1, 3, 2}
-  local mask = torch.IntTensor{{1, 1, 0}, {1, 0, 0}, {1, 1, 1}}
-  local s = Split.new(x, y, mask)
-  return x, y, mask, s
+local dataset = require 'nlp.dataset'
+local List = require 'pl.List'
+local torch = require 'torch'
+local T = torch.Tensor
+
+-- seed the shuffling
+torch.manualSeed(12)
+
+local X = {T{1, 2, 3}, T{2, 3}, T{1, 3, 5, 2}}
+local Y = {2, 5, 1}
+
+local toyDataset = function()
+  return Dataset(Util.tableCopy(X), Util.tableCopy(Y))
 end
 
-function TestSplit.testNew()
-  local x, y, mask, s = makeSplit()
-  tester:assertTensorEq(x, s.X, eps)
-  tester:assertTensorEq(y, s.Y, eps)
-  tester:assertTensorEq(mask, s.mask, eps)
-end
-
-function TestSplit.testFromTable()
-  local x = {(torch.rand(2)*10):int(), (torch.rand(3)*10):int(), (torch.rand(1)*10):int()}
-  local y = {1, 3, 2}
-  local max_len = 2
-  local s = Split.fromTable(x, y, 2)
-
-  local xe = torch.zeros(2, 2):int()
-  xe[1] = x[1]
-  xe[2][1] = x[3]
-  local ye = torch.IntTensor{1, 2}
-  local mask = torch.IntTensor{{1, 1}, {1, 0}}
-
-  tester:assertTensorEq(s.X, xe, eps)
-  tester:assertTensorEq(s.Y, ye, eps)
-  tester:assertTensorEq(s.mask, mask, eps)
-end
-
-function TestSplit.testShuffle()
-  local x, y, mask, s = makeSplit()
-  local xo, yo, mo = x:clone(), y:clone(), mask:clone()
-  local perm = s:shuffle()
-  for i = 1, perm:size(1) do
-    local old = perm[i]
-    tester:assertTensorEq(s.X[i], xo[old], eps)
-    tester:asserteq(s.Y[i], yo[old], eps)
-    tester:assertTensorEq(s.mask[i], mo[old], eps)
+function TestDataset.test_shuffle()
+  local d = toyDataset()
+  d:shuffle()
+  tester:assert(not Util.tableEquals(d.X, X))
+  for _, t in ipairs(X) do
+    tester:assert(Util.tableContains(d.X, t))
   end
 end
 
-function TestSplit.testKfold()
-  local x, y, mask, s = makeSplit()
-  local folds = s:kfold(2)
-  local exp = torch.IntTensor{{1, 2}, {3, 3}}
-  tester:assertTensorEq(folds, exp, eps)
+function TestDataset.test_pad()
+  local padded = Dataset.pad(X)
+  tester:assertTableEq(T{0, 1, 2, 3}:totable(), padded[1]:totable())
+  tester:assertTableEq(T{0, 0, 2, 3}:totable(), padded[2]:totable())
+  tester:assertTableEq(T{1, 3, 5, 2}:totable(), padded[3]:totable())
 end
 
-function TestSplit.testSplitFold()
-  local x, y, mask, s = makeSplit()
-  local train, test = s:splitFold(torch.IntTensor{1, 2})
-  tester:asserteq(train:size(), 1)
-  tester:assertTensorEq(train.X[1], x[3], eps)
-  tester:asserteq(test:size(), 2)
-  tester:assertTensorEq(test.X[1], x[1], eps)
-  tester:assertTensorEq(test.X[2], x[2], eps)
+function TestDataset.test_kfolds()
+  local d = toyDataset()
+  local folds = d:kfolds(3)
+  tester:asserteq(3, #folds)
+  local n = 0
+  for _, fold in ipairs(folds) do
+    n = n + #fold
+  end
+  tester:asserteq(d:size(), n)
+end
 
-  train, test = s:splitFold(torch.IntTensor{3, 3})
-  tester:asserteq(train:size(), 2)
-  tester:assertTensorEq(train.X[1], x[1], eps)
-  tester:assertTensorEq(train.X[2], x[2], eps)
-  tester:asserteq(test:size(), 1)
-  tester:assertTensorEq(test.X[1], x[3], eps)
+function TestDataset.test_view()
+  local d = toyDataset()
+  local dd = d:view({1, 3})
+  tester:asserteq(2, dd:size())
+  tester:assertTableEq(d.X[1]:totable(), dd.X[1]:totable())
+  tester:assertTableEq(d.X[3]:totable(), dd.X[2]:totable())
+  local a, b = d:view({1, 3}, {3, 2, 3})
+  tester:assertTableEq(d.X[1]:totable(), a.X[1]:totable())
+  tester:assertTableEq(d.X[3]:totable(), a.X[2]:totable())
+  tester:assertTableEq(d.X[3]:totable(), b.X[1]:totable())
+  tester:assertTableEq(d.X[2]:totable(), b.X[2]:totable())
+  tester:assertTableEq(d.X[3]:totable(), b.X[3]:totable())
+end
 
-  train, test = s:splitFold(torch.IntTensor{2, 2})
-  tester:asserteq(train:size(), 2)
-  tester:assertTensorEq(train.X[1], x[1], eps)
-  tester:assertTensorEq(train.X[2], x[3], eps)
-  tester:asserteq(test:size(), 1)
-  tester:assertTensorEq(test.X[1], x[2], eps)
+function TestDataset.test_train_dev_split()
+  local d = toyDataset()
+  local train, test = d:train_dev_split{1, 3}
+  tester:asserteq(2, train:size())
+  tester:assertTableEq(d.X[1]:totable(), train.X[1]:totable())
+  tester:assertTableEq(d.X[3]:totable(), train.X[2]:totable())
+  tester:asserteq(1, test:size())
+  tester:assertTableEq(d.X[2]:totable(), test.X[1]:totable())
+end
 
+function TestDataset.test_batches()
+  local d = toyDataset()
+  local i = 1
+  for x, y, batch_end in d:batches(2) do
+    if i == 1 then
+      tester:assertTableEq(T{{1, 2, 3}, {0, 2, 3}}:totable(), x:totable())
+      tester:assertTableEq(T{2, 5}:totable(), y:totable())
+      tester:asserteq(2, batch_end)
+    end
+    if i == 2 then
+      tester:assertTableEq(T{{1, 3, 5, 2}}:totable(), x:totable())
+      tester:assertTableEq(T{1}:totable(), y:totable())
+      tester:asserteq(3, batch_end)
+    end
+    i = i + 1
+  end
+end
+
+function TestDataset.test_single_batch()
+  local d = toyDataset()
+  local i = 1
+  for x, y, batch_end in d:batches(1) do
+    tester:assertTableEq({X[i]:totable()}, x:totable())
+    tester:assertTableEq({Y[i]}, y:totable())
+    tester:asserteq(batch_end, i)
+    i = i + 1
+  end
 end
 
 tester = torch.Tester()
-tester:add(TestSplit)
+tester:add(TestDataset)
 tester:run()

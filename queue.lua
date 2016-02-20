@@ -1,5 +1,8 @@
 --[[ A linkedlist based implementation of queue. ]]
-Queue = torch.class('Queue', 'LinkedList')
+local Queue, parent = torch.class('Queue', 'LinkedList')
+function Queue:__init(values)
+  parent:__init(values)
+end
 
 --[[ Adds a value onto the queue. ]]
 function Queue:enqueue(val)
