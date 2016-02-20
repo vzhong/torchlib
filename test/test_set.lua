@@ -4,7 +4,7 @@ local TestSet = {}
 local tester
 
 function TestSet.testAdd()
-  local s = Set.new()
+  local s = Set()
   tester:assertTableEq({}, s._map)
 
   -- add number
@@ -38,7 +38,7 @@ function TestSet.testAdd()
 end
 
 function TestSet.testToTable()
-  local s = Set.new()
+  local s = Set()
   s:add(5)
   s:add('bar')
   local tab = {'foo', 'bar'}
@@ -62,7 +62,7 @@ function TestSet.testToTable()
 end
 
 function TestSet.testSize()
-  local s = Set.new()
+  local s = Set()
   tester:asserteq(0, s:size())
 
   s:add(15)
@@ -73,7 +73,7 @@ function TestSet.testSize()
 end
 
 function TestSet.testContains()
-  local s = Set.new()
+  local s = Set()
   tester:asserteq(false, s:contains(nil))
 
   s:add(15)
@@ -88,7 +88,7 @@ function TestSet.testContains()
 end
 
 function TestSet.testRemove()
-  local s = Set.new()
+  local s = Set()
   ret, err = pcall(Set.remove, s, 'bar')
   tester:assert(string.match(err, 'Error: value bar not found in Set'))
   tester:asserteq(0, s:size())
@@ -100,8 +100,8 @@ function TestSet.testRemove()
 end
 
 function TestSet.testEquals()
-  local s = Set.new()
-  local t = Set.new()
+  local s = Set()
+  local t = Set()
   tester:asserteq(true, s:equals(t))
 
   s:add(5)
@@ -117,35 +117,39 @@ function TestSet.testEquals()
 end
 
 function getToySets()
-  local s = Set.new():addMany(5, 6)
-  local t = Set.new():addMany(5, 7, 8)
+  local s = Set{5, 6}
+  local t = Set{5, 7, 8}
   return s, t
 end
 
 function TestSet.testUnion()
   local s, t = getToySets()
-  s:union(t)
-  local expect = Set.new():addMany(5, 6, 7, 8)
-  tester:assert(expect:equals(s))
+  local expect = Set{5, 6, 7, 8}
+  tester:assert(expect:equals(s:union(t)))
 end
 
 function TestSet.testIntersect()
   local s, t = getToySets()
-  s:intersect(t)
-  local expect = Set.new():addMany(5)
-  tester:assert(expect:equals(s))
+  local expect = Set{5}
+  tester:assert(expect:equals(s:intersect(t)))
+end
+
+function TestSet.testSubtract()
+  local s, t = getToySets()
+  local expect = Set{6}
+  tester:assert(expect:equals(s:subtract(t)))
 end
 
 function TestSet.testToString()
-  local s = Set.new():addMany(5, 6, 7)
+  local s = Set():addMany(5, 6, 7)
   tester:asserteq('Set(5, 6, 7)', tostring(s))
 end
 
 function TestSet.testCopy()
-  local s = Set.new():addMany(5, 6, 7)
-  tester:assert(s:equals(Set.new():addMany(5, 6, 7)))
-  tester:assert(not s:equals(Set.new():addMany(5, 7)))
-  tester:assert(not s:equals(Set.new():addMany(5, 8, 6, 7)))
+  local s = Set{5, 6, 7}
+  tester:assert(s:equals(Set{5, 6, 7}))
+  tester:assert(not s:equals(Set{5, 7}))
+  tester:assert(not s:equals(Set{5, 8, 6, 7}))
 end
 
 tester = torch.Tester()

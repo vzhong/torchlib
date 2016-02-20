@@ -1,10 +1,15 @@
+--[[ Implementation of set. ]]
 local Set = torch.class('Set')
 
-function Set:__init()
+--[[ Constructor. `values` is an optional table of values that is used to initialize the set. ]]
+function Set:__init(values)
   self._map = {}
   self._size = 0
+  values = values or {}
+  self:addMany(table.unpack(values))
 end
 
+--[[ Returns a unique key for a value. ]]
 function Set.keyOf(val)
   if torch.type(val) == 'number' or torch.type(val) == 'nil' or torch.type(val) == 'string' then
     return val
@@ -13,10 +18,12 @@ function Set.keyOf(val)
   end
 end
 
+--[[ Returns the number of values in the set. ]]
 function Set:size()
   return self._size
 end
 
+--[[ Adds a value to the set. ]]
 function Set:add(val)
   if not self:contains(val) then
     self._size = self._size + 1
@@ -26,6 +33,7 @@ function Set:add(val)
   return self
 end
 
+--[[ Adds a variable number of values to the set. ]]
 function Set:addMany(...)
   local args = table.pack(...)
   for i, val in ipairs(args) do
@@ -34,15 +42,18 @@ function Set:addMany(...)
   return self
 end
 
+--[[ Returns a copy of the set. ]]
 function Set:copy()
   return Set.new():addMany(table.unpack(self:toTable()))
 end
 
+--[[ Returns whether the set contains `val`. ]]
 function Set:contains(val)
   key = Set.keyOf(val)
   return self._map[key] ~= nil
 end
 
+--[[ Removes `val` from the set. If `val` is not found then an error is raised. ]]
 function Set:remove(val)
   assert(self:contains(val), 'Error: value ' .. tostring(val) .. ' not found in Set')
   key = Set.keyOf(val)
@@ -52,6 +63,7 @@ function Set:remove(val)
   return self
 end
 
+--[[ Returns the set in table format. ]]
 function Set:toTable()
   tab = {}
   for k, v in pairs(self._map) do
@@ -60,9 +72,10 @@ function Set:toTable()
   return tab
 end
 
+--[[ Returns whether the set is equal to `another`. Sets are considered equal if the values contained are identical. ]]
 function Set:equals(another)
-  if self:size() ~= another:size() then 
-    return false 
+  if self:size() ~= another:size() then
+    return false
   end
 
   for i, v in ipairs(another:toTable()) do
@@ -73,27 +86,43 @@ function Set:equals(another)
   return true
 end
 
+--[[ Returns the union of this set and `another`. ]]
 function Set:union(another)
+  local s = self:copy()
   for i, v in ipairs(another:toTable()) do
-    self:add(v)
+    s:add(v)
   end
-  return self
+  return s
 end
 
+--[[ Returns the intersection of this set and `another`. ]]
 function Set:intersect(another)
+  local s = self:copy()
   for i, v in ipairs(self:toTable()) do
     if not another:contains(v) then
-      self:remove(v)
+      s:remove(v)
     end
   end
-  return self
+  return s
 end
+
+--[[ Returns a set of values that are in this set but not in `another`. ]]
+function Set:subtract(another)
+  local s = self:copy()
+  for i, v in ipairs(self:toTable()) do
+    if another:contains(v) then
+      s:remove(v)
+    end
+  end
+  return s
+end
+
 
 function Set:toString()
   local s = torch.type(self) .. '('
   local max = 5
   local keys = self:toTable()
-  
+
   for i = 1, math.min(self:size(), max) do
     key = keys[i]
     s = s .. tostring(key)

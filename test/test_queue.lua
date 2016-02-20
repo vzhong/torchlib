@@ -23,7 +23,7 @@ end
 
 
 function TestQueue.testQueue()
-  local q = Queue.new()
+  local q = Queue()
   testQueue(q)
 end
 

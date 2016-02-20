@@ -1,7 +1,13 @@
-require 'torch'
-
+--[[ Implementation of a variable tensor class to efficiently store tensors of varying lengths. ]]
 local VariableTensor = torch.class('VariableTensor')
 
+require 'torch'
+
+--[[ Constructor.
+  Options:
+  - `preinit_size`: how many indices to preallocate for, defaults to 1
+  - `preinit_store_size`: how many elements to preallocate for, defaults to 1
+]]
 function VariableTensor:__init(opt)
   local preinit_size = 1
   local preinit_store_size = 1
@@ -18,14 +24,17 @@ function VariableTensor:__init(opt)
   self.store_write_head = 1
 end
 
+--[[ Moves the storage to cuda. ]]
 function VariableTensor:cuda()
   self.store = self.store:cuda()
 end
 
+--[[ Returns the sum of the size of each tensor in the storage. ]]
 function VariableTensor:size()
   return self.write_head - 1
 end
 
+--[[ Appends a tensor to the storage. ]]
 function VariableTensor:push(tensor)
   while self.store_write_head + tensor:nElement() - 1 > self.store:size(1) do
     self.store:resize(self.store:size(1) * 2)
@@ -40,16 +49,19 @@ function VariableTensor:push(tensor)
   self.write_head = self.write_head + 1
 end
 
+--[[ Shuffles the indices. `indices` is an optional tensor that denotes how the new indices should be set. ]]
 function VariableTensor:shuffle(indices)
   indices = indices or torch.randperm(self:size()):long()
   self.indices[{{1, self:size()}}] = self.indices[{{1, self:size()}}]:index(1, indices)
   return indices
 end
 
+--[[ Retrieves the tensor at index `i`. ]]
 function VariableTensor:get(i)
   return self.store[{{self.indices[i][1], self.indices[i][2]}}]
 end
 
+--[[ Creates a zero-padded batch from tensors at the indices `indices`. `b` is an optional batch tensor that, if given, will be filled with the requested tensors. ]]
 function VariableTensor:batch(indices, b)
   if not self.max_len then
     local _

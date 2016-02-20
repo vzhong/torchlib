@@ -1,8 +1,12 @@
+--[[ Implementation of a vocabulary class ]]
 local Vocab = torch.class("Vocab")
 
-function Vocab:__init(opt)
-  self.unk = (opt and opt.unk) or nil
-  self.skip_dummy = (opt and opt.skip_dummy) or false
+--[[ Constructor.
+  Parameters:
+  - `unk`: the symbol for the unknown token.
+]]
+function Vocab:__init(unk)
+  self.unk = unk or 'UNK'
   self.index2word = {}
   self.word2index = {}
   self.counter = {}
@@ -11,25 +15,25 @@ function Vocab:__init(opt)
     self.word2index[self.unk] = self:size()
     self.counter[self.unk] = 0;
   end
-
-  if not self.skip_dummy then
-    self:add('DUMMY')
-  end
 end
 
+--[[ Returns whether `word` is in the vocabulary. ]]
 function Vocab:contains(word)
   return self.word2index[word] ~= nil
 end
 
+--[[ Returns the count for `word` seen during training. ]]
 function Vocab:count(word)
   assert(self:contains(word), 'Error: attempted to get count of word ' .. word .. ' which is not in the vocabulary')
   return self.counter[word]
 end
 
+--[[ Returns how many distinct tokens are in the vocabulary. ]]
 function Vocab:size()
   return #self.index2word
 end
 
+--[[ Adds `word` `count` time to the vocabulary. ]]
 function Vocab:add(word, count)
   count = count or 1 
   if self:contains(word) then
@@ -42,26 +46,28 @@ function Vocab:add(word, count)
   return self.word2index[word]
 end
 
+--[[ Returns the index of `word`. If the word is not found, then one of the following occurs:
+  - if `add` is `true`, then `word` is added to the vocabulary with count 1 and the new index returned
+  - otherwise, the index of the unknown token is returned
+]]
 function Vocab:indexOf(word, add)
   add = add or false
   if add then
-    self:add(word, 1)
+    return self:add(word, 1)
   end
-  if self.unk == nil then
-    assert(self:contains(word), 'Error: attempted to get index of word ' .. word .. ' which is not in the vocabulary')
-  else
-    if not self:contains(word) then
-      return self:indexOf(self.unk)
-    end
+  if not self:contains(word) then
+    return self:indexOf(self.unk)
   end
   return self.word2index[word]
 end
 
+--[[ Returns the word at index `index`. If `index` is out of bounds then an error will be raised. ]]
 function Vocab:wordAt(index)
   assert(index <= self:size(), 'Error: attempted to get word at index ' .. index .. ' which exceeds the vocab size')
   return self.index2word[index]
 end
 
+--[[ `indexOf` on a table of words. Returns a table of corresponding indices. ]]
 function Vocab:indicesOf(words, add)
   add = add or false
   indices = {}
@@ -71,15 +77,17 @@ function Vocab:indicesOf(words, add)
   return indices
 end
 
+--[[ `indexOf` on a table of words. Returns a tensor of corresponding indices. ]]
 function Vocab:tensorIndicesOf(words, add)
   add = add or false
-  indices = torch.IntTensor(#words)
+  indices = torch.Tensor(#words)
   for i, word in ipairs(words) do
     indices[i] = self:indexOf(word, add)
   end
   return indices
 end
 
+--[[ `wordAt` on a table of indices. Returns a table of corresponding words. ]]
 function Vocab:wordsAt(indices)
   words = {}
   for i, index in ipairs(indices) do
@@ -88,6 +96,7 @@ function Vocab:wordsAt(indices)
   return words
 end
 
+--[[ `wordAt` on a tensor of indices. Returns a table of corresponding words. ]]
 function Vocab:tensorWordsAt(indices)
   words = {}
   for i = 1, indices:size(1) do
@@ -96,17 +105,22 @@ function Vocab:tensorWordsAt(indices)
   return words
 end
 
+--[[ Returns a new vocabulary with words occurring less than `cutoff` times removed. ]]
 function Vocab:copyAndPruneRares(cutoff)
-  v = Vocab.new{unk=self.unk, skip_dummy=self.skip_dummy}
+  v = self.new(self.unk)
   for i, word in ipairs(self.index2word) do
     count = self:count(word)
-    if (count >= cutoff or word == self.unk or word == 'DUMMY') then
+    if (count >= cutoff or word == self.unk) then
       v:add(word, count)
     end
   end
   return v
 end
 
+--[[ Returns the embedding matrix corresponding to this vocabulary. The `folder` must contain:
+  - `words.lst`: each line contains a word in the vocabulary
+  - `embeddings.txt`: each line contains a vector corresponding to the word on the same line
+]]
 function Vocab:pretrained(folder)
   local wordlist = paths.concat(folder, 'words.lst')
   local embeddings = paths.concat(folder, 'embeddings.txt')
@@ -135,4 +149,3 @@ function Vocab:pretrained(folder)
   end
   return emb
 end
-

@@ -1,0 +1,193 @@
+<p><a name="torchlib.List.dok"></a></p>
+
+<h2>torchlib.List</h2>
+
+<p>Abstract list. 
+<a name="torchlib.ArrayList.dok"></a></p>
+
+<h2>torchlib.ArrayList</h2>
+
+<p>Array implementation of list. 
+<a name="torchlib.LinkedList.dok"></a></p>
+
+<h2>torchlib.LinkedList</h2>
+
+<p>Linked list implementation of list. </p>
+
+<p><a class="entityLink" href="https://github.com/vzhong/torchlib/blob/975ba472d6e4fdaa1f6c82e04d3ff16b691aaa02/list.lua#L5">[src]</a>
+<a name="torchlib.List"></a></p>
+
+<h3>torchlib.List(values)</h3>
+
+<p>Constructor. <code>values</code> is an optional table used to initialize the list. </p>
+
+<p><a class="entityLink" href="https://github.com/vzhong/torchlib/blob/975ba472d6e4fdaa1f6c82e04d3ff16b691aaa02/list.lua#L10">[src]</a>
+<a name="torchlib.List:add"></a></p>
+
+<h3>torchlib.List:add(val, index)</h3>
+
+<p>Adds <code>val</code> to list at index <code>index</code>. By defalut <code>index</code> defaults to the last element. </p>
+
+<p><a class="entityLink" href="https://github.com/vzhong/torchlib/blob/975ba472d6e4fdaa1f6c82e04d3ff16b691aaa02/list.lua#L15">[src]</a>
+<a name="torchlib.List:get"></a></p>
+
+<h3>torchlib.List:get(index)</h3>
+
+<p>Returns the value at index <code>index</code>. Asserts error if <code>index</code> is out of bounds. </p>
+
+<p><a class="entityLink" href="https://github.com/vzhong/torchlib/blob/975ba472d6e4fdaa1f6c82e04d3ff16b691aaa02/list.lua#L20">[src]</a>
+<a name="torchlib.List:set"></a></p>
+
+<h3>torchlib.List:set(index, val)</h3>
+
+<p>Sets the value at index <code>index</code> to <code>val</code>. Asserts error if <code>index</code> is out of bounds. </p>
+
+<p><a class="entityLink" href="https://github.com/vzhong/torchlib/blob/975ba472d6e4fdaa1f6c82e04d3ff16b691aaa02/list.lua#L25">[src]</a>
+<a name="torchlib.List:remove"></a></p>
+
+<h3>torchlib.List:remove(index)</h3>
+
+<p>Removes the value at index <code>index</code>. Elements after <code>index</code> will be shifted to the left by 1. Asserts error if <code>index</code> is out of bounds. </p>
+
+<p><a class="entityLink" href="https://github.com/vzhong/torchlib/blob/975ba472d6e4fdaa1f6c82e04d3ff16b691aaa02/list.lua#L30">[src]</a>
+<a name="torchlib.List:equals"></a></p>
+
+<h3>torchlib.List:equals(another)</h3>
+
+<p>Returns whether this list is equal to <code>another</code>. Lists are considered equal if their values match at every position. </p>
+
+<p><a class="entityLink" href="https://github.com/vzhong/torchlib/blob/975ba472d6e4fdaa1f6c82e04d3ff16b691aaa02/list.lua#L35">[src]</a>
+<a name="torchlib.List:swap"></a></p>
+
+<h3>torchlib.List:swap(i, j)</h3>
+
+<p>Swaps the value at <code>i</code> with the value at <code>j</code>. </p>
+
+<p><a class="entityLink" href="https://github.com/vzhong/torchlib/blob/975ba472d6e4fdaa1f6c82e04d3ff16b691aaa02/list.lua#L40">[src]</a>
+<a name="torchlib.List:toTable"></a></p>
+
+<h3>torchlib.List:toTable()</h3>
+
+<p>Returns the list in table form. </p>
+
+<p><a class="entityLink" href="https://github.com/vzhong/torchlib/blob/975ba472d6e4fdaa1f6c82e04d3ff16b691aaa02/list.lua#L45">[src]</a>
+<a name="torchlib.List:assertValidIndex"></a></p>
+
+<h3>torchlib.List:assertValidIndex(index)</h3>
+
+<p>Asserts that <code>index</code> is inside the list. </p>
+
+<p><a class="entityLink" href="https://github.com/vzhong/torchlib/blob/975ba472d6e4fdaa1f6c82e04d3ff16b691aaa02/list.lua#L50">[src]</a>
+<a name="torchlib.List:size"></a></p>
+
+<h3>torchlib.List:size()</h3>
+
+<p>Returns the size of the list. </p>
+
+<p><a class="entityLink" href="https://github.com/vzhong/torchlib/blob/975ba472d6e4fdaa1f6c82e04d3ff16b691aaa02/list.lua#L55">[src]</a>
+<a name="torchlib.List:addMany"></a></p>
+
+<h3>torchlib.List:addMany(...)</h3>
+
+<p>Adds a variable number of items to the list. </p>
+
+<p><a class="entityLink" href="https://github.com/vzhong/torchlib/blob/975ba472d6e4fdaa1f6c82e04d3ff16b691aaa02/list.lua#L64">[src]</a>
+<a name="torchlib.List:contains"></a></p>
+
+<h3>torchlib.List:contains(val)</h3>
+
+<p>Returns whether <code>val</code> is in the list. </p>
+
+<p><a class="entityLink" href="https://github.com/vzhong/torchlib/blob/975ba472d6e4fdaa1f6c82e04d3ff16b691aaa02/list.lua#L74">[src]</a>
+<a name="torchlib.List:copy"></a></p>
+
+<h3>torchlib.List:copy()</h3>
+
+<p>Returns a copy of this list. </p>
+
+<p><a class="entityLink" href="https://github.com/vzhong/torchlib/blob/975ba472d6e4fdaa1f6c82e04d3ff16b691aaa02/list.lua#L79">[src]</a>
+<a name="torchlib.List:isEmpty"></a></p>
+
+<h3>torchlib.List:isEmpty()</h3>
+
+<p>Returns whether the list is empty. </p>
+
+<p><a class="entityLink" href="https://github.com/vzhong/torchlib/blob/975ba472d6e4fdaa1f6c82e04d3ff16b691aaa02/list.lua#L89">[src]</a>
+<a name="torchlib.List:sublist"></a></p>
+
+<h3>torchlib.List:sublist(start, finish)</h3>
+
+<p>Returns a new list containing a consecutive run from this list.</p>
+
+<p>Parameters:</p>
+
+<ul>
+<li><code>start</code>: the start of the run</li>
+<li><code>finish</code> (optional): the end of the run, defaults to the end of the list</li>
+</ul>
+
+<p><a class="entityLink" href="https://github.com/vzhong/torchlib/blob/975ba472d6e4fdaa1f6c82e04d3ff16b691aaa02/list.lua#L103">[src]</a>
+<a name="torchlib.List:sort"></a></p>
+
+<h3>torchlib.List:sort(start, finish)</h3>
+
+<p>Sorts the list in place.
+  Parameters:</p>
+
+<ul>
+<li><code>start</code> (optional): the start of the sort, defaults to 1</li>
+<li><code>finish</code> (optional): the end of the sort, defaults to the end of the list</li>
+</ul>
+
+<p><a class="entityLink" href="https://github.com/vzhong/torchlib/blob/975ba472d6e4fdaa1f6c82e04d3ff16b691aaa02/list.lua#L238">[src]</a>
+<a name="torchlib.LinkedList:head"></a></p>
+
+<h3>torchlib.LinkedList:head()</h3>
+
+<p>Returns the head of the linked list. </p>
+
+<h4>Undocumented methods</h4>
+
+<p><a name="torchlib.List:toString"></a></p>
+
+<ul>
+<li><code>torchlib.List:toString()</code>
+<a name="torchlib.ArrayList"></a></li>
+<li><code>torchlib.ArrayList(values)</code>
+<a name="torchlib.ArrayList:add"></a></li>
+<li><code>torchlib.ArrayList:add(val, index)</code>
+<a name="torchlib.ArrayList:get"></a></li>
+<li><code>torchlib.ArrayList:get(index)</code>
+<a name="torchlib.ArrayList:set"></a></li>
+<li><code>torchlib.ArrayList:set(index, val)</code>
+<a name="torchlib.ArrayList:remove"></a></li>
+<li><code>torchlib.ArrayList:remove(index)</code>
+<a name="torchlib.ArrayList:equals"></a></li>
+<li><code>torchlib.ArrayList:equals(another)</code>
+<a name="torchlib.ArrayList:swap"></a></li>
+<li><code>torchlib.ArrayList:swap(i, j)</code>
+<a name="torchlib.ArrayList:toTable"></a></li>
+<li><code>torchlib.ArrayList:toTable()</code>
+<a name="torchlib.LinkedList.Node"></a></li>
+<li><code>torchlib.LinkedList.Node(val)</code>
+<a name="torchlib.LinkedList.Node:toString"></a></li>
+<li><code>torchlib.LinkedList.Node:toString()</code>
+<a name="torchlib.LinkedList"></a></li>
+<li><code>torchlib.LinkedList(values)</code>
+<a name="torchlib.LinkedList:size"></a></li>
+<li><code>torchlib.LinkedList:size()</code>
+<a name="torchlib.LinkedList:add"></a></li>
+<li><code>torchlib.LinkedList:add(val, index)</code>
+<a name="torchlib.LinkedList:get"></a></li>
+<li><code>torchlib.LinkedList:get(index)</code>
+<a name="torchlib.LinkedList:set"></a></li>
+<li><code>torchlib.LinkedList:set(index, val)</code>
+<a name="torchlib.LinkedList:remove"></a></li>
+<li><code>torchlib.LinkedList:remove(index)</code>
+<a name="torchlib.LinkedList:swap"></a></li>
+<li><code>torchlib.LinkedList:swap(i, j)</code>
+<a name="torchlib.LinkedList:equals"></a></li>
+<li><code>torchlib.LinkedList:equals(another)</code>
+<a name="torchlib.LinkedList:toTable"></a></li>
+<li><code>torchlib.LinkedList:toTable()</code></li>
+</ul>

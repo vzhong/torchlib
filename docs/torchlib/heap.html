@@ -1,0 +1,71 @@
+<p><a name="torchlib.Heap.dok"></a></p>
+
+<h2>torchlib.Heap</h2>
+
+<p>Implementation of max heap (eg. <code>parent &gt;= child</code>). <code>Heap</code> is a subclass of <code>ArrayList</code>. </p>
+
+<p><a class="entityLink" href="https://github.com/vzhong/torchlib/blob/975ba472d6e4fdaa1f6c82e04d3ff16b691aaa02/heap.lua#L5">[src]</a>
+<a name="torchlib.Heap.parent"></a></p>
+
+<h3>torchlib.Heap.parent(i)</h3>
+
+<p>Returns the parent index of <code>i</code>. </p>
+
+<p><a class="entityLink" href="https://github.com/vzhong/torchlib/blob/975ba472d6e4fdaa1f6c82e04d3ff16b691aaa02/heap.lua#L10">[src]</a>
+<a name="torchlib.Heap.left"></a></p>
+
+<h3>torchlib.Heap.left(i)</h3>
+
+<p>Returns the left child index of <code>i</code>. </p>
+
+<p><a class="entityLink" href="https://github.com/vzhong/torchlib/blob/975ba472d6e4fdaa1f6c82e04d3ff16b691aaa02/heap.lua#L15">[src]</a>
+<a name="torchlib.Heap.right"></a></p>
+
+<h3>torchlib.Heap.right(i)</h3>
+
+<p>Returns the right child index of <code>i</code>. </p>
+
+<p><a class="entityLink" href="https://github.com/vzhong/torchlib/blob/975ba472d6e4fdaa1f6c82e04d3ff16b691aaa02/heap.lua#L23">[src]</a>
+<a name="torchlib.Heap:maxHeapify"></a></p>
+
+<h3>torchlib.Heap:maxHeapify(i, effectiveSize)</h3>
+
+<p>Recursively swaps down the node at <code>i</code> until the max heap condition is restored at <code>a[i]</code>.
+Note: this function assumes that the binary trees rooted at left and right are max heaps but
+<code>a[i]</code> may violate the max-heap condition</p>
+
+<p><a class="entityLink" href="https://github.com/vzhong/torchlib/blob/975ba472d6e4fdaa1f6c82e04d3ff16b691aaa02/heap.lua#L52">[src]</a>
+<a name="torchlib.Heap:sort"></a></p>
+
+<h3>torchlib.Heap:sort()</h3>
+
+<p>Sorts the heap using heap sort. </p>
+
+<p><a class="entityLink" href="https://github.com/vzhong/torchlib/blob/975ba472d6e4fdaa1f6c82e04d3ff16b691aaa02/heap.lua#L62">[src]</a>
+<a name="torchlib.Heap:push"></a></p>
+
+<h3>torchlib.Heap:push(key, val)</h3>
+
+<p>Adds a <code>val</code> with priority <code>key</code> onto the heap while keeping max heap property. </p>
+
+<p><a class="entityLink" href="https://github.com/vzhong/torchlib/blob/975ba472d6e4fdaa1f6c82e04d3ff16b691aaa02/heap.lua#L70">[src]</a>
+<a name="torchlib.Heap:pop"></a></p>
+
+<h3>torchlib.Heap:pop()</h3>
+
+<p>Removes and returns the max key item from the heap. </p>
+
+<p><a class="entityLink" href="https://github.com/vzhong/torchlib/blob/975ba472d6e4fdaa1f6c82e04d3ff16b691aaa02/heap.lua#L81">[src]</a>
+<a name="torchlib.Heap:peek"></a></p>
+
+<h3>torchlib.Heap:peek()</h3>
+
+<p>Returns the max key item from the heap but does not remove it. </p>
+
+<h4>Undocumented methods</h4>
+
+<p><a name="torchlib.Heap:toString"></a></p>
+
+<ul>
+<li><code>torchlib.Heap:toString()</code></li>
+</ul>

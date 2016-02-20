@@ -6,7 +6,7 @@ local tester
 local TestGeneric = {}
 
 function TestGeneric.testAdd(ListClass)
-  local l = ListClass.new()
+  local l = ListClass()
   tester:asserteq(0, l:size())
   l:add(10)
   tester:asserteq(1, l:size())
@@ -32,20 +32,20 @@ function TestGeneric.testAdd(ListClass)
 end
 
 function TestGeneric.testSet(ListClass)
-  local l = ListClass.new():addMany(10, 1, 3, 2, 4)
+  local l = ListClass{10, 1, 3, 2, 4}
   l:set(2, 100)
   tester:asserteq(100, l:get(2))
 end
 
 function TestGeneric.testCopy(ListClass)
-  local l = ListClass.new():addMany(10, 1, 3, 2, 4)
-  tester:assert(ListClass.new():addMany(10, 1, 3, 2, 4):equals(l))
-  tester:assert(not ListClass.new():addMany(10, 1, 3, 4):equals(l))
-  tester:assert(not ListClass.new():addMany(10, 1, 3, 2, 4, 5):equals(l))
+  local l = ListClass{10, 1, 3, 2, 4}
+  tester:assert(ListClass{10, 1, 3, 2, 4}:equals(l))
+  tester:assert(not ListClass{10, 1, 3, 4}:equals(l))
+  tester:assert(not ListClass{10, 1, 3, 2, 4, 5}:equals(l))
 end
 
 function TestGeneric.testSublist(ListClass)
-  local l = ListClass.new():addMany(10, 1, 3, 2, 4)
+  local l = ListClass{10, 1, 3, 2, 4}
   local s = l:sublist(2, 4)
   tester:asserteq(3, s:size())
   tester:asserteq(1, s:get(1))
@@ -59,36 +59,36 @@ function TestGeneric.testSublist(ListClass)
 end
 
 function TestGeneric.testEquals(ListClass)
-  local a = ListClass.new():addMany(1, 2, 3)
-  local b = ListClass.new():addMany(1, 2)
-  tester:asserteq(false, a:equals(ListClass.new():addMany(1, 2)))
-  tester:asserteq(false, a:equals(ListClass.new():addMany(1, 2, 4)))
-  tester:asserteq(true, a:equals(ListClass.new():addMany(1, 2, 3)))
+  local a = ListClass{1, 2, 3}
+  local b = ListClass{1, 2}
+  tester:asserteq(false, a:equals(ListClass{1, 2}))
+  tester:asserteq(false, a:equals(ListClass{1, 2, 4}))
+  tester:asserteq(true, a:equals(ListClass{1, 2, 3}))
 end
 
 function TestGeneric.testRemove(ListClass)
-  local l = ListClass.new():addMany(10, 1, 3, 2, 4)
+  local l = ListClass{10, 1, 3, 2, 4}
   l:remove(3)
-  tester:asserteq(true, l:equals(ListClass.new():addMany(10, 1, 2, 4)))
+  tester:asserteq(true, l:equals(ListClass{10, 1, 2, 4}))
   l:remove(4)
-  tester:asserteq(true, l:equals(ListClass.new():addMany(10, 1, 2)))
+  tester:asserteq(true, l:equals(ListClass{10, 1, 2}))
 end
 
 function TestGeneric.testSwap(ListClass)
-  local l = ListClass.new():addMany('a', 'b', 'c', 'd', 'e')
-  local expect = ListClass.new():addMany('a', 'e', 'c', 'd', 'b')
+  local l = ListClass{'a', 'b', 'c', 'd', 'e'}
+  local expect = ListClass{'a', 'e', 'c', 'd', 'b'}
   tester:assert(l:swap(2, 5):equals(expect))
 end
 
 function TestGeneric.testSort(ListClass)
-  local l = ListClass.new():addMany(5, 4, 2, 3, 1)
-  local expect = ListClass.new():addMany(1, 2, 3, 4, 5)
+  local l = ListClass{5, 4, 2, 3, 1}
+  local expect = ListClass{1, 2, 3, 4, 5}
   l:sort()
   tester:assert(l:equals(expect))
 end
 
 function TestGeneric.testToTable(ListClass)
-  local l = ListClass.new():addMany(5, 4, 2, 3, 1)
+  local l = ListClass{5, 4, 2, 3, 1}
   tester:assertTableEq({5, 4, 2, 3, 1}, l:toTable())
 end
 
@@ -101,15 +101,15 @@ end
 
 function TestList.testArray()
   testList(ArrayList)
-  local l = ArrayList.new():addMany(1, 2, 3)
+  local l = ArrayList{1, 2, 3}
   tester:asserteq('ArrayList[1, 2, 3]', tostring(l))
-  l = ArrayList.new():addMany(1, 2, 3, 1, 2, 3, 1, 2, 3, 4, 5)
+  l = ArrayList{1, 2, 3, 1, 2, 3, 1, 2, 3, 4, 5}
   tester:asserteq('ArrayList[1, 2, 3, 1, 2, ...]', tostring(l))
 end
 
 function TestList.testLinkedList()
   testList(LinkedList)
-  local l = LinkedList.new():addMany(1, 2, 3)
+  local l = LinkedList{1, 2, 3}
   tester:asserteq('LinkedList[1, 2, 3]', tostring(l))
 end
 

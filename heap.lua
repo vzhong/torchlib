@@ -1,22 +1,26 @@
-Heap, parent = torch.class('Heap', 'ArrayList')
+--[[ Implementation of max heap (eg. `parent >= child`). `Heap` is a subclass of `ArrayList`. ]]
+local Heap, parent = torch.class('Heap', 'ArrayList')
 
--- a Max Heap where parent >= child
-
+--[[ Returns the parent index of `i`. ]]
 function Heap.parent(i)
   return math.floor(i/2)
 end
 
+--[[ Returns the left child index of `i`. ]]
 function Heap.left(i)
   return 2 * i
 end
 
+--[[ Returns the right child index of `i`. ]]
 function Heap.right(i)
   return 2 * i + 1
 end
 
+--[[ Recursively swaps down the node at `i` until the max heap condition is restored at `a[i]`.
+Note: this function assumes that the binary trees rooted at left and right are max heaps but
+`a[i]` may violate the max-heap condition
+]]
 function Heap:maxHeapify(i, effectiveSize)
-  -- assumption: the binary trees rooted at left and right are max heaps but a[i] may violate the max-heap condition
-  -- recursively swap down the node at i until max heap condition is restored at a[i]
   l = Heap.left(i)
   r = Heap.right(i)
   pi, vi = table.unpack(self._arr[i])
@@ -44,8 +48,8 @@ function Heap:maxHeapify(i, effectiveSize)
   end
 end
 
+--[[ Sorts the heap using heap sort. ]]
 function Heap:sort()
-  -- heapsort algorithm
   effectiveSize = self:size()
   for i = self:size(), 2, -1 do
     self:swap(1, i) --move the largest to the end
@@ -54,16 +58,16 @@ function Heap:sort()
   end
 end
 
+--[[ Adds a `val` with priority `key` onto the heap while keeping max heap property. ]]
 function Heap:push(key, val)
-  -- adds a value with priority key and maintains max heap property
   if val == nil then val = key end
   self:add(table.pack(key, val), 1)
   self:maxHeapify(1)
   return self
 end
 
+--[[ Removes and returns the max key item from the heap. ]]
 function Heap:pop()
-  -- removes the max key item from the heap and return it
   assert(not self:isEmpty(), 'Error: cannot pop from empty heap')
   self:swap(1, self:size())
   plargest, vlargest = table.unpack(self:remove(self:size()))
@@ -73,8 +77,8 @@ function Heap:pop()
   return vlargest
 end
 
+--[[ Returns the max key item from the heap but does not remove it. ]]
 function Heap:peek()
-  -- returns the max key item from the heap but does not remove it
   assert(not self:isEmpty(), 'Error: cannot peek from empty heap')
   plargest, vlargest = table.unpack(self:get(1))
   return vlargest

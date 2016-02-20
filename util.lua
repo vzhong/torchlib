@@ -62,3 +62,11 @@ function Util.reverseTable(t)
   end
   return tab
 end
+
+function Util.copyTable(t)
+  local tab = {}
+  for i, e in ipairs(t) do
+    table.insert(tab, e)
+  end
+  return tab
+end

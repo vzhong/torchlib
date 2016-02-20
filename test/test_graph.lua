@@ -61,7 +61,11 @@ end
 
 function TestUndirectedGraph.testBFS()
   local g, r, s, t, u, v, w, x, y = getUndirectedGraph()
-  g:breadthFirstSearch(s)
+  local discovered, finished = {}, {}
+  g:breadthFirstSearch(s, {
+    discover=function(n) table.insert(discovered, n) end,
+    finish=function(n) table.insert(finished, n) end
+  })
 
   tester:asserteq(0, s.timestamp)
   tester:asserteq(nil, s.parent)
@@ -70,7 +74,7 @@ function TestUndirectedGraph.testBFS()
   tester:asserteq(1, r.timestamp)
   tester:asserteq(s, r.parent)
   tester:asserteq(Graph.state.FINISHED, r.state)
-  
+
   tester:asserteq(1, w.timestamp)
   tester:asserteq(s, w.parent)
   tester:asserteq(Graph.state.FINISHED, w.state)
@@ -94,6 +98,9 @@ function TestUndirectedGraph.testBFS()
   tester:asserteq(3, y.timestamp)
   tester:asserteq(x, y.parent)
   tester:asserteq(Graph.state.FINISHED, y.state)
+
+  tester:asserteq(g:size(), Set(discovered):size())
+  tester:asserteq(g:size(), Set(finished):size())
 end
 
 function TestUndirectedGraph.testShortestPath()
@@ -153,9 +160,14 @@ function getDirectedAcyclicGraph()
 end
 
 function TestDirectedGraph.testDFS()
-  local g = getDirectedGraph()
-  g:depthFirstSearch()
-  -- test correctness
+  local g, undershorts, pands, belt, shirt, tie, jacket, socks, shoes, watch = getDirectedGraph()
+  local discovered, finished = {}, {}
+  g:depthFirstSearch(g:nodeSet():toTable(), {
+    discover=function(n) table.insert(discovered, n) end,
+    finish=function(n) table.insert(finished, n) end
+  })
+  tester:asserteq(g:size(), Set(discovered):size())
+  tester:asserteq(g:size(), Set(finished):size())
 end
 
 function TestDirectedGraph.testTopologicalSort()

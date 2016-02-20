@@ -5,13 +5,14 @@ local TestBinaryTree = {}
 local tester
 
 function TestTree.testToString()
-  local node = BinaryTree.Node.new(5, 'hi')
+  local node = BinaryTreeNode(5, 'hi')
   tester:asserteq('BinaryTreeNode<hi(5)>', tostring(node))
 end
 
 function TestTree.testWalkInOrder()
   local t = BinarySearchTree.fake()
-  local ordered = t:walkInOrder()
+  local ordered = {}
+  t:walkInOrder(function(n) table.insert(ordered, n) end)
   local tab = {2, 5, 9, 12, 13, 15, 17, 18, 19}
   for i, v in ipairs(tab) do
     tester:asserteq(v, ordered[i].val)
@@ -19,27 +20,27 @@ function TestTree.testWalkInOrder()
 end
 
 function TestBinaryTree.testInsert()
-  local a = BinarySearchTree.Node.new(2, 'a')
-  local tree = BinarySearchTree.new()
+  local a = BinarySearchTreeNode(2, 'a')
+  local tree = BinarySearchTree()
   tester:asserteq(0, tree:size())
 
   tree:insert(a)
   tester:asserteq(1, tree:size())
   tester:asserteq(a, tree.root)
 
-  local b = BinarySearchTree.Node.new(1, 'b')
+  local b = BinarySearchTreeNode(1, 'b')
   tree:insert(b)
   tester:asserteq(2, tree:size())
   tester:asserteq(b, tree.root.left)
   tester:asserteq(b, a.left)
 
-  local c = BinarySearchTree.Node.new(3, 'c')
+  local c = BinarySearchTreeNode(3, 'c')
   tree:insert(c)
   tester:asserteq(3, tree:size())
   tester:asserteq(c, tree.root.right)
   tester:asserteq(c, a.right)
 
-  local d = BinarySearchTree.Node.new(4, 'd')
+  local d = BinarySearchTreeNode(4, 'd')
   tree:insert(d)
   tester:asserteq(4, tree:size())
   tester:asserteq(d, tree.root.right.right)

@@ -1,0 +1,60 @@
+<p><a name="torchlib.VariableTensor.dok"></a></p>
+
+<h2>torchlib.VariableTensor</h2>
+
+<p>Implementation of a variable tensor class to efficiently store tensors of varying lengths. </p>
+
+<p><a class="entityLink" href="https://github.com/vzhong/torchlib/blob/975ba472d6e4fdaa1f6c82e04d3ff16b691aaa02/variable_tensor.lua#L11">[src]</a>
+<a name="torchlib.VariableTensor"></a></p>
+
+<h3>torchlib.VariableTensor(opt)</h3>
+
+<p>Constructor.
+  Options:</p>
+
+<ul>
+<li><code>preinit_size</code>: how many indices to preallocate for, defaults to 1</li>
+<li><code>preinit_store_size</code>: how many elements to preallocate for, defaults to 1</li>
+</ul>
+
+<p><a class="entityLink" href="https://github.com/vzhong/torchlib/blob/975ba472d6e4fdaa1f6c82e04d3ff16b691aaa02/variable_tensor.lua#L28">[src]</a>
+<a name="torchlib.VariableTensor:cuda"></a></p>
+
+<h3>torchlib.VariableTensor:cuda()</h3>
+
+<p>Moves the storage to cuda. </p>
+
+<p><a class="entityLink" href="https://github.com/vzhong/torchlib/blob/975ba472d6e4fdaa1f6c82e04d3ff16b691aaa02/variable_tensor.lua#L33">[src]</a>
+<a name="torchlib.VariableTensor:size"></a></p>
+
+<h3>torchlib.VariableTensor:size()</h3>
+
+<p>Returns the sum of the size of each tensor in the storage. </p>
+
+<p><a class="entityLink" href="https://github.com/vzhong/torchlib/blob/975ba472d6e4fdaa1f6c82e04d3ff16b691aaa02/variable_tensor.lua#L38">[src]</a>
+<a name="torchlib.VariableTensor:push"></a></p>
+
+<h3>torchlib.VariableTensor:push(tensor)</h3>
+
+<p>Appends a tensor to the storage. </p>
+
+<p><a class="entityLink" href="https://github.com/vzhong/torchlib/blob/975ba472d6e4fdaa1f6c82e04d3ff16b691aaa02/variable_tensor.lua#L53">[src]</a>
+<a name="torchlib.VariableTensor:shuffle"></a></p>
+
+<h3>torchlib.VariableTensor:shuffle(indices)</h3>
+
+<p>Shuffles the indices. <code>indices</code> is an optional tensor that denotes how the new indices should be set. </p>
+
+<p><a class="entityLink" href="https://github.com/vzhong/torchlib/blob/975ba472d6e4fdaa1f6c82e04d3ff16b691aaa02/variable_tensor.lua#L60">[src]</a>
+<a name="torchlib.VariableTensor:get"></a></p>
+
+<h3>torchlib.VariableTensor:get(i)</h3>
+
+<p>Retrieves the tensor at index <code>i</code>. </p>
+
+<p><a class="entityLink" href="https://github.com/vzhong/torchlib/blob/975ba472d6e4fdaa1f6c82e04d3ff16b691aaa02/variable_tensor.lua#L65">[src]</a>
+<a name="torchlib.VariableTensor:batch"></a></p>
+
+<h3>torchlib.VariableTensor:batch(indices, b)</h3>
+
+<p>Creates a zero-padded batch from tensors at the indices <code>indices</code>. <code>b</code> is an optional batch tensor that, if given, will be filled with the requested tensors. </p>

@@ -4,7 +4,7 @@ local TestMap = {}
 local tester
 
 function TestMap.testAdd()
-  local m = HashMap.new()
+  local m = HashMap()
   m:add(10, 'hi')
   local t = {}
   t[10] = 'hi'
@@ -31,14 +31,14 @@ function TestMap.testAdd()
 end
 
 function TestMap.testCopy()
-  tester:assert(HashMap.new():addMany({a=1, b=2, c=3}):equals(HashMap.new():addMany({a=1, b=2, c=3})))
-  tester:assert(not HashMap.new():addMany({a=1, b=2, c=3}):equals(HashMap.new():addMany({a=1, c=3})))
-  tester:assert(not HashMap.new():addMany({a=1, b=2, c=3}):equals(HashMap.new():addMany({a=1, b=2, c=3, d=4})))
+  tester:assert(HashMap{a=1, b=2, c=3}:equals(HashMap{a=1, b=2, c=3}))
+  tester:assert(not HashMap{a=1, b=2, c=3}:equals(HashMap{a=1, c=3}))
+  tester:assert(not HashMap{a=1, b=2, c=3}:equals(HashMap{a=1, b=2, c=3, d=4}))
 end
 
 function TestMap.testEquals()
-  local m = HashMap.new():addMany({foo=1, bar=2, baz=3})
-  local n = HashMap.new():addMany({foo=1, baz=3})
+  local m = HashMap{foo=1, bar=2, baz=3}
+  local n = HashMap{foo=1, baz=3}
   tester:asserteq(false, m:equals(n))
   n:add('bar', 10)
   tester:asserteq(false, m:equals(n))
@@ -47,14 +47,14 @@ function TestMap.testEquals()
 end
 
 function TestMap.testContains()
-  local m = HashMap.new()
+  local m = HashMap()
   tester:assert(not m:contains('bar'))
   m:add('bar', 'foo')
   tester:assert(m:contains('bar'))
 end
 
 function TestMap.testGet()
-  local m = HashMap.new()
+  local m = HashMap()
   m:add(10, 'hi')
   m:add(20, 'bye')
   tester:asserteq('hi', m:get(10))
@@ -65,7 +65,7 @@ function TestMap.testGet()
 end
 
 function TestMap.testRemove()
-  local m = HashMap.new()
+  local m = HashMap()
   m:add(10, 20)
   m:add(20, 30)
   m:remove(10)
@@ -78,9 +78,9 @@ function TestMap.testRemove()
 end
 
 function TestMap.testSize()
-  local m = HashMap.new()
+  local m = HashMap()
   tester:asserteq(0, m:size())
-  m:add(10, 20) 
+  m:add(10, 20)
   tester:asserteq(1, m:size())
   m:add(20, 10)
   tester:asserteq(2, m:size())
@@ -89,7 +89,7 @@ function TestMap.testSize()
 end
 
 function TestMap.testToString()
-  local m = HashMap.new()
+  local m = HashMap()
   tester:asserteq('HashMap{}', tostring(m))
   m:add('foo', 'bar')
   tester:asserteq('HashMap{foo -> bar}', tostring(m))
@@ -98,7 +98,7 @@ function TestMap.testToString()
 end
 
 function TestMap.testToTable()
-  local m = HashMap.new():addMany({foo=1, bar=2, baz=3})
+  local m = HashMap{foo=1, bar=2, baz=3}
   tester:assertTableEq({foo=1, bar=2, baz=3}, m:toTable())
 end
 
