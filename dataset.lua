@@ -8,9 +8,10 @@ local Dataset = torch.class('Dataset')
   Parameters:
   - `X`: table of features.
   - `Y`: table of labels.
+  - `typecheck` (optional): table of binary masks denoting the set of plausible outcomes given X.
 ]]
-function Dataset:__init(X, Y)
-  self.X, self.Y = X, Y
+function Dataset:__init(X, Y, typecheck)
+  self.X, self.Y, self.typecheck = X, Y, typecheck
 end
 
 function Dataset:toString()
@@ -39,7 +40,11 @@ function Dataset:view(...)
   local indices = table.pack(...)
   local datasets = {}
   for i, t in ipairs(indices) do
-    table.insert(datasets, Dataset.new(Util.select(self.X, t, {forget_keys=true}), Util.select(self.Y, t, {forget_keys=true})))
+    local args = {Util.select(self.X, t, {forget_keys=true}), Util.select(self.Y, t, {forget_keys=true})}
+    if self.typecheck then
+      table.insert(args, Util.select(self.typecheck, t, {forget_keys=true}))
+    end
+    table.insert(datasets, Dataset.new(table.unpack(args)))
   end
   return table.unpack(datasets)
 end
@@ -54,12 +59,14 @@ end
 --[[ Shuffles the dataset in place. ]]
 function Dataset:shuffle()
   local indices = torch.randperm(self:size()):totable()
-  local X, Y = {}, {}
+  local X, Y, typecheck = {}, {}
+  if self.typecheck then typecheck = {} end
   for _, i in ipairs(indices) do
     table.insert(X, self.X[i])
     table.insert(Y, self.Y[i])
+    if self.typecheck then table.insert(typecheck, self.typecheck[i]) end
   end
-  self.X, self.Y = X, Y
+  self.X, self.Y, self.typecheck = X, Y, typecheck
   return self
 end
 
@@ -67,12 +74,14 @@ end
 function Dataset:sort_by_length()
   local lengths = torch.Tensor(Util.map(self.X, function(a) return a:size(1) end))
   local sorted, indices = torch.sort(lengths)
-  local X, Y = {}, {}
+  local X, Y, typecheck = {}, {}
+  if self.typecheck then typecheck = {} end
   for _, i in ipairs(indices:totable()) do
     table.insert(X, self.X[i])
     table.insert(Y, self.Y[i])
+    if self.typecheck then table.insert(typecheck, self.typecheck[i]) end
   end
-  self.X, self.Y = X, Y
+  self.X, self.Y, self.typecheck = X, Y, typecheck
   return self
 end
 
@@ -102,15 +111,17 @@ end
   ```
 ]]
 function Dataset:batches(batch_size)
-  local batch_start = 1
+  local batch_start, batch_end = 1
   return function()
+    local x, y, typecheck
     if batch_start <= self:size() then
-      local batch_end = batch_start + batch_size - 1
-      local x = Util.select(self.X, Util.range(batch_start, batch_end), {forget_keys=true})
-      local y = Util.select(self.Y, Util.range(batch_start, batch_end), {forget_keys=true})
+      batch_end = batch_start + batch_size - 1
+      x = Util.select(self.X, Util.range(batch_start, batch_end), {forget_keys=true})
+      y = Util.select(self.Y, Util.range(batch_start, batch_end), {forget_keys=true})
+      if self.typecheck then typecheck = Util.select(self.typecheck, Util.range(batch_start, batch_end), {forget_keys=true}) end
       batch_start = batch_end + 1
       x = Dataset.pad(x)
-      return x, torch.LongTensor(y), math.min(batch_end, self:size())
+      return x, torch.LongTensor(y), typecheck, math.min(batch_end, self:size())
     else
       return nil
     end
