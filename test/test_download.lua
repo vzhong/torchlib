@@ -1,0 +1,26 @@
+require 'torchlib'
+
+local TestDownload = {}
+local tester
+
+local T = torch.Tensor
+
+function TestDownload.test_cache()
+  local d = Downloader()
+  tester:asserteq('/tmp/torchlib', d.cache)
+  tester:asserteq(false, path.exists('./foo'))
+  d = Downloader('/tmp/torchlib-foo')
+  tester:assert(path.exists('/tmp/torchlib-foo'))
+  path.rmdir('/tmp/torchlib-foo')
+end
+
+function TestDownload.test_get()
+  local d = Downloader()
+  local ret = d:get('google.txt', 'http://www.google.com/robots.txt')
+  tester:asserteq(ret, '/tmp/torchlib/google.txt')
+  tester:assert(path.exists('/tmp/torchlib/google.txt'))
+end
+
+tester = torch.Tester()
+tester:add(TestDownload)
+tester:run()
