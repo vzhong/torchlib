@@ -40,7 +40,7 @@ end
 
 --[[ Adds `word` `count` time to the vocabulary. ]]
 function Vocab:add(word, count)
-  count = count or 1 
+  count = count or 1
   if self:contains(word) then
     self.counter[word] = self:count(word) + count
   else
@@ -61,8 +61,10 @@ function Vocab:indexOf(word, add)
     return self:add(word, 1)
   end
   if not self:contains(word) then
+    self.counter[self.unk] = self:count(self.unk) + 1
     return self:indexOf(self.unk)
   end
+  self.counter[word] = self:count(word) + 1
   return self.word2index[word]
 end
 
@@ -122,35 +124,34 @@ function Vocab:copyAndPruneRares(cutoff)
   return v
 end
 
---[[ Returns the embedding matrix corresponding to this vocabulary. The `folder` must contain:
-  - `words.lst`: each line contains a word in the vocabulary
-  - `embeddings.txt`: each line contains a vector corresponding to the word on the same line
+--[[ Vocab object prepopulated with Glove embeddings by Pennington, Socher, and Manning
+  For details, see: http://nlp.stanford.edu/projects/glove/.
+  This only supports the 50-d wikipedia/Giga-word version.
+  The download is from https://dl.dropboxusercontent.com/u/9015381/datasets/torchnlp/glove.6B.50d.t7
 ]]
-function Vocab:pretrained(folder)
-  local wordlist = paths.concat(folder, 'words.lst')
-  local embeddings = paths.concat(folder, 'embeddings.txt')
-  assert(paths.filep(wordlist), 'Error: wordlists does not exist at ' .. wordlist)
-  assert(paths.filep(embeddings), 'Error: wordlists does not exist at ' .. embeddings)
-  -- add each word in the wordlist
-  local words = {}
-  for line in io.lines(wordlist) do
-    -- remove the last character, which is newline
-    local word = string.sub(line, 1, -1)
-    table.insert(words, word)
-  end
-  -- load vectors
-  local emb = torch.Tensor(self:size(), 50):uniform(-0.1, 0.1)
-  local i = 1
-  for line in io.lines(embeddings) do
-    -- remove the last character, which is newline
-    local numbers = string.split(line, '%s+')
-    local word = words[i]
-    if self:contains(word) then
-      local ind = self:indexOf(word)
-      assert(#numbers == 50, 'Error: cannot parse embedding ' .. tostring(line))
-      emb[ind] = torch.Tensor(numbers)
-    end
-    i = i + 1
-  end
-  return emb
+local GloveVocab, parent = torch.class('GloveVocab', 'Vocab')
+
+function GloveVocab:load_words()
+  local fname = Downloader():get('vocab-glove.6B.50d.t7', 'https://dl.dropboxusercontent.com/u/9015381/datasets/torchnlp/glove.6B.50d.t7')
+  local bin = torch.load(fname)
+  -- add the pretrained vocabulary
+  self:indicesOf(bin.words, true)
 end
+
+function GloveVocab:embeddings(t)
+  t = t or torch.Tensor(self:size(), 50):uniform(-0.08, 0.08)
+  local fname = Downloader():get('vocab-glove.6B.50d.t7', 'https://dl.dropboxusercontent.com/u/9015381/datasets/torchnlp/glove.6B.50d.t7')
+  local bin = torch.load(fname)
+  local w2i = {}
+  for i, word in ipairs(bin.words) do
+    w2i[word] = i
+  end
+
+  for i, w in ipairs(self.word2index) do
+    if w2i[w] then t[i] = bins.vecs[w2i[w]] end
+  end
+
+  return t
+end
+
+return {Vocab=Vocab, GloveVocab=GloveVocab}

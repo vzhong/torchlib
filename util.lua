@@ -5,7 +5,7 @@ function Util.printTable(t)
     function printTableHelper(t, spacing)
         for k,v in pairs(t) do
             print(spacing..tostring(k), v)
-            if (type(v) == "table") then 
+            if (type(v) == "table") then
                 printTableHelper(v, spacing.."\t")
             end
         end

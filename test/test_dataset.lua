@@ -5,7 +5,6 @@ local tester
 
 local eps = 1e-5
 
-local List = require 'pl.List'
 local torch = require 'torch'
 local T = torch.Tensor
 

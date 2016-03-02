@@ -9,10 +9,7 @@ Data structures and libraries for Torch
 
 You can install `torchlib` as follows:
 
-```
-git clone https://github.com/vzhong/torchlib.git
-cd torchlib && luarocks make
-```
+`git clone https://github.com/vzhong/torchlib.git && cd torchlib && luarocks make`
 
 # Documentation
 
