@@ -130,3 +130,11 @@ function Util.select(t, keys, opt)
   end
   return results
 end
+
+--[[ Extends the table `t` with another table `another` and returns the first table. ]]
+function Util.extend(t, another)
+  for _, v in ipairs(another) do
+    table.insert(t, v)
+  end
+  return t
+end
