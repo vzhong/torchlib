@@ -99,7 +99,7 @@ end
 
 function TestMap.testToTable()
   local m = HashMap{foo=1, bar=2, baz=3}
-  tester:assertTableEq({foo=1, bar=2, baz=3}, m:toTable())
+  tester:assertTableEq({foo=1, bar=2, baz=3}, m:totable())
 end
 
 tester = torch.Tester()

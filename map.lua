@@ -43,7 +43,7 @@ function Map:keySet()
 end
 
 --[[ Returns the map in table form. ]]
-function Map:toTable()
+function Map:totable()
   error('not implemented')
 end
 
@@ -87,7 +87,7 @@ function HashMap:addMany(tab)
 end
 
 function HashMap:copy()
-  return HashMap.new():addMany(self:toTable())
+  return HashMap.new():addMany(self:totable())
 end
 
 function HashMap:contains(key)
@@ -122,7 +122,7 @@ function HashMap:keySet()
   return keys
 end
 
-function HashMap:toTable()
+function HashMap:totable()
   tab = {}
   for k, v in pairs(self._map) do
     tab[k] = v
@@ -133,7 +133,7 @@ end
 function HashMap:toString()
   local s = torch.type(self) .. '{'
   local max = 5
-  local keys = self:keySet():toTable()
+  local keys = self:keySet():totable()
 
   for i = 1, math.min(self:size(), max) do
     key = keys[i]

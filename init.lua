@@ -16,5 +16,7 @@ torch.include('torchlib', 'vocab.lua')
 torch.include('torchlib', 'variable_tensor.lua')
 torch.include('torchlib', 'dataset.lua')
 torch.include('torchlib', 'download.lua')
+torch.include('torchlib', 'counter.lua')
+torch.include('torchlib', 'scorer.lua')
 
 return torchlib

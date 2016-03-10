@@ -44,7 +44,7 @@ end
 
 --[[ Returns a copy of the set. ]]
 function Set:copy()
-  return Set.new():addMany(table.unpack(self:toTable()))
+  return Set.new():addMany(table.unpack(self:totable()))
 end
 
 --[[ Returns whether the set contains `val`. ]]
@@ -64,7 +64,7 @@ function Set:remove(val)
 end
 
 --[[ Returns the set in table format. ]]
-function Set:toTable()
+function Set:totable()
   tab = {}
   for k, v in pairs(self._map) do
     table.insert(tab, v)
@@ -78,7 +78,7 @@ function Set:equals(another)
     return false
   end
 
-  for i, v in ipairs(another:toTable()) do
+  for i, v in ipairs(another:totable()) do
     if not self:contains(v) then
       return false
     end
@@ -89,7 +89,7 @@ end
 --[[ Returns the union of this set and `another`. ]]
 function Set:union(another)
   local s = self:copy()
-  for i, v in ipairs(another:toTable()) do
+  for i, v in ipairs(another:totable()) do
     s:add(v)
   end
   return s
@@ -98,7 +98,7 @@ end
 --[[ Returns the intersection of this set and `another`. ]]
 function Set:intersect(another)
   local s = self:copy()
-  for i, v in ipairs(self:toTable()) do
+  for i, v in ipairs(self:totable()) do
     if not another:contains(v) then
       s:remove(v)
     end
@@ -109,7 +109,7 @@ end
 --[[ Returns a set of values that are in this set but not in `another`. ]]
 function Set:subtract(another)
   local s = self:copy()
-  for i, v in ipairs(self:toTable()) do
+  for i, v in ipairs(self:totable()) do
     if another:contains(v) then
       s:remove(v)
     end
@@ -121,7 +121,7 @@ end
 function Set:toString()
   local s = torch.type(self) .. '('
   local max = 5
-  local keys = self:toTable()
+  local keys = self:totable()
 
   for i = 1, math.min(self:size(), max) do
     key = keys[i]

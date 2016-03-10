@@ -48,12 +48,12 @@ function TestSet.testToTable()
   local got = {}
 
   -- make got a dictionary for easy lookup
-  for i, v in ipairs(s:toTable()) do
+  for i, v in ipairs(s:totable()) do
     got[v] = true
   end
 
   -- check length equal
-  tester:asserteq(#expect, #s:toTable())
+  tester:asserteq(#expect, #s:totable())
 
   -- check each expected item is here
   for i, e in ipairs(expect) do

@@ -89,7 +89,7 @@ end
 
 function TestGeneric.testToTable(ListClass)
   local l = ListClass{5, 4, 2, 3, 1}
-  tester:assertTableEq({5, 4, 2, 3, 1}, l:toTable())
+  tester:assertTableEq({5, 4, 2, 3, 1}, l:totable())
 end
 
 function testList(ListClass)

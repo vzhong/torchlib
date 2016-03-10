@@ -37,7 +37,7 @@ function List:swap(i, j)
 end
 
 --[[ Returns the list in table form. ]]
-function List:toTable()
+function List:totable()
   error('not implemented')
 end
 
@@ -72,7 +72,7 @@ end
 
 --[[ Returns a copy of this list. ]]
 function List:copy()
-  return self.new(self.toTable())
+  return self.new(self.totable())
 end
 
 --[[ Returns whether the list is empty. ]]
@@ -196,7 +196,7 @@ function ArrayList:swap(i, j)
   return self
 end
 
-function ArrayList:toTable()
+function ArrayList:totable()
   tab = {}
   for i = 1, self:size() do
     table.insert(tab, self._arr[i])
@@ -343,7 +343,7 @@ function LinkedList:equals(another)
   return true
 end
 
-function LinkedList:toTable()
+function LinkedList:totable()
   tab = {}
   curr = self:head()
   while curr do

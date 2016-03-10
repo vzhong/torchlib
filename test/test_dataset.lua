@@ -15,7 +15,7 @@ local X = {T{1, 2, 3}, T{2, 3}, T{1, 3, 5, 2}}
 local Y = {2, 5, 1}
 
 local toyDataset = function()
-  return Dataset(Util.tableCopy(X), Util.tableCopy(Y))
+  return Dataset{X=Util.tableCopy(X), Y=Util.tableCopy(Y)}
 end
 
 function TestDataset.test_shuffle()
@@ -72,15 +72,16 @@ end
 function TestDataset.test_batches()
   local d = toyDataset()
   local i = 1
-  for x, y, batch_end in d:batches(2) do
+  for batch, batch_end in d:batches(2) do
+    local p = require 'pl.pretty'
     if i == 1 then
-      tester:assertTableEq(T{{1, 2, 3}, {0, 2, 3}}:totable(), x:totable())
-      tester:assertTableEq(T{2, 5}:totable(), y:totable())
+      tester:assertTableEq(T{{1, 2, 3}, {0, 2, 3}}:totable(), Dataset.pad(batch.X):totable())
+      tester:assertTableEq(T{2, 5}:totable(), batch.Y)
       tester:asserteq(2, batch_end)
     end
     if i == 2 then
-      tester:assertTableEq(T{{1, 3, 5, 2}}:totable(), x:totable())
-      tester:assertTableEq(T{1}:totable(), y:totable())
+      tester:assertTableEq(T{{1, 3, 5, 2}}:totable(), Dataset.pad(batch.X):totable())
+      tester:assertTableEq({1}, batch.Y)
       tester:asserteq(3, batch_end)
     end
     i = i + 1
@@ -90,9 +91,9 @@ end
 function TestDataset.test_single_batch()
   local d = toyDataset()
   local i = 1
-  for x, y, batch_end in d:batches(1) do
-    tester:assertTableEq({X[i]:totable()}, x:totable())
-    tester:assertTableEq({Y[i]}, y:totable())
+  for batch, batch_end in d:batches(1) do
+    tester:assertTableEq({X[i]:totable()}, Dataset.pad(batch.X):totable())
+    tester:assertTableEq({Y[i]}, batch.Y)
     tester:asserteq(batch_end, i)
     i = i + 1
   end

@@ -49,7 +49,7 @@ end
 --[[ Returns a table of nodes that are children to `node`. ]]
 function Graph:connectionsOf(node)
   self:assertValidNode(node)
-  return self._nodeMap:get(node):toTable()
+  return self._nodeMap:get(node):totable()
 end
 
 --[[ Returns a `Set` of nodes in the graph. ]]
@@ -59,7 +59,7 @@ end
 
 --[[ Initializes all nodes to `UNDISCOVERED`. ]]
 function Graph:resetState()
-  local nodes = self:nodeSet():toTable()
+  local nodes = self:nodeSet():totable()
   for i = 1, #nodes do
     local node = nodes[i]
     node.state = Graph.state.UNDISCOVERED
@@ -149,7 +149,7 @@ function Graph:depthFirstSearch(nodes, callbacks)
   callbacks.finish = callbacks.finish or function(node) end
   self:resetState()
   local timestamp = 0
-  local nodes = nodes or self:nodeSet():toTable()
+  local nodes = nodes or self:nodeSet():totable()
 
   local function DFSVisit(graph, node)
     timestamp = timestamp + 1
@@ -196,14 +196,14 @@ function DirectedGraph:topologicalSort()
   local function callback(node)
     table.insert(ordered, 1, node)
   end
-  self:depthFirstSearch(self:nodeSet():toTable(), {finish=callback})
+  self:depthFirstSearch(self:nodeSet():totable(), {finish=callback})
   return ordered
 end
 
 --[[ Returns whether the graph has a cycle. ]]
 function DirectedGraph:hasCycle()
   self:resetState()
-  local nodes = self:nodeSet():toTable()
+  local nodes = self:nodeSet():totable()
 
   local function DFSVisit(graph, node)
     node.state = Graph.state.VISITED
@@ -235,7 +235,7 @@ end
 function DirectedGraph:transpose()
   local g = DirectedGraph.new()
   g._nodeMap = self._nodeMap:copy()
-  local nodes = g:nodeSet():toTable()
+  local nodes = g:nodeSet():totable()
   -- clear out the connections first
   for i = 1, #nodes do
     local node = nodes[i]

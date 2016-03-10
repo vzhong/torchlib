@@ -162,7 +162,7 @@ end
 function TestDirectedGraph.testDFS()
   local g, undershorts, pands, belt, shirt, tie, jacket, socks, shoes, watch = getDirectedGraph()
   local discovered, finished = {}, {}
-  g:depthFirstSearch(g:nodeSet():toTable(), {
+  g:depthFirstSearch(g:nodeSet():totable(), {
     discover=function(n) table.insert(discovered, n) end,
     finish=function(n) table.insert(finished, n) end
   })
