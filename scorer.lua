@@ -47,9 +47,11 @@ end
 
 --[[ Removes all remembered statistics from the scorer. ]]
 function Scorer:reset()
-  for fname, f in pairs(self.logs) do
-    f:close()
-    self.logs[fname] = io.open(fname .. '.log', 'w')
+  if self.logs then
+    for fname, f in pairs(self.logs) do
+      f:close()
+      self.logs[fname] = io.open(fname .. '.log', 'w')
+    end
   end
   self.class2ind, self.ind2class, self.pred, self.gold = {}, {}, {}, {}
 end
