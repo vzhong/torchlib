@@ -51,7 +51,7 @@ function Scorer:reset()
     f:close()
     self.logs[fname] = io.open(fname .. '.log', 'w')
   end
-  self.class2ind, self.ind2class, self.pre, self.gold = {}, {}, {}, {}
+  self.class2ind, self.ind2class, self.pred, self.gold = {}, {}, {}, {}
 end
 
 --[[ Computes the precision/recall/f1 statistics for the current batch of elements.
