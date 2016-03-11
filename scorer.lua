@@ -81,9 +81,12 @@ function Scorer:precision_recall_f1(ignore)
     }
     stats.precision = stats.relevant_and_retrieved / stats.retrieved
     stats.recall = stats.relevant_and_retrieved / stats.relevant
-    if stats.retrieved == 0 then stats.precision = 0 end
-    if stats.relevant == 0 then stats.recall = 0 end
     stats.f1 = 2 * stats.precision * stats.recall / (stats.precision + stats.recall)
+    if stats.relevant_and_retrieved == 0 then
+      stats.precision = 0
+      stats.recall = 0
+      stats.f1 = 0
+    end
     all_stats[class] = stats
   end
   local macro = {precision=0, recall=0}
@@ -98,10 +101,19 @@ function Scorer:precision_recall_f1(ignore)
       end
     end
   end
+
   macro.f1 = 2 * macro.precision * macro.recall / (macro.precision + macro.recall)
+  if macro.precision == 0 and macro.recall == 0 then macro.f1 = 0 end
+
   micro.precision = micro.relevant_and_retrieved / micro.retrieved
   micro.recall = micro.relevant_and_retrieved / micro.relevant
   micro.f1 = 2 * micro.precision * micro.recall / (micro.precision + micro.recall)
+  if micro.relevant_and_retrieved == 0 then
+    micro.precision = 0
+    micro.recall = 0
+    micro.f1 = 0
+  end
+
   return micro, macro, all_stats
 end
 
