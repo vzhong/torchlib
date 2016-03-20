@@ -1,4 +1,5 @@
 require 'torch'
+require 'xlua'
 
 --[[ Implementation of dataset container. ]]
 local Dataset = torch.class('Dataset')
@@ -27,14 +28,76 @@ function Dataset:__init(fields)
   end
 end
 
+
+--[[ Creates a dataset from CONLL format. The format is as follows:
+
+```
+# word  subj  subj_ner  obj obj_ner stanford_pos  stanford_ner  stanford_dep_edge stanford_dep_governor
+per:city_of_birth
+- - - - - : O punct 1
+20  - - - - CD  DATE  ROOT  -1
+: - - - - : O punct 1
+Alexander SUBJECT PERSON  - - NNP PERSON  compound  4
+Haig  SUBJECT PERSON  - - NNP PERSON  dep 1
+, - - - - , O punct 4
+US  - - - - NNP LOCATION  compound  7
+secretary - - - - NN  O appos 4
+...
+```
+
+That is, the first line is a tab delimited header, followed by examples separated by a blank line.
+The first line of the example is the class label. The rest of the rows correspond to tokens and their associated attributes.
+]]
+function Dataset.from_conll(fname)
+  local file = assert(io.open(fname), fname .. ' does not exist!')
+  local header = file:read():split('\t')
+  header[1] = header[1]:sub(3)  -- remove the '# '
+  local get_fields = function()
+    local fields = {}
+    for _, heading in ipairs(header) do fields[heading] = {} end
+    return fields
+  end
+  local fields = get_fields()
+  fields.label = {}
+
+  local line, linenum = file:read(), 2  -- first line's the header
+  local example = get_fields()
+  local labeled = false
+  local submit_example = function()
+    for k, v in pairs(fields) do table.insert(v, example[k]) end
+    table.insert(fields.label, label)
+    example = get_fields()
+    labeled = false
+  end
+  while line do
+    if #line:split('\t') == 1 and not labeled then  -- this is a label
+      table.insert(fields.label, line)
+      labeled = true
+    elseif line == '' then  -- we just finished collecting an example
+      submit_example()
+    else
+      local cols = line:split('\t')
+      for i, heading in ipairs(header) do
+        assert(cols[i], 'line '..linenum..' is missing column '..i..' ('..heading..'): '..line)
+        table.insert(example[heading], cols[i])
+      end
+    end
+    line = file:read()
+    linenum = linenum + 1
+  end
+  submit_example()
+  return Dataset.new(fields)
+end
+
+
 function Dataset:tostring()
   local s = "Dataset("
   for i, k in ipairs(self.fields) do
-    s = s .. k .. ':' .. #self[k]
+    s = s .. k
     if i < #self.fields then
-      s = s .. ','
+      s = s .. ', '
     else
-      s = s .. ')'
+      s = s .. ') of size ' .. self:size()
     end
   end
   return s
@@ -147,5 +210,3 @@ function Dataset:batches(batch_size)
     end
   end
 end
-
-return {Dataset = Dataset}

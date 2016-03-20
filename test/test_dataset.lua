@@ -1,7 +1,7 @@
 require 'torchlib'
 
-local TestDataset = {}
-local tester
+local TestDataset = torch.TestSuite()
+local tester = torch.Tester()
 
 local eps = 1e-5
 
@@ -10,6 +10,19 @@ local T = torch.Tensor
 
 -- seed the shuffling
 torch.manualSeed(12)
+
+function TestDataset.test_conll()
+  local d = Dataset.from_conll('test/mock/conll.mock')
+  tester:asserteq(3, d:size())
+  tester:asserteq(3, #d.name)
+  tester:assertTableEq({'Adam', 'Bob', 'Carol'}, d.name[1])
+  tester:assertTableEq({'A', 'B', 'C'}, d.grade[1])
+  tester:assertTableEq({'Zack', 'Yasmin', 'Xavier'}, d.name[2])
+  tester:assertTableEq({'Z', 'Y', 'X'}, d.grade[2])
+  tester:assertTableEq({'Wesley', 'Victor'}, d.name[3])
+  tester:assertTableEq({'W', 'V'}, d.grade[3])
+  tester:assertTableEq({'class1', 'class2', 'class3'}, d.label)
+end
 
 local X = {T{1, 2, 3}, T{2, 3}, T{1, 3, 5, 2}}
 local Y = {2, 5, 1}
@@ -99,6 +112,5 @@ function TestDataset.test_single_batch()
   end
 end
 
-tester = torch.Tester()
 tester:add(TestDataset)
 tester:run()
