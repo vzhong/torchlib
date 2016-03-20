@@ -12,4 +12,4 @@ function Stack:pop()
   return self:remove(self:size())
 end
 
-torch.getmetatable('Stack').__tostring__ = Stack.toString
+torch.getmetatable('Stack').__tostring__ = Stack.tostring

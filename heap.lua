@@ -84,7 +84,7 @@ function Heap:peek()
   return vlargest
 end
 
-function Heap:toString()
+function Heap:tostring()
   local s = 'Heap['
   local max = 5
   for i = 1, math.min(self:size(), max) do
@@ -100,4 +100,4 @@ function Heap:toString()
   return s
 end
 
-torch.getmetatable('Heap').__tostring__ = Heap.toString
+torch.getmetatable('Heap').__tostring__ = Heap.tostring

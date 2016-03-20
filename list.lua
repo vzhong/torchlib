@@ -124,7 +124,7 @@ function List:sort(start, finish)
   end
 end
 
-function List:toString()
+function List:tostring()
   local s = torch.type(self) .. '['
   local max = 5
   for i = 1, math.min(self:size(), max) do
@@ -139,7 +139,7 @@ function List:toString()
   return s
 end
 
-torch.getmetatable('List').__tostring__ = List.toString
+torch.getmetatable('List').__tostring__ = List.tostring
 
 
 --[[ Array implementation of list. ]]
@@ -214,11 +214,11 @@ function LinkedList.Node:__init(val)
   self.next = nil
 end
 
-function LinkedList.Node:toString()
+function LinkedList.Node:tostring()
   return 'LinkedListNode(' .. self.val .. ')'
 end
 
-torch.getmetatable('LinkedListNode').__tostring__ = LinkedList.Node.toString
+torch.getmetatable('LinkedListNode').__tostring__ = LinkedList.Node.tostring
 
 function LinkedList:__init(values)
   self._sentinel = LinkedList.Node.new()

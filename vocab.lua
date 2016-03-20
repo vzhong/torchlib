@@ -17,10 +17,10 @@ function Vocab:__init(unk)
   end
 end
 
-function Vocab:toString()
+function Vocab:tostring()
   return "Vocab("..self:size()..' words, unk='..self.unk..")"
 end
-torch.getmetatable('Vocab').__tostring__ = Vocab.toString
+torch.getmetatable('Vocab').__tostring__ = Vocab.tostring
 
 --[[ Returns whether `word` is in the vocabulary. ]]
 function Vocab:contains(word)

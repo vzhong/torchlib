@@ -118,7 +118,7 @@ function Set:subtract(another)
 end
 
 
-function Set:toString()
+function Set:tostring()
   local s = torch.type(self) .. '('
   local max = 5
   local keys = self:totable()
@@ -135,4 +135,4 @@ function Set:toString()
   return s
 end
 
-torch.getmetatable('Set').__tostring__ = Set.toString
+torch.getmetatable('Set').__tostring__ = Set.tostring

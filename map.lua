@@ -47,7 +47,7 @@ function Map:totable()
   error('not implemented')
 end
 
-function Map:toString()
+function Map:tostring()
   error('not implemented')
 end
 
@@ -130,7 +130,7 @@ function HashMap:totable()
   return tab
 end
 
-function HashMap:toString()
+function HashMap:tostring()
   local s = torch.type(self) .. '{'
   local max = 5
   local keys = self:keySet():totable()
@@ -155,4 +155,4 @@ function HashMap:equals(another)
   return true
 end
 
-torch.getmetatable('HashMap').__tostring__ = HashMap.toString
+torch.getmetatable('HashMap').__tostring__ = HashMap.tostring

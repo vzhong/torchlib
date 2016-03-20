@@ -18,11 +18,11 @@ function Graph.GraphNode:__init(val)
   self.val = val
 end
 
-function Graph.GraphNode:toString()
+function Graph.GraphNode:tostring()
   return 'GraphNode(' .. self.val .. ')'
 end
 
-torch.getmetatable('GraphNode').__tostring__ = Graph.GraphNode.toString
+torch.getmetatable('GraphNode').__tostring__ = Graph.GraphNode.tostring
 
 --[[ Constructor for a graph. ]]
 function Graph:__init()

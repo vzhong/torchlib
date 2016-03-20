@@ -27,7 +27,7 @@ function Dataset:__init(fields)
   end
 end
 
-function Dataset:toString()
+function Dataset:tostring()
   local s = "Dataset("
   for i, k in ipairs(self.fields) do
     s = s .. k .. ':' .. #self[k]
@@ -39,7 +39,7 @@ function Dataset:toString()
   end
   return s
 end
-torch.getmetatable('Dataset').__tostring__ = Dataset.toString
+torch.getmetatable('Dataset').__tostring__ = Dataset.tostring
 
 --[[ Returns the number of examples in the dataset. ]]
 function Dataset:size()

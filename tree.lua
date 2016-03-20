@@ -14,7 +14,7 @@ function TreeNode:children()
   error('not implemented')
 end
 
-function TreeNode:toString()
+function TreeNode:tostring()
   return torch.type(self) .. '<' .. tostring(self.val) .. '(' .. tostring(self.key) .. ')' .. '>'
 end
 
@@ -23,7 +23,7 @@ function TreeNode:subtreeToString(prefix, isTail)
   isTail = isTail or true
   local s = prefix
   if isTail then s = s .. '|__ ' else s = s .. '|-- ' end
-  s = s .. self:toString() .. "\n"
+  s = s .. self:tostring() .. "\n"
   local newPrefix = prefix
   if isTail then newPrefix = newPrefix .. '    ' else newPrefix = newPrefix .. '|   ' end
   local children = self:children()
@@ -36,9 +36,9 @@ function TreeNode:subtreeToString(prefix, isTail)
   return string.sub(s, 0, -1)
 end
 
-torch.getmetatable('TreeNode').__tostring__ = TreeNode.toString
+torch.getmetatable('TreeNode').__tostring__ = TreeNode.tostring
 
-function Tree:toString()
+function Tree:tostring()
   local s = torch.type(self)
   if self.root ~= nil then
     s = self.root:subtreeToString()
@@ -46,7 +46,7 @@ function Tree:toString()
   return s
 end
 
-torch.getmetatable('Tree').__tostring__ = Tree.toString
+torch.getmetatable('Tree').__tostring__ = Tree.tostring
 
 --[[ Returns the number of nodes in the tree. ]]
 function Tree:size()
