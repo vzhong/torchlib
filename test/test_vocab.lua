@@ -1,7 +1,7 @@
 require 'torchlib'
 
-local TestVocab = {}
-local tester
+local TestVocab = torch.TestSuite()
+local tester = torch.Tester()
 
 function TestVocab.testInit()
   local v = Vocab.new()
@@ -27,17 +27,17 @@ end
 
 function TestVocab.testContains()
   local v = Vocab('unk')
-  tester:assert(v:contains('unk'), 'contains of unk')
+  tester:assert(v:contains('unk') == true, 'contains of unk')
   tester:assert(v:contains('foo') == false, 'contains before add')
   v:add("foo")
-  tester:assert(v:contains('foo'), 'contains after add')
+  tester:assert(v:contains('foo') == true, 'contains after add')
 end
 
 function TestVocab.testCount()
   local v = Vocab('unk')
   tester:asserteq(v:count('unk'), 0)
   local status, err = pcall(v.count, v, 'foo')
-  tester:assert(string.match(err, 'Error: attempted to get count of word foo which is not in the vocabulary'))
+  tester:assert(string.match(err, 'Error: attempted to get count of word foo which is not in the vocabulary') ~= nil)
   v:add('foo', 2)
   tester:asserteq(v:count('foo'), 2)
   v:add('foo', 0)
@@ -60,7 +60,7 @@ end
 function TestVocab.testWordAt()
   local v = Vocab('unk')
   local status, err = pcall(v.wordAt, v, 2)
-  tester:assert(string.match(err, 'Error: attempted to get word at index 2 which exceeds the vocab size'))
+  tester:assert(string.match(err, 'Error: attempted to get word at index 2 which exceeds the vocab size') ~= nil)
   tester:asserteq(v:wordAt(1), 'unk')
   v:add('bar')
   tester:asserteq(v:wordAt(2), 'bar')
@@ -99,7 +99,7 @@ function TestVocab.testWordsAt()
   local v = Vocab()
   v:indicesOf({'foo', 'bar', 'this'}, true)
   local status, err = pcall(v.wordsAt, v, {1, 5, 3})
-  tester:assert(string.match(err, 'Error: attempted to get word at index 5 which exceeds the vocab size'))
+  tester:assert(string.match(err, 'Error: attempted to get word at index 5 which exceeds the vocab size') ~= nil)
   tester:assertTableEq(v:wordsAt({4, 2, 3}), {'this', 'foo', 'bar'})
 end
 
@@ -117,6 +117,5 @@ function TestVocab.testCopyAndPruneRares()
   tester:asserteq(pruned.unk, 'unk')
 end
 
-tester = torch.Tester()
 tester:add(TestVocab)
 tester:run()

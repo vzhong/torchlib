@@ -1,11 +1,11 @@
 require 'torchlib'
 
-local TestDirectedGraph = {}
-local TestUndirectedGraph = {}
-local tester
+local TestDirectedGraph = torch.TestSuite()
+local TestUndirectedGraph = torch.TestSuite()
+local tester = torch.Tester()
 
 
-function TestDirectedGraph.testAddNode()
+function TestDirectedGraph.testAddNodeDirected()
   local g = DirectedGraph.new()
   local na = g:addNode('a')
   local nb = g:addNode('b')
@@ -19,7 +19,7 @@ function TestDirectedGraph.testAddNode()
 end
 
 
-function TestUndirectedGraph.testAddNode()
+function TestUndirectedGraph.testAddNodeUndirected()
   local g = UndirectedGraph.new()
   local na = g:addNode('a')
   local nb = g:addNode('b')
@@ -209,7 +209,6 @@ function TestDirectedGraph.testStronglyConnectedComponents()
   -- Util.printTable(roots)
 end
 
-tester = torch.Tester()
 tester:add(TestDirectedGraph)
 tester:add(TestUndirectedGraph)
 tester:run()

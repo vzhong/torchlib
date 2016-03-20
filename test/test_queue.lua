@@ -1,7 +1,7 @@
 require 'torchlib'
 
-local TestQueue = {}
-local tester
+local TestQueue = torch.TestSuite()
+local tester = torch.Tester()
 
 function testQueue(q)
   tester:asserteq(0, q:size())
@@ -28,6 +28,5 @@ function TestQueue.testQueue()
 end
 
 
-tester = torch.Tester()
 tester:add(TestQueue)
 tester:run()

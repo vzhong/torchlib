@@ -1,8 +1,8 @@
 require 'torchlib'
 
-local TestTree = {}
-local TestBinaryTree = {}
-local tester
+local TestTree = torch.TestSuite()
+local TestBinaryTree = torch.TestSuite()
+local tester = torch.Tester()
 
 function TestTree.testToString()
   local node = BinaryTreeNode(5, 'hi')
@@ -92,17 +92,16 @@ end
 function TestBinaryTree.testDelete()
   local tree = BinarySearchTree.fake()
   tree:delete(tree:search(13))
-  tester:assert(12, tree.root.val)
-  tester:assert(5, tree.root.left.val)
-  tester:assert(2, tree.root.left.left.val)
-  tester:assert(9, tree.root.left.right.val)
-  tester:assert(18, tree.root.right.val)
-  tester:assert(15, tree.root.right.left.val)
-  tester:assert(17, tree.root.right.left.right.val)
-  tester:assert(19, tree.root.right.right.val)
+  tester:asserteq(12, tree.root.val)
+  tester:asserteq(5, tree.root.left.val)
+  tester:asserteq(2, tree.root.left.left.val)
+  tester:asserteq(9, tree.root.left.right.val)
+  tester:asserteq(18, tree.root.right.val)
+  tester:asserteq(15, tree.root.right.left.val)
+  tester:asserteq(17, tree.root.right.left.right.val)
+  tester:asserteq(19, tree.root.right.right.val)
 end
 
-tester = torch.Tester()
 tester:add(TestTree)
 tester:add(TestBinaryTree)
 tester:run()

@@ -1,7 +1,7 @@
 require 'torchlib'
 
-local TestSet = {}
-local tester
+local TestSet = torch.TestSuite()
+local tester = torch.Tester()
 
 function TestSet.testAdd()
   local s = Set()
@@ -152,6 +152,5 @@ function TestSet.testCopy()
   tester:assert(not s:equals(Set{5, 8, 6, 7}))
 end
 
-tester = torch.Tester()
 tester:add(TestSet)
 tester:run()

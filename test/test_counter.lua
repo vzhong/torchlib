@@ -1,7 +1,7 @@
 require 'torchlib'
 
-local TestCounter = {}
-local tester
+local TestCounter = torch.TestSuite()
+local tester = torch.Tester()
 
 function TestCounter.test_get()
   local c = Counter()
@@ -25,6 +25,5 @@ function TestCounter.test_reset()
   tester:asserteq(nil, c.counts.foo)
 end
 
-tester = torch.Tester()
 tester:add(TestCounter)
 tester:run()

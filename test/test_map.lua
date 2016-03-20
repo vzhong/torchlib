@@ -1,7 +1,7 @@
 require 'torchlib'
 
-local TestMap = {}
-local tester
+local TestMap = torch.TestSuite()
+local tester = torch.Tester()
 
 function TestMap.testAdd()
   local m = HashMap()
@@ -31,7 +31,7 @@ function TestMap.testAdd()
 end
 
 function TestMap.testCopy()
-  tester:assert(HashMap{a=1, b=2, c=3}:equals(HashMap{a=1, b=2, c=3}))
+  tester:assert(HashMap{a=1, b=2, c=3}:equals(HashMap{a=1, b=2, c=3}) ~= nil)
   tester:assert(not HashMap{a=1, b=2, c=3}:equals(HashMap{a=1, c=3}))
   tester:assert(not HashMap{a=1, b=2, c=3}:equals(HashMap{a=1, b=2, c=3, d=4}))
 end
@@ -61,7 +61,7 @@ function TestMap.testGet()
   tester:asserteq('bye', m:get(20))
 
   local s, e = pcall(m.get, m, 'bad')
-  tester:assert(string.match(e, 'Error: key bad not found in HashMap'))
+  tester:assert(string.match(e, 'Error: key bad not found in HashMap') ~= nil)
 end
 
 function TestMap.testRemove()
@@ -74,7 +74,7 @@ function TestMap.testRemove()
   tester:assertTableEq(t, m._map)
 
   local s, e = pcall(m.remove, m, 'bad')
-  tester:assert(string.match(e, 'Error: key bad not found in HashMap'))
+  tester:assert(string.match(e, 'Error: key bad not found in HashMap') ~= nil)
 end
 
 function TestMap.testSize()
@@ -102,6 +102,5 @@ function TestMap.testToTable()
   tester:assertTableEq({foo=1, bar=2, baz=3}, m:totable())
 end
 
-tester = torch.Tester()
 tester:add(TestMap)
 tester:run()

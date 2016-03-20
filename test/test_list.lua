@@ -1,7 +1,7 @@
 local torchlib = require 'torchlib'
 
-local TestList = {}
-local tester
+local TestList = torch.TestSuite()
+local tester = torch.Tester()
 
 local TestGeneric = {}
 
@@ -114,6 +114,5 @@ function TestList.testLinkedList()
 end
 
 
-tester = torch.Tester()
 tester:add(TestList)
 tester:run()

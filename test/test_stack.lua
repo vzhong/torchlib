@@ -1,7 +1,7 @@
 require 'torchlib'
 
-local TestStack = {}
-local tester
+local TestStack = torch.TestSuite()
+local tester = torch.Tester()
 
 function TestStack.testStack()
   local s = Stack.new()
@@ -23,6 +23,5 @@ function TestStack.testStack()
 end
 
 
-tester = torch.Tester()
 tester:add(TestStack)
 tester:run()

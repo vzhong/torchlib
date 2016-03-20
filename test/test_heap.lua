@@ -1,7 +1,7 @@
 require 'torchlib'
 
-local TestHeap = {}
-local tester
+local TestHeap = torch.TestSuite()
+local tester = torch.Tester()
 
 function TestHeap.testPush()
   local h = Heap.new()
@@ -76,6 +76,5 @@ function TestHeap.testSort()
   tester:asserteq('Heap[d(2), c(3), b(4), a(5)]', tostring(h))
 end
 
-tester = torch.Tester()
 tester:add(TestHeap)
 tester:run()

@@ -1,7 +1,7 @@
 require 'torchlib'
 
-local TestVariableTensor = {}
-local tester
+local TestVariableTensor = torch.TestSuite()
+local tester = torch.Tester()
 
 function TestVariableTensor.testSize()
   local s = VariableTensor.new()
@@ -53,7 +53,6 @@ function TestVariableTensor.testPush()
   tester:asserteq(s:size(), 100)
 end
 
-tester = torch.Tester()
 tester:add(TestVariableTensor)
 tester:run()
 
