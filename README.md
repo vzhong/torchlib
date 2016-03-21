@@ -18,7 +18,7 @@ Torchlib is namespaced locally. To use it:
 ```lua
 local tl = require 'torchlib'
 
-local m = tl.HashMap()
+local m = tl.DirectedGraph()
 ...
 ```
 
