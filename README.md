@@ -11,6 +11,17 @@ You can install `torchlib` as follows:
 
 `git clone https://github.com/vzhong/torchlib.git && cd torchlib && luarocks make`
 
+# Usage
+
+Torchlib is namespaced locally. To use it:
+
+```lua
+local tl = require 'torchlib'
+
+local m = tl.HashMap()
+...
+```
+
 # Documentation
 
 The documentation is hosted [here](http://www.victorzhong.com/torchlib/torchlib/index.html).
