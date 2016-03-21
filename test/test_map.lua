@@ -90,9 +90,9 @@ end
 
 function TestMap.testToString()
   local m = HashMap()
-  tester:asserteq('HashMap{}', tostring(m))
+  tester:asserteq('tl.HashMap{}', tostring(m))
   m:add('foo', 'bar')
-  tester:asserteq('HashMap{foo -> bar}', tostring(m))
+  tester:asserteq('tl.HashMap{foo -> bar}', tostring(m))
   m:add(1, 2)
   tostring(m)
 end

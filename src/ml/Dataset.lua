@@ -1,7 +1,9 @@
 require 'xlua'
+local util = tl.util
+local Set = tl.Set
 
 --[[ Implementation of dataset container. ]]
-local Dataset = torch.class('tl.Dataset')
+local Dataset = torch.class('tl.Dataset', 'tl.Object')
 
 
 --[[ Constructor.
@@ -112,7 +114,7 @@ end
 --[[ Returns a table of `k` folds of the dataset. ]]
 function Dataset:kfolds(k)
   local indices = torch.randperm(self:size()):long()
-  return Util.map(indices:chunk(k), function(l) return l:totable() end)
+  return util.map(indices:chunk(k), function(l) return l:totable() end)
 end
 
 --[[ Copies out a new Dataset which is a view into the current Dataset.
@@ -127,7 +129,7 @@ function Dataset:view(...)
   for i, t in ipairs(indices) do
     local fields = {}
     for _, k in ipairs(self.fields) do
-      fields[k] = Util.select(self[k], t, {forget_keys=true})
+      fields[k] = util.select(self[k], t, {forget_keys=true})
     end
     table.insert(datasets, Dataset.new(fields))
   end
@@ -162,7 +164,7 @@ end
 --[[ Sorts the examples in place by the length of the requested field. ]]
 function Dataset:sort_by_length(field)
   assert(self.fields[field], field .. ' is not a valid field')
-  local lengths = torch.Tensor(Util.map(self[field], function(a) return a:size(1) end))
+  local lengths = torch.Tensor(util.map(self[field], function(a) return a:size(1) end))
   local sorted, indices = torch.sort(lengths)
   return self:index(indices)
 end
@@ -172,7 +174,7 @@ By default `PAD` is 0.
 ]]
 function Dataset.pad(batch, PAD)
   PAD = PAD or 0
-  local lengths = torch.Tensor(Util.map(batch, function(a) return a:size(1) end))
+  local lengths = torch.Tensor(util.map(batch, function(a) return a:size(1) end))
   local min, max = lengths:min(), lengths:max()
   local X = torch.Tensor(#batch, max):fill(PAD)
   for i, x in ipairs(batch) do
@@ -200,7 +202,7 @@ function Dataset:batches(batch_size)
     if batch_start <= self:size() then
       batch_end = batch_start + batch_size - 1
       for _, k in ipairs(self.fields) do
-        batch[k] = Util.select(self[k], Util.range(batch_start, batch_end), {forget_keys=true})
+        batch[k] = util.select(self[k], util.range(batch_start, batch_end), {forget_keys=true})
       end
       batch_start = batch_end + 1
       return batch, math.min(batch_end, self:size())

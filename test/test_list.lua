@@ -105,15 +105,15 @@ end
 function TestList.testArray()
   testList(ArrayList)
   local l = ArrayList{1, 2, 3}
-  tester:asserteq('ArrayList[1, 2, 3]', tostring(l))
+  tester:asserteq('tl.ArrayList[1, 2, 3]', tostring(l))
   l = ArrayList{1, 2, 3, 1, 2, 3, 1, 2, 3, 4, 5}
-  tester:asserteq('ArrayList[1, 2, 3, 1, 2, ...]', tostring(l))
+  tester:asserteq('tl.ArrayList[1, 2, 3, 1, 2, ...]', tostring(l))
 end
 
 function TestList.testLinkedList()
   testList(LinkedList)
   local l = LinkedList{1, 2, 3}
-  tester:asserteq('LinkedList[1, 2, 3]', tostring(l))
+  tester:asserteq('tl.LinkedList[1, 2, 3]', tostring(l))
 end
 
 

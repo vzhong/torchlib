@@ -1,6 +1,12 @@
 local tl = require('torchlib')
+local Graph = tl.Graph
 local DirectedGraph = tl.DirectedGraph
 local UndirectedGraph = tl.UndirectedGraph
+local Set = tl.Set
+local util = tl.util
+
+print(DirectedGraph)
+print(UndirectedGraph)
 
 local TestDirectedGraph = torch.TestSuite()
 local TestUndirectedGraph = torch.TestSuite()
@@ -8,7 +14,7 @@ local tester = torch.Tester()
 
 
 function TestDirectedGraph.testAddNodeDirected()
-  local g = DirectedGraph.new()
+  local g = DirectedGraph()
   local na = g:addNode('a')
   local nb = g:addNode('b')
   local nc = g:addNode('c')
@@ -30,13 +36,13 @@ function TestUndirectedGraph.testAddNodeUndirected()
 
   g:connect(na, nb)
   g:connect(nc, na)
-  tester:assert(Util.tableValuesEqual({nb, nc}, g:connectionsOf(na)))
+  tester:assert(util.tableValuesEqual({nb, nc}, g:connectionsOf(na)))
   tester:assertTableEq({na}, g:connectionsOf(nc))
 end
 
 function getUndirectedGraph()
   -- figure 22.3 from CLRS
-  local g = UndirectedGraph.new()
+  local g = UndirectedGraph()
   local r = g:addNode('r')
   local s = g:addNode('s')
   local t = g:addNode('t')
@@ -119,7 +125,7 @@ end
 
 function getDirectedGraph()
   -- from CLRS fig 22.4
-  local g = DirectedGraph.new()
+  local g = DirectedGraph()
   local u = g:addNode('u')
   local v = g:addNode('v')
   local w = g:addNode('w')
@@ -139,7 +145,7 @@ end
 
 function getDirectedAcyclicGraph()
   -- from CLRS fig 22.7
-  local g = DirectedGraph.new()
+  local g = DirectedGraph()
   local undershorts = g:addNode('undershorts')
   local pants = g:addNode('pants')
   local belt = g:addNode('belt')
@@ -176,7 +182,7 @@ function TestDirectedGraph.testTopologicalSort()
   local g, undershorts, pands, belt, shirt, tie, jacket, socks, shoes, watch = getDirectedAcyclicGraph()
   local sorted = g:topologicalSort()
   -- test correctness automatically
-  -- Util.printTable(sorted)
+  -- util.printTable(sorted)
 end
 
 function TestDirectedGraph.testHasCycle()
@@ -208,7 +214,7 @@ function TestDirectedGraph.testStronglyConnectedComponents()
   local g = getDirectedGraph()
   local roots = g:stronglyConnectedComponents()
   -- test correctness automatically
-  -- Util.printTable(roots)
+  -- util.printTable(roots)
 end
 
 tester:add(TestDirectedGraph)

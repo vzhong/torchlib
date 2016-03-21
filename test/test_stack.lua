@@ -12,7 +12,7 @@ function TestStack.testStack()
   s:push(20)
   tester:asserteq(2, s:size())
 
-  tester:asserteq('Stack[10, 20]', tostring(s))
+  tester:asserteq('tl.Stack[10, 20]', tostring(s))
 
   v = s:pop()
   tester:asserteq(20, v)

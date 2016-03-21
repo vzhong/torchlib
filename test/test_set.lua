@@ -90,7 +90,7 @@ end
 function TestSet.testRemove()
   local s = Set()
   ret, err = pcall(Set.remove, s, 'bar')
-  tester:assert(string.match(err, 'Error: value bar not found in Set'))
+  tester:assert(string.match(err, 'Error: value bar not found in Set') ~= nil)
   tester:asserteq(0, s:size())
 
   s:add('bar')
@@ -142,7 +142,7 @@ end
 
 function TestSet.testToString()
   local s = Set():addMany(5, 6, 7)
-  tester:asserteq('Set(5, 6, 7)', tostring(s))
+  tester:asserteq('tl.Set(5, 6, 7)', tostring(s))
 end
 
 function TestSet.testCopy()

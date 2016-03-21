@@ -1,5 +1,6 @@
 --[[ Implementation of max heap (eg. `parent >= child`). `Heap` is a subclass of `ArrayList`. ]]
 local Heap, parent = torch.class('tl.Heap', 'tl.ArrayList')
+local Object = tl.Object
 
 --[[ Returns the parent index of `i`. ]]
 function Heap.parent(i)
@@ -85,7 +86,7 @@ function Heap:peek()
 end
 
 function Heap:tostring()
-  local s = 'Heap['
+  local s = Object.tostring(self) .. '['
   local max = 5
   for i = 1, math.min(self:size(), max) do
     local p, v = table.unpack(self:get(i))

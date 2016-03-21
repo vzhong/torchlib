@@ -1,5 +1,5 @@
 --[[ Implementation of set. ]]
-local Set = torch.class('tl.Set')
+local Set, parent = torch.class('tl.Set', 'tl.Object')
 
 --[[ Constructor. `values` is an optional table of values that is used to initialize the set. ]]
 function Set:__init(values)
@@ -55,7 +55,7 @@ end
 
 --[[ Removes `val` from the set. If `val` is not found then an error is raised. ]]
 function Set:remove(val)
-  assert(self:contains(val), 'Error: value ' .. tostring(val) .. ' not found in Set')
+  assert(self:contains(val) == true, 'Error: value ' .. tostring(val) .. ' not found in Set')
   key = Set.keyOf(val)
   val = self._map[key]
   self._map[key] = nil
@@ -119,7 +119,7 @@ end
 
 
 function Set:tostring()
-  local s = torch.type(self) .. '('
+  local s = parent.tostring(self) .. '('
   local max = 5
   local keys = self:totable()
 

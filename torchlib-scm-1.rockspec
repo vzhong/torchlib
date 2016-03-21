@@ -15,8 +15,6 @@ description = {
 }
 
 dependencies = {
-  "luasocket",
-   --"torch >= 7.0"
 }
 
 build = {

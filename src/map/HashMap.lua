@@ -1,5 +1,6 @@
 --[[ Implementation of hash map. ]]
-local HashMap = torch.class('tl.HashMap', 'tl.Map')
+local HashMap, parent = torch.class('tl.HashMap', 'tl.Map')
+local Set = tl.Set
 
 function HashMap:__init(key_values)
   self._map = {}
@@ -52,7 +53,7 @@ function HashMap:remove(key)
 end
 
 function HashMap:keySet()
-  keys = Set.new()
+  local keys = Set()
   for k, v in pairs(self._map) do
     keys:add(k)
   end
@@ -68,7 +69,7 @@ function HashMap:totable()
 end
 
 function HashMap:tostring()
-  local s = torch.type(self) .. '{'
+  local s = parent.tostring(self) .. '{'
   local max = 5
   local keys = self:keySet():totable()
 

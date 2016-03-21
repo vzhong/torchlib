@@ -1,5 +1,5 @@
 --[[ Implementation of a scorer to calculate precision/recall/f1. ]]
-local Scorer = torch.class('tl.Scorer')
+local Scorer = torch.class('tl.Scorer', 'tl.Object')
 
 --[[ Constructor.
 

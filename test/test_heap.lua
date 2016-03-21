@@ -60,10 +60,10 @@ function TestHeap.testToString()
   h:push(2, 'd')
   h:push(4, 'b')
 
-  tester:asserteq('Heap[a(5), b(4), d(2), c(3)]', tostring(h))
+  tester:asserteq('tl.Heap[a(5), b(4), d(2), c(3)]', tostring(h))
 
   h:push(4, 'v')
-  tester:asserteq('Heap[a(5), v(4), b(4), d(2), c(3), ...]', tostring(h))
+  tester:asserteq('tl.Heap[a(5), v(4), b(4), d(2), c(3), ...]', tostring(h))
 end
 
 function TestHeap.testSort()
@@ -73,7 +73,7 @@ function TestHeap.testSort()
   h:push(2, 'd')
   h:push(4, 'b')
   h:sort()
-  tester:asserteq('Heap[d(2), c(3), b(4), a(5)]', tostring(h))
+  tester:asserteq('tl.Heap[d(2), c(3), b(4), a(5)]', tostring(h))
 end
 
 tester:add(TestHeap)

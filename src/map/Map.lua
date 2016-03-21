@@ -1,5 +1,5 @@
 --[[ Abstract map. ]]
-local Map = torch.class('tl.Map')
+local Map, parent = torch.class('tl.Map', 'tl.Object')
 
 --[[ Constructor. `key_values` is an optional table that is used to initialize the map. ]]
 function Map:__init(key_values)
@@ -44,10 +44,6 @@ end
 
 --[[ Returns the map in table form. ]]
 function Map:totable()
-  error('not implemented')
-end
-
-function Map:tostring()
   error('not implemented')
 end
 

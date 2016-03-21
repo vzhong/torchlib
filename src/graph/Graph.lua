@@ -4,8 +4,13 @@ A `Graph` consists of `GraphNode`s. Each `GraphNode` can be in three states:
   - `VISITED`
   - `FINISHED`
 ]]
-local Graph = torch.class('tl.Graph')
-Graph.GraphNode = torch.class('tl.GraphNode')
+
+local HashMap = tl.HashMap
+local Set = tl.Set
+local Queue = tl.Queue
+
+local Graph, parent = torch.class('tl.Graph', 'tl.Object')
+Graph.GraphNode = torch.class('tl.GraphNode', 'tl.Object')
 
 Graph.state = {UNDISCOVERED = 1, VISITED = 2, FINISHED = 3}
 
@@ -19,7 +24,7 @@ function Graph.GraphNode:__init(val)
 end
 
 function Graph.GraphNode:tostring()
-  return 'GraphNode(' .. self.val .. ')'
+  return parent.tostring(self) .. '(' .. self.val .. ')'
 end
 
 torch.getmetatable('tl.GraphNode').__tostring__ = Graph.GraphNode.tostring
@@ -42,7 +47,7 @@ end
 --[[ Adds a node with value `val` to the graph. ]]
 function Graph:addNode(val)
   local node = Graph.GraphNode.new(val)
-  self._nodeMap:add(node, Set.new())
+  self._nodeMap:add(node, Set())
   return node
 end
 

@@ -1,5 +1,5 @@
 --[[ Implementation of a variable tensor class to efficiently store tensors of varying lengths. ]]
-local VariableTensor = torch.class('tl.VariableTensor')
+local VariableTensor = torch.class('tl.VariableTensor', 'tl.Object')
 
 require 'torch'
 

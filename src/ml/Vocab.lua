@@ -1,5 +1,5 @@
 --[[ Implementation of a vocabulary class ]]
-local Vocab = torch.class("tl.Vocab")
+local Vocab = torch.class("tl.Vocab", 'tl.Object')
 
 --[[ Constructor.
   Parameters:

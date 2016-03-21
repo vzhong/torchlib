@@ -1,5 +1,5 @@
 --[[ Abstract list. ]]
-local List = torch.class('tl.List')
+local List, parent = torch.class('tl.List', 'tl.Object')
 
 --[[ Constructor. `values` is an optional table used to initialize the list. ]]
 function List:__init(values)
@@ -125,7 +125,7 @@ function List:sort(start, finish)
 end
 
 function List:tostring()
-  local s = torch.type(self) .. '['
+  local s = parent.tostring(self) .. '['
   local max = 5
   for i = 1, math.min(self:size(), max) do
     s = s .. tostring(self:get(i))

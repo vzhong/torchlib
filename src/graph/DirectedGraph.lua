@@ -1,5 +1,8 @@
 --[[ A directed graph implementation. ]]
 local DirectedGraph = torch.class('tl.DirectedGraph', 'tl.Graph')
+local Set = tl.Set
+local Graph = tl.Graph
+local util = tl.util
 
 --[[ Connects `nodeA` to `nodeB`. ]]
 function DirectedGraph:connect(nodeA, nodeB)
@@ -57,7 +60,7 @@ function DirectedGraph:transpose()
   -- clear out the connections first
   for i = 1, #nodes do
     local node = nodes[i]
-    g._nodeMap:add(node, Set.new())
+    g._nodeMap:add(node, Set())
   end
   -- add in transpose connections
   for i = 1, #nodes do
@@ -79,7 +82,7 @@ function DirectedGraph:stronglyConnectedComponents()
   function discoverCallback(node)
     table.insert(roots, node)
   end
-  self:depthFirstSearch(Util.tableReverse(firstToLastFinish), {discover=discoverCallback})
+  self:depthFirstSearch(util.tableReverse(firstToLastFinish), {discover=discoverCallback})
   return roots
 end
 

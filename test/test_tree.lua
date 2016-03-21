@@ -1,5 +1,6 @@
 local BinarySearchTree = require('torchlib').BinarySearchTree
 local BinaryTreeNode = require('torchlib').BinaryTreeNode
+local BinarySearchTreeNode = require('torchlib').BinarySearchTreeNode
 
 local TestTree = torch.TestSuite()
 local TestBinaryTree = torch.TestSuite()
@@ -7,7 +8,7 @@ local tester = torch.Tester()
 
 function TestTree.testToString()
   local node = BinaryTreeNode(5, 'hi')
-  tester:asserteq('BinaryTreeNode<hi(5)>', tostring(node))
+  tester:asserteq('tl.BinaryTreeNode<hi(5)>', tostring(node))
 end
 
 function TestTree.testWalkInOrder()
