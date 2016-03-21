@@ -3,7 +3,7 @@ torchlib
 
 [![wercker status](https://app.wercker.com/status/c7bd97d06535598d96937e0cf5ace629/m "wercker status")](https://app.wercker.com/project/bykey/c7bd97d06535598d96937e0cf5ace629)
 
-Data structures and libraries for Torch
+Data structures and libraries for Torch. All instances are Torch-serializable. For example, you can save and reload with `torch.save` and `torch.load`.
 
 # Installation
 
