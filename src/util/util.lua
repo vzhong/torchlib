@@ -96,7 +96,7 @@ function util.tableCopy(t)
   return tab
 end
 
---[[ Returns whether table `t` contains the values `val` ]]
+--[[ Returns whether table `t` contains the values `val`. ]]
 function util.tableContains(t, val)
   for k, v in pairs(t) do
     if util.equals(v, val) then
@@ -104,6 +104,20 @@ function util.tableContains(t, val)
     end
   end
   return false
+end
+
+--[[ Flattens a table. ]]
+function util.tableFlatten(t, tab, prefix)
+  tab = tab or {}
+  prefix = prefix or ''
+  for k, v in pairs(t) do
+    if type(v) == 'table' then
+      util.tableFlatten(v, tab, prefix..k..'__')
+    else
+      tab[prefix..k] = v
+    end
+  end
+  return tab
 end
 
 --[[ Applies `callback` to each element in `t` and returns the results in another table. ]]
