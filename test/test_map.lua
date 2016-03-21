@@ -1,4 +1,4 @@
-require 'torchlib'
+local HashMap = require('torchlib').HashMap
 
 local TestMap = torch.TestSuite()
 local tester = torch.Tester()

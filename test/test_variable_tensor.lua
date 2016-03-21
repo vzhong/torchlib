@@ -1,4 +1,4 @@
-require 'torchlib'
+local VariableTensor = require('torchlib').VariableTensor
 
 local TestVariableTensor = torch.TestSuite()
 local tester = torch.Tester()
@@ -19,7 +19,7 @@ function TestVariableTensor:testBatch()
   tester:asserteq(got:size(1), 2)
   tester:asserteq(mask:size(1), 2)
   tester:assertTensorEq(mask:sum(2), torch.Tensor{5, 10}, 1e-5)
-  
+
   tester:assertTensorEq(got[1][{{1, 5}}], a, 1e-5)
   tester:assertTensorEq(got[2], b, 1e-5)
   tester:asserteq(s.max_len, 10)
@@ -55,4 +55,3 @@ end
 
 tester:add(TestVariableTensor)
 tester:run()
-

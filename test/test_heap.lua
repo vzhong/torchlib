@@ -1,4 +1,4 @@
-require 'torchlib'
+local Heap = require('torchlib').Heap
 
 local TestHeap = torch.TestSuite()
 local tester = torch.Tester()

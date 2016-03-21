@@ -1,5 +1,5 @@
 --[[ A linkedlist based implementation of queue. ]]
-local Queue, parent = torch.class('Queue', 'LinkedList')
+local Queue, parent = torch.class('tl.Queue', 'tl.LinkedList')
 function Queue:__init(values)
   parent:__init(values)
 end
@@ -15,4 +15,6 @@ function Queue:dequeue()
   return self:remove(1)
 end
 
-torch.getmetatable('Queue').__tostring__ = Queue.tostring
+torch.getmetatable('tl.Queue').__tostring__ = Queue.tostring
+
+return Queue

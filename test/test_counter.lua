@@ -1,4 +1,4 @@
-require 'torchlib'
+local Counter = require('torchlib').Counter
 
 local TestCounter = torch.TestSuite()
 local tester = torch.Tester()

@@ -1,7 +1,7 @@
 --[[ Implementation of a counter. ]]
-local Counter = torch.class('Counter')
+local Counter = torch.class('tl.Counter')
 
---[[ Constructor. ]] 
+--[[ Constructor. ]]
 function Counter:__init()
   self.counts = {}
 end

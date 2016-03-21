@@ -1,5 +1,5 @@
 --[[ Implementation of a variable tensor class to efficiently store tensors of varying lengths. ]]
-local VariableTensor = torch.class('VariableTensor')
+local VariableTensor = torch.class('tl.VariableTensor')
 
 require 'torch'
 
@@ -82,4 +82,3 @@ function VariableTensor:batch(indices, b)
 end
 
 return VariableTensor
-

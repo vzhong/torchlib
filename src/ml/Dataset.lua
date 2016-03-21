@@ -1,14 +1,13 @@
-require 'torch'
 require 'xlua'
 
 --[[ Implementation of dataset container. ]]
-local Dataset = torch.class('Dataset')
+local Dataset = torch.class('tl.Dataset')
 
 
 --[[ Constructor.
   Parameters:
   - `fields`: A table containing key value pairs.
-  
+
   Each value is a list of tensors and `value[i]` contains the value corresponding to the `i`th example.
 
   Example:
@@ -102,7 +101,7 @@ function Dataset:tostring()
   end
   return s
 end
-torch.getmetatable('Dataset').__tostring__ = Dataset.tostring
+torch.getmetatable('tl.Dataset').__tostring__ = Dataset.tostring
 
 --[[ Returns the number of examples in the dataset. ]]
 function Dataset:size()
@@ -210,3 +209,5 @@ function Dataset:batches(batch_size)
     end
   end
 end
+
+return Dataset

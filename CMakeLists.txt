@@ -9,4 +9,7 @@ ENDIF()
 FIND_PACKAGE(Torch REQUIRED)
 
 FILE(GLOB luasrc *.lua)
-ADD_TORCH_PACKAGE(torchlib "" "${luasrc}" "Torch Libs")
+ADD_TORCH_PACKAGE(torchlib "" "${luasrc}" "Torch NLP")
+
+INSTALL(DIRECTORY "src" DESTINATION "${Torch_INSTALL_LUA_PATH_SUBDIR}/torchlib")
+FILE(GLOB luasrc *.lua)

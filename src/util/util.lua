@@ -1,7 +1,8 @@
-local Util = torch.class('Util')
+tl.util = {}
+local util = tl.util
 
 --[[ Prints table `t` with indentation for nested tables. ]]
-function Util.printTable(t)
+function util.printTable(t)
     function printTableHelper(t, spacing)
         for k,v in pairs(t) do
             print(spacing..tostring(k), v)
@@ -14,7 +15,7 @@ function Util.printTable(t)
 end
 
 --[[ Returns a table of indices from `from` to `to`, incrementing by `inc`. ]]
-function Util.range(from, to, inc)
+function util.range(from, to, inc)
   inc = inc or 1
   if to == nil then
     to = from
@@ -29,7 +30,7 @@ function Util.range(from, to, inc)
 end
 
 --[[ Shuffles a table randomly. ]]
-function Util.shuffle(t)
+function util.shuffle(t)
   local iter = #t
   local j
   for i = iter, 2, -1 do
@@ -39,7 +40,7 @@ function Util.shuffle(t)
 end
 
 --[[ Returns whether two objects are equal to each other. ]]
-function Util.equals(a, b)
+function util.equals(a, b)
   if torch.type(a) ~= torch.type(b) then return false end
   if a.equals ~= nil and b.equals ~= nil then
     return a:equals(b)
@@ -48,14 +49,14 @@ function Util.equals(a, b)
 end
 
 --[[ Returns whether two tables contain identical content. ]]
-function Util.tableEquals(t1, t2)
+function util.tableEquals(t1, t2)
   for k1, v1 in pairs(t1) do
-    if not Util.equals(t2[k1], v1) then
+    if not util.equals(t2[k1], v1) then
       return false
     end
   end
   for k2, v2 in pairs(t2) do
-    if not Util.equals(t1[k2], v2) then
+    if not util.equals(t1[k2], v2) then
       return false
     end
   end
@@ -63,14 +64,14 @@ function Util.tableEquals(t1, t2)
 end
 
 --[[ Returns whether two tables contain identical values. ]]
-function Util.tableValuesEqual(t1, t2)
+function util.tableValuesEqual(t1, t2)
   for _, v1 in pairs(t1) do
-    if not Util.tableContains(t2, v1) then
+    if not util.tableContains(t2, v1) then
       return false
     end
   end
   for _, v2 in pairs(t2) do
-    if not Util.tableContains(t1, v2) then
+    if not util.tableContains(t1, v2) then
       return false
     end
   end
@@ -78,7 +79,7 @@ function Util.tableValuesEqual(t1, t2)
 end
 
 --[[ Reverses `t` into a new table and returns it. ]]
-function Util.tableReverse(t)
+function util.tableReverse(t)
   local tab = {}
   for i, e in ipairs(t) do
     table.insert(tab, 1, e)
@@ -87,7 +88,7 @@ function Util.tableReverse(t)
 end
 
 --[[ Returns a copy of table `t`. ]]
-function Util.tableCopy(t)
+function util.tableCopy(t)
   local tab = {}
   for i, e in ipairs(t) do
     table.insert(tab, e)
@@ -96,9 +97,9 @@ function Util.tableCopy(t)
 end
 
 --[[ Returns whether table `t` contains the values `val` ]]
-function Util.tableContains(t, val)
+function util.tableContains(t, val)
   for k, v in pairs(t) do
-    if Util.equals(v, val) then
+    if util.equals(v, val) then
       return true
     end
   end
@@ -106,7 +107,7 @@ function Util.tableContains(t, val)
 end
 
 --[[ Applies `callback` to each element in `t` and returns the results in another table. ]]
-function Util.map(t, callback)
+function util.map(t, callback)
   local results = {}
   for k, v in pairs(t) do
     results[k] = callback(v)
@@ -118,7 +119,7 @@ end
   Options:
   - `forget_keys`: if `true` then the new table will be an array, defaults to false
 ]]
-function Util.select(t, keys, opt)
+function util.select(t, keys, opt)
   opt = opt or {}
   local results = {}
   for _, k in ipairs(keys) do
@@ -132,7 +133,7 @@ function Util.select(t, keys, opt)
 end
 
 --[[ Extends the table `t` with another table `another` and returns the first table. ]]
-function Util.extend(t, another)
+function util.extend(t, another)
   for _, v in ipairs(another) do
     table.insert(t, v)
   end

@@ -1,4 +1,7 @@
-local torchlib = require 'torchlib'
+local tl = require('torchlib')
+local List = tl.List
+local LinkedList = tl.LinkedList
+local ArrayList = tl.ArrayList
 
 local TestList = torch.TestSuite()
 local tester = torch.Tester()

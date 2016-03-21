@@ -1,22 +1,34 @@
 require 'torch'
 
-local torchlib = {}
+tl = {}
 
-torch.include('torchlib', 'util.lua')
-torch.include('torchlib', 'list.lua')
-torch.include('torchlib', 'map.lua')
-torch.include('torchlib', 'queue.lua')
-torch.include('torchlib', 'stack.lua')
-torch.include('torchlib', 'heap.lua')
-torch.include('torchlib', 'set.lua')
-torch.include('torchlib', 'graph.lua')
-torch.include('torchlib', 'tree.lua')
-torch.include('torchlib', 'bst.lua')
-torch.include('torchlib', 'vocab.lua')
-torch.include('torchlib', 'variable_tensor.lua')
-torch.include('torchlib', 'dataset.lua')
-torch.include('torchlib', 'download.lua')
-torch.include('torchlib', 'counter.lua')
-torch.include('torchlib', 'scorer.lua')
+require('src/util/util')
+require('src/util/Download')
 
-return torchlib
+require('src/graph/Graph')
+require('src/graph/DirectedGraph')
+require('src/graph/UndirectedGraph')
+
+require('src/list/List')
+require('src/list/ArrayList')
+require('src/list/LinkedList')
+require('src/list/Queue')
+require('src/list/Heap')
+require('src/list/Stack')
+
+require('src/tree/Tree')
+require('src/tree/BinaryTree')
+require('src/tree/BinarySearchTree')
+
+require('src/map/Map')
+require('src/map/HashMap')
+require('src/map/Set')
+require('src/map/Counter')
+
+require('src/ml/Dataset')
+require('src/ml/Vocab')
+require('src/ml/GloveVocab')
+require('src/ml/Scorer')
+require('src/ml/VariableTensor')
+
+return tl

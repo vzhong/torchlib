@@ -1,11 +1,11 @@
 --[[ Binary Search Tree. An implementation of `BinaryTree`. ]]
-local BinarySearchTree, parent = torch.class('BinarySearchTree', 'BinaryTree')
+local BinarySearchTree, parent = torch.class('tl.BinarySearchTree', 'tl.BinaryTree')
 function BinarySearchTree:__init(key, val)
   parent:__init(key, val)
 end
 
 --[[ A node in the binary search tree, an implementation of `BinaryTreeNode`. ]]
-local BinarySearchTreeNode, parent = torch.class('BinarySearchTreeNode', 'BinaryTreeNode')
+local BinarySearchTreeNode, parent = torch.class('tl.BinarySearchTreeNode', 'tl.BinaryTreeNode')
 BinarySearchTreeNode.__init = parent.__init
 
 --[[ Searches for a key in the BST.
@@ -163,3 +163,5 @@ function BinarySearchTree.fake()
   t:insert(BinarySearchTreeNode.new(19))
   return t
 end
+
+return BinarySearchTree

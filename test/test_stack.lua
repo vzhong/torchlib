@@ -1,4 +1,4 @@
-require 'torchlib'
+local Stack = require('torchlib').Stack
 
 local TestStack = torch.TestSuite()
 local tester = torch.Tester()

@@ -1,4 +1,4 @@
-require 'torchlib'
+local Dataset = require('torchlib').Dataset
 
 local TestDataset = torch.TestSuite()
 local tester = torch.Tester()

@@ -1,4 +1,4 @@
-require 'torchlib'
+local Downloader = require('torchlib').Downloader
 
 local TestDownload = torch.TestSuite()
 local tester = torch.Tester()

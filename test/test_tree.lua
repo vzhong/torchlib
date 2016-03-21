@@ -1,4 +1,5 @@
-require 'torchlib'
+local BinarySearchTree = require('torchlib').BinarySearchTree
+local BinaryTreeNode = require('torchlib').BinaryTreeNode
 
 local TestTree = torch.TestSuite()
 local TestBinaryTree = torch.TestSuite()

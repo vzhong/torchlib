@@ -1,4 +1,4 @@
-require 'torchlib'
+local Set = require('torchlib').Set
 
 local TestSet = torch.TestSuite()
 local tester = torch.Tester()

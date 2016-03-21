@@ -1,4 +1,4 @@
-require 'torchlib'
+local Vocab = require('torchlib').Vocab
 
 local TestVocab = torch.TestSuite()
 local tester = torch.Tester()

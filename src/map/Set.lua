@@ -1,5 +1,5 @@
 --[[ Implementation of set. ]]
-local Set = torch.class('Set')
+local Set = torch.class('tl.Set')
 
 --[[ Constructor. `values` is an optional table of values that is used to initialize the set. ]]
 function Set:__init(values)
@@ -135,4 +135,4 @@ function Set:tostring()
   return s
 end
 
-torch.getmetatable('Set').__tostring__ = Set.tostring
+torch.getmetatable('tl.Set').__tostring__ = Set.tostring

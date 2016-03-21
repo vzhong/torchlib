@@ -1,4 +1,6 @@
-require 'torchlib'
+local tl = require('torchlib')
+local DirectedGraph = tl.DirectedGraph
+local UndirectedGraph = tl.UndirectedGraph
 
 local TestDirectedGraph = torch.TestSuite()
 local TestUndirectedGraph = torch.TestSuite()

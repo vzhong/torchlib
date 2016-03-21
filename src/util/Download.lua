@@ -1,7 +1,5 @@
 --[[ A download utility with caching support. ]]
-local Downloader = torch.class('Downloader')
-
-local http = require 'socket.http'
+local Downloader = torch.class('tl.Downloader')
 
 --[[ Constructor.
   - `cache` (optional): cache directory, defaults to `/tmp/torchlib`

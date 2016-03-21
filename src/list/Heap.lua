@@ -1,5 +1,5 @@
 --[[ Implementation of max heap (eg. `parent >= child`). `Heap` is a subclass of `ArrayList`. ]]
-local Heap, parent = torch.class('Heap', 'ArrayList')
+local Heap, parent = torch.class('tl.Heap', 'tl.ArrayList')
 
 --[[ Returns the parent index of `i`. ]]
 function Heap.parent(i)
@@ -100,4 +100,6 @@ function Heap:tostring()
   return s
 end
 
-torch.getmetatable('Heap').__tostring__ = Heap.tostring
+torch.getmetatable('tl.Heap').__tostring__ = Heap.tostring
+
+return Heap

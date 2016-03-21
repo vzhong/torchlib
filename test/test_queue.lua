@@ -1,4 +1,4 @@
-require 'torchlib'
+local Queue = require('torchlib').Queue
 
 local TestQueue = torch.TestSuite()
 local tester = torch.Tester()

@@ -1,5 +1,5 @@
 --[[ Implements a stack based on linked list. ]]
-local Stack = torch.class('Stack', 'LinkedList')
+local Stack = torch.class('tl.Stack', 'tl.LinkedList')
 
 --[[ Adds a value to the stack. ]]
 function Stack:push(val)
@@ -12,4 +12,6 @@ function Stack:pop()
   return self:remove(self:size())
 end
 
-torch.getmetatable('Stack').__tostring__ = Stack.tostring
+torch.getmetatable('tl.Stack').__tostring__ = Stack.tostring
+
+return Stack
