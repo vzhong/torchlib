@@ -90,8 +90,8 @@ end
 --[[ Returns a copy of table `t`. ]]
 function util.tableCopy(t)
   local tab = {}
-  for i, e in ipairs(t) do
-    table.insert(tab, e)
+  for k, v in pairs(t) do
+    tab[k] = v
   end
   return tab
 end
