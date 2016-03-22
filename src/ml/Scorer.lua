@@ -98,6 +98,7 @@ function Scorer:precision_recall_f1(ignore)
       end
       for _, k in ipairs{'relevant', 'retrieved', 'relevant_and_retrieved'} do
         micro[k] = micro[k] + s[k]
+        s[k] = nil
       end
     end
   end
@@ -113,6 +114,10 @@ function Scorer:precision_recall_f1(ignore)
     micro.recall = 0
     micro.f1 = 0
   end
+
+  micro.relevant = nil
+  micro.retrieved = nil
+  micro.relevant_and_retrieved = nil
 
   return micro, macro, all_stats
 end
