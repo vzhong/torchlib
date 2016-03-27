@@ -35,5 +35,6 @@ require('torchlib/src/ml/Vocab')
 require('torchlib/src/ml/GloveVocab')
 require('torchlib/src/ml/Scorer')
 require('torchlib/src/ml/VariableTensor')
+require('torchlib/src/ml/ProbTable')
 
 return tl
