@@ -7,11 +7,9 @@ function LinkedList.Node:__init(val)
   self.next = nil
 end
 
-function LinkedList.Node:tostring()
+function LinkedList.Node:__tostring__()
   return 'LinkedListNode(' .. self.val .. ')'
 end
-
-torch.getmetatable('tl.LinkedListNode').__tostring__ = LinkedList.Node.tostring
 
 function LinkedList:__init(values)
   self._sentinel = LinkedList.Node.new()

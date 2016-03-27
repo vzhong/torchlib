@@ -118,8 +118,8 @@ function Set:subtract(another)
 end
 
 
-function Set:tostring()
-  local s = parent.tostring(self) .. '('
+function Set:__tostring__()
+  local s = parent.__tostring__(self) .. '('
   local max = 5
   local keys = self:totable()
 
@@ -134,5 +134,3 @@ function Set:tostring()
   s = s .. ')'
   return s
 end
-
-torch.getmetatable('tl.Set').__tostring__ = Set.tostring

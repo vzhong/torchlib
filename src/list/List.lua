@@ -124,8 +124,8 @@ function List:sort(start, finish)
   end
 end
 
-function List:tostring()
-  local s = parent.tostring(self) .. '['
+function List:__tostring__()
+  local s = parent.__tostring__(self) .. '['
   local max = 5
   for i = 1, math.min(self:size(), max) do
     s = s .. tostring(self:get(i))
@@ -138,7 +138,5 @@ function List:tostring()
   s = s .. ']'
   return s
 end
-
-torch.getmetatable('tl.List').__tostring__ = List.tostring
 
 return List

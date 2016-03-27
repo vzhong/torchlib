@@ -85,8 +85,8 @@ function Heap:peek()
   return vlargest
 end
 
-function Heap:tostring()
-  local s = Object.tostring(self) .. '['
+function Heap:__tostring__()
+  local s = Object.__tostring__(self) .. '['
   local max = 5
   for i = 1, math.min(self:size(), max) do
     local p, v = table.unpack(self:get(i))
@@ -100,7 +100,5 @@ function Heap:tostring()
   s = s .. ']'
   return s
 end
-
-torch.getmetatable('tl.Heap').__tostring__ = Heap.tostring
 
 return Heap

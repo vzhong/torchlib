@@ -3,7 +3,7 @@ require 'torch'
 tl = {}
 
 local Object = torch.class('tl.Object')
-function Object:tostring()
+function Object:__tostring__()
   return torch.type(self)
 end
 

@@ -15,6 +15,4 @@ function Queue:dequeue()
   return self:remove(1)
 end
 
-torch.getmetatable('tl.Queue').__tostring__ = Queue.tostring
-
 return Queue

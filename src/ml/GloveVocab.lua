@@ -28,9 +28,8 @@ function GloveVocab:embeddings(t)
   return t
 end
 
-function GloveVocab:tostring()
+function GloveVocab:__tostring__()
   return "GloveVocab("..self:size()..' words, unk='..self.unk..")"
 end
-torch.getmetatable('tl.GloveVocab').__tostring__ = GloveVocab.tostring
 
 return GloveVocab

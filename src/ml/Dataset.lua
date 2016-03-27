@@ -91,7 +91,7 @@ function Dataset.from_conll(fname)
 end
 
 
-function Dataset:tostring()
+function Dataset:__tostring__()
   local s = "Dataset("
   for i, k in ipairs(self.fields) do
     s = s .. k
@@ -103,7 +103,6 @@ function Dataset:tostring()
   end
   return s
 end
-torch.getmetatable('tl.Dataset').__tostring__ = Dataset.tostring
 
 --[[ Returns the number of examples in the dataset. ]]
 function Dataset:size()

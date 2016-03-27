@@ -68,8 +68,8 @@ function HashMap:totable()
   return tab
 end
 
-function HashMap:tostring()
-  local s = parent.tostring(self) .. '{'
+function HashMap:__tostring__()
+  local s = parent.__tostring__(self) .. '{'
   local max = 5
   local keys = self:keySet():totable()
 
@@ -92,7 +92,5 @@ function HashMap:equals(another)
   end
   return true
 end
-
-torch.getmetatable('tl.HashMap').__tostring__ = HashMap.tostring
 
 return HashMap

@@ -23,11 +23,9 @@ function Graph.GraphNode:__init(val)
   self.val = val
 end
 
-function Graph.GraphNode:tostring()
-  return parent.tostring(self) .. '(' .. self.val .. ')'
+function Graph.GraphNode:__tostring__()
+  return parent.__tostring__(self) .. '(' .. self.val .. ')'
 end
-
-torch.getmetatable('tl.GraphNode').__tostring__ = Graph.GraphNode.tostring
 
 --[[ Constructor for a graph. ]]
 function Graph:__init()
