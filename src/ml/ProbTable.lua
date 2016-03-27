@@ -21,7 +21,8 @@ function ProbTable:__init(P, names)
   self.name2index = {}
   if type(names) == 'string' then
     self.names = {names}
-    self.name2index = {names=1}
+    self.name2index = {}
+    self.name2index[names] = 1
   else
     for _, name in ipairs(names) do
       table.insert(self.names, name)
@@ -29,6 +30,11 @@ function ProbTable:__init(P, names)
     end
   end
   self.P = P
+end
+
+--[[ Returns the number of variables in the table. ]]
+function ProbTable:size()
+  return self.P:nDimension()
 end
 
 --[[ Returns the probabilities for the assignments in `dict`.
@@ -112,7 +118,7 @@ function ProbTable:mul(B)
       for i, name in ipairs(names) do name2index[name] = i end
       local sizes = torch.ones(P:nDimension() + 1)
       sizes[1] = B.P:size(i)
-      P = P:repeatTensor(table.unpack(sizes:totable()))
+      P = P:repeatTensor(table.unpack(sizes:totable())):transpose(1, write)
     end
     write = write + 1
   end
@@ -128,19 +134,33 @@ function ProbTable:mul(B)
   return ProbTable.new(P, names)
 end
 
---[[ Returns a probability table with the variable `name` marginalized out. ]]
+--[[ Returns this probability table with the variable `name` marginalized out. ]]
 function ProbTable:marginalize(name)
-  local dim = assert(self.name2index[name], name .. ' is not a valid name')
-  local t = self:clone()
-  t.P = t.P:sum(dim):squeeze(dim)
-  t.name2index[name] = nil
-  for i = dim, #t.names do
-    t.names[i] = t.names[i+1]
-    if t.names[i+1] then
-      t.name2index[t.names[i+1]] = i
+  local dim = assert(self.name2index[name], tostring(name) .. ' is not a valid name')
+  self.P = self.P:sum(dim):squeeze(dim)
+  if type(self.P) == 'number' then self.P = torch.Tensor{self.P} end
+  self.name2index[name] = nil
+  for i = dim, #self.names do
+    self.names[i] = self.names[i+1]
+    if self.names[i+1] then
+      self.name2index[self.names[i+1]] = i
     end
   end
-  return t
+  return self
+end
+
+--[[ Returns the marginal for variable of `name` by marginalizing out every other variable. ]]
+function ProbTable:marginal(name)
+  assert(self.name2index[name], 'Table does not contain variable with name '..name)
+  while self:size() > 1 do
+    for i = 1, self:size() do
+      if self.names[i] ~= name then
+        self:marginalize(self.names[i])
+        break
+      end
+    end
+  end
+  return self
 end
 
 --[[ Normalizes this table by dividing by the sum of all probabilities. ]]

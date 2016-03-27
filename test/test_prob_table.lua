@@ -68,12 +68,32 @@ function TestTable.test_mul_overlap()
   tester:assertTensorEq(torch.Tensor{{0.06, 0.56}, {0.12, 0.42}, {0.03, 0.63}}, t.P, 1e-5)
 end
 
+function TestTable.test_mul1()
+  local t = Table(torch.Tensor{2, 2, 2}, 'a')
+  local tt = Table(torch.Tensor{{0.2, 0.8}, {0.4, 0.6}, {0.1, 0.9}}, {'a', 'b'})
+  local r = t:mul(tt)
+  tester:assertTableEq({'a', 'b'}, r.names)
+  tester:assertTableEq({a=1, b=2}, r.name2index)
+  tester:assertTensorEq(torch.Tensor{{0.4, 1.6}, {0.8, 1.2}, {0.2, 1.8}}, r.P, 1e-5)
+end
+
 function TestTable.test_marginalize()
   local t = t1():marginalize('a')
   tester:assertTableEq({'b'}, t.names)
   tester:assertTableEq({b=1}, t.name2index)
   tester:assertTensorEq(torch.Tensor{0.7, 2.3}, t.P, 1e-5)
   t = t1():marginalize('b')
+  tester:assertTableEq({'a'}, t.names)
+  tester:assertTableEq({a=1}, t.name2index)
+  tester:assertTensorEq(torch.Tensor{1, 1, 1}, t.P, 1e-5)
+end
+
+function TestTable:test_marginal()
+  local t = t1():marginal('b')
+  tester:assertTableEq({'b'}, t.names)
+  tester:assertTableEq({b=1}, t.name2index)
+  tester:assertTensorEq(torch.Tensor{0.7, 2.3}, t.P, 1e-5)
+  t = t1():marginal('a')
   tester:assertTableEq({'a'}, t.names)
   tester:assertTableEq({a=1}, t.name2index)
   tester:assertTensorEq(torch.Tensor{1, 1, 1}, t.P, 1e-5)
