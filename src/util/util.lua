@@ -153,3 +153,19 @@ function util.extend(t, another)
   end
   return t
 end
+
+--[[ Returns all combinations of elements in a table. ]]
+function util.combinations(input)
+  local result = {}
+  function recurse(tab, idx, ...)
+    if idx < 1 then
+      table.insert(result, table.pack(...))
+    else
+      local t = tab[idx]
+      for i = 1, #t do recurse(tab, idx-1, t[i], ...) end
+    end
+  end
+
+  recurse(input, #input)
+  return result
+end
