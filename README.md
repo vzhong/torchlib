@@ -24,5 +24,5 @@ local m = tl.DirectedGraph()
 
 # Documentation
 
-The documentation is hosted [here](http://www.victorzhong.com/torchlib/torchlib/index.html).
+The documentation is hosted [here](http://www.victorzhong.com/torchlib/tl/index.html).
 Alternatively you can build your own documentation with `torch-dokx`, which you can get [here](https://github.com/deepmind/torch-dokx).
