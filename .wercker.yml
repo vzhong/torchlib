@@ -28,3 +28,11 @@ build:
       name: test
       code: |
         ./test.sh
+    - script:
+      name: docs
+      code: mkdir docs && dokx-build-package-docs -o docs .
+deploy:
+  steps:
+    - lukevivier/gh-pages:
+      token: $GH_TOKEN
+      basedir: docs
