@@ -3,7 +3,7 @@ return {
     --filter = nil,
 
     -- exclude: pattern or table of patterns; file paths to exclude
-    exclude = { 'docs', 'test', 'build' },
+    exclude = { 'docs' },
 
     -- tocLevel: string; level of detail for table of contents for inline docs: 'class', 'function' or 'none'
     --tocLevel = 'function',

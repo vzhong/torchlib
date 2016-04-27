@@ -30,9 +30,9 @@ build:
         ./test.sh
     - script:
       name: docs
-      code: mkdir docs && dokx-build-package-docs -o docs .
+      code: ./build_docs.sh
 deploy:
   steps:
     - lukevivier/gh-pages:
       token: $GH_TOKEN
-      basedir: docs
+      basedir: build/tl/docs
