@@ -30,7 +30,9 @@ build:
         ./test.sh
     - script:
       name: docs
-      code: ./build_docs.sh
+      code: |
+        luarocks install https://raw.githubusercontent.com/deepmind/torch-dokx/master/dokx-0-0.rockspec
+        ./build_docs.sh
 deploy:
   steps:
     - lukevivier/gh-pages:
