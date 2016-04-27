@@ -5,8 +5,6 @@ local UndirectedGraph = tl.UndirectedGraph
 local Set = tl.Set
 local util = tl.util
 
-print(DirectedGraph)
-print(UndirectedGraph)
 
 local TestDirectedGraph = torch.TestSuite()
 local TestUndirectedGraph = torch.TestSuite()
