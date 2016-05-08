@@ -11,8 +11,6 @@ You can install `torchlib` as follows:
 
 `git clone https://github.com/vzhong/torchlib.git && cd torchlib && luarocks make`
 
-# Usage
-
 Torchlib is namespaced locally. To use it:
 
 ```lua
@@ -21,6 +19,8 @@ local tl = require 'torchlib'
 local m = tl.DirectedGraph()
 ...
 ```
+
+Examples and use cases are shown in the documentation.
 
 # Overview
 
