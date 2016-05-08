@@ -169,3 +169,21 @@ function util.combinations(input)
   recurse(input, #input)
   return result
 end
+
+--[[ Deep copies a table.
+from https://gist.github.com/MihailJP/3931841
+]]
+function util.deepcopy(t)
+  if type(t) ~= "table" then return t end
+  local meta = getmetatable(t)
+  local target = {}
+  for k, v in pairs(t) do
+    if type(v) == "table" then
+      target[k] = util.deepcopy(v)
+    else
+      target[k] = v
+    end
+  end
+  setmetatable(target, meta)
+  return target
+end

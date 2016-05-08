@@ -306,4 +306,37 @@ function Dataset:batches(batch_size)
   end
 end
 
+--[[ Applies transformations to fields in the dataset.
+
+Parameters:
+
+- `transforms`: a key-value map where a key is a field in the dataset and the corresponding value is a function that
+is to be applied to the requested field for each example.
+- `in_place` (default false): whether to apply the transformation in place or return a new dataset
+Example:
+
+```
+dataset = Dataset{names={'alice', 'bob', 'charlie'}, id={1, 2, 3}}
+dataset2 = dataset:transform{names=string.upper, id=function(x) return x+1 end}
+```
+
+`dataset2` is now `Dataset{names={'ALICE', 'BOB', 'CHARLIE'}, id={2, 3, 4}}` while `dataset` remains unchanged.
+
+```
+dataset = Dataset{names={'alice', 'bob', 'charlie'}, id={1, 2, 3}}
+dataset2 = dataset:transform{names=string.upper}
+```
+
+`dataset` is now `Dataset{names={'ALICE', 'BOB', 'CHARLIE'}, id={1, 2, 3}}` and `dataset2` refers to `dataset`.
+]]
+function Dataset:transform(transforms, in_place)
+  local d = self
+  if not in_place then d = tl.util.deepcopy(self) end
+  for k, f in pairs(transforms) do
+    local ex = assert(d[k], 'transform '..k..' is not a valid field')
+    for i, e in ipairs(ex) do ex[i] = f(e) end
+  end
+  return d
+end
+
 return Dataset

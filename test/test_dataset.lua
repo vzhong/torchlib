@@ -113,5 +113,19 @@ function TestDataset.test_single_batch()
   end
 end
 
+function TestDataset.test_transform()
+  local d = Dataset{names={'Alice', 'Bob'}, ids={3, 2}}
+  local d2 = d:transform{names=string.lower, ids=function(x) return x-1 end}
+  -- test not in place
+  tester:assertTableEq({'alice', 'bob'}, d2.names)
+  tester:assertTableEq({2, 1}, d2.ids)
+  tester:assertTableEq({'Alice', 'Bob'}, d.names)
+  tester:assertTableEq({3, 2}, d.ids)
+  -- test in place
+  local d2 = d:transform({names=string.lower}, true)
+  tester:assertTableEq({'alice', 'bob'}, d.names)
+  tester:assertTableEq({'alice', 'bob'}, d2.names)
+end
+
 tester:add(TestDataset)
 tester:run()
