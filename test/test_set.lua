@@ -3,6 +3,10 @@ local Set = require('torchlib').Set
 local TestSet = torch.TestSuite()
 local tester = torch.Tester()
 
+-- seed the shuffling
+torch.manualSeed(12)
+
+
 function TestSet.testAdd()
   local s = Set()
   tester:assertTableEq({}, s._map)
@@ -142,7 +146,7 @@ end
 
 function TestSet.testToString()
   local s = Set():addMany(5, 6, 7)
-  tester:asserteq('tl.Set(5, 6, 7)', tostring(s))
+  tester:asserteq('tl.Set(7, 5, 6)', tostring(s))
 end
 
 function TestSet.testCopy()

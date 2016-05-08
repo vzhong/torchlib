@@ -2,7 +2,9 @@
 local Vocab = torch.class("tl.Vocab", 'tl.Object')
 
 --[[ Constructor.
+
   Parameters:
+
   - `unk`: the symbol for the unknown token.
 ]]
 function Vocab:__init(unk)
@@ -50,9 +52,25 @@ function Vocab:add(word, count)
   return self.word2index[word]
 end
 
---[[ Returns the index of `word`. If the word is not found, then one of the following occurs:
+--[[ Returns the index of `word`.
+
+If the word is not found, then one of the following occurs:
+
   - if `add` is `true`, then `word` is added to the vocabulary with count 1 and the new index returned
+
   - otherwise, the index of the unknown token is returned
+
+
+Example:
+
+Suppose we have a vocabulary of words 'unk', 'foo' and 'bar'
+
+```
+vocab:indexOf('foo') -- returns 2
+vocab:indexOf('bar') -- returns 3
+vocab:indexOf('hello') -- returns 1 corresponding to `unk` because `hello` is not in the vocabuarly
+vocab:indexOf('hello', true) -- returns 4 because `hello` is added to the vocabulary
+```
 ]]
 function Vocab:indexOf(word, add)
   add = add or false
@@ -67,13 +85,35 @@ function Vocab:indexOf(word, add)
   return self.word2index[word]
 end
 
---[[ Returns the word at index `index`. If `index` is out of bounds then an error will be raised. ]]
+--[[ Returns the word at index `index`.
+
+If `index` is out of bounds then an error will be raised.
+
+Example:
+
+Suppose we have a vocabulary with words 'unk', 'foo', and 'bar'
+
+```
+vocab:wordAt(1) -- unk
+vocab:wordAt(2) -- foo
+vocab:wordAt(4) -- raises and error because there is no 4th word in the vocabulary
+```
+]]
 function Vocab:wordAt(index)
   assert(index <= self:size(), 'Error: attempted to get word at index ' .. index .. ' which exceeds the vocab size')
   return self.index2word[index]
 end
 
---[[ `indexOf` on a table of words. Returns a table of corresponding indices. ]]
+--[[ `indexOf` on a table of words. Returns a table of corresponding indices.
+
+Example:
+
+Suppose we have a vocabulary with words 'unk', 'foo', and 'bar'
+
+```
+vocab:indicesOf{'foo', 'bar'} -- {2, 3}
+```
+]]
 function Vocab:indicesOf(words, add)
   add = add or false
   indices = {}
@@ -83,7 +123,17 @@ function Vocab:indicesOf(words, add)
   return indices
 end
 
---[[ `indexOf` on a table of words. Returns a tensor of corresponding indices. ]]
+--[[ `indexOf` on a table of words. Returns a tensor of corresponding indices.
+
+Example:
+
+Suppose we have a vocabulary with words 'unk', 'foo', and 'bar'
+
+```
+vocab:tensorIndicesOf{'foo', 'bar'} -- torch.Tensor{2, 3}
+vocab:tensorIndicesOf{'foo', 'hi'} -- torch.Tensor{2, 1}, because `hi` is not in the vocabulary
+```
+]]
 function Vocab:tensorIndicesOf(words, add)
   add = add or false
   indices = torch.Tensor(#words)
@@ -93,7 +143,17 @@ function Vocab:tensorIndicesOf(words, add)
   return indices
 end
 
---[[ `wordAt` on a table of indices. Returns a table of corresponding words. ]]
+--[[ `wordAt` on a table of indices. Returns a table of corresponding words.
+
+Example:
+
+Suppose we have a vocabulary with words 'unk', 'foo', and 'bar'
+
+```
+vocab:wordsAt{1, 3} -- {'unk', 'bar'}
+vocab:wordsAt{1, 4} -- raises an error because there is no 4th word
+```
+]]
 function Vocab:wordsAt(indices)
   words = {}
   for i, index in ipairs(indices) do
@@ -102,7 +162,17 @@ function Vocab:wordsAt(indices)
   return words
 end
 
---[[ `wordAt` on a tensor of indices. Returns a table of corresponding words. ]]
+--[[ `wordAt` on a tensor of indices. Returns a table of corresponding words.
+
+Example:
+
+Suppose we have a vocabulary with words 'unk', 'foo', and 'bar'
+
+```
+vocab:tensorWordsAt(torch.Tensor{1, 3}) -- {'unk', 'bar'}
+vocab:tensorWordsAt(torch.Tensor{1, 4}) -- raises an error because there is no 4th word
+```
+]]
 function Vocab:tensorWordsAt(indices)
   words = {}
   for i = 1, indices:size(1) do
@@ -111,7 +181,16 @@ function Vocab:tensorWordsAt(indices)
   return words
 end
 
---[[ Returns a new vocabulary with words occurring less than `cutoff` times removed. ]]
+--[[ Returns a new vocabulary with words occurring less than `cutoff` times removed.
+
+Example:
+
+Suppose we want to forget all words that occurred less than 5 times:
+
+```
+smaller_vocab = orig_vocab:copyAndPruneRares(5)
+```
+]]
 function Vocab:copyAndPruneRares(cutoff)
   v = self.new(self.unk)
   for i, word in ipairs(self.index2word) do

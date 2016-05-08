@@ -4,7 +4,9 @@ local Scorer = torch.class('tl.Scorer', 'tl.Object')
 --[[ Constructor.
 
 Parameters:
+
 - `gold_log` (optional): If given, gold labels will be written to this file
+
 - `pred_log` (optional): If given, predicted labels will be written to this file
 
 ]]
@@ -21,8 +23,11 @@ end
 --[[ Adds a prediction/ground truth pair to the scorer.
 
 Parameters:
+
 - `gold`: ground truth label
+
 - `pred`: corresponding predicted label
+
 - `id` (optional): corresponding identifier for this example
 
 If the scorer was given the gold log and the pred log, then the pair will be written to their respective log files.
@@ -59,6 +64,7 @@ end
 --[[ Computes the precision/recall/f1 statistics for the current batch of elements.
 
 Parameters:
+
 - `ignore` (optional): If given, `ignore` is taken to be the "negative" class and its statistics will be withheld from the computation.
 
 Returns a tuple:

@@ -2,10 +2,13 @@
 local ProbTable = torch.class('tl.ProbTable')
 
 --[[ Constructor.
-parameters:
+
+Parameters:
 
 - `P`: probability Tensor, the `i`th dimension corresponds to the `i`th variable.
+
 - `names` (optional): A table of names for the variables. By default theses will be assigned using indices.
+
 
 Example:
 

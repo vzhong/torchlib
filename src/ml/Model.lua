@@ -3,12 +3,24 @@ local nn = require 'nn'
 local xlua = require 'xlua'
 local Dataset = tl.Dataset
 
---[[ Implementation of model abstraction. ]]
+--[[ Implementation of model abstract class.
+
+The idea of this class is to provide a standard interface for training/evaluating models and help avoid duplication of code.
+It is set up in a modular fashion such that a model can overwrite key components of the training process (eg. the actual
+implementation of the network via `get_net`, the criterion via `get_criterion`, how batches from the dataset are preprocessed
+via `process_batch`).
+]]
 local Model = torch.class('tl.Model')
 
 --[[ Constructor.
-  Parameters:
-  - `opt`: a key-value map of parameters for the model.
+
+Parameters:
+
+- `opt`: a key-value map of parameters for the model.
+
+If you feel the need to have a more specific constructor, you should add to the 
+implementation of the child class. In practice, it is often sufficient to overwrite
+the functions `get_net`, `get_criterion`, and `initialize`
 ]]
 function Model:__init(opt)
   self.opt = opt or {}
@@ -23,7 +35,8 @@ function Model:__init(opt)
 end
 
 --[[ Initializes the model.
-  By default, uniformly initializes all parameters to between -0.08 and 0.08 and resets gradients to 0.
+
+By default, uniformly initializes all parameters to between -0.08 and 0.08 and resets gradients to 0.
 ]]
 function Model:initialize()
   self.params:uniform(-0.08, 0.08)
@@ -31,15 +44,15 @@ function Model:initialize()
   return self
 end
 
---[[ Returns a table of required arguments.
+--[[ Returns a table of required arguments for the constructor.
 
-  By default returns empty table.
+By default returns empty table. If a required argument is not met, then the constructor will abort with an error.
 ]]
 function Model:required_params()
   return {}
 end
 
---[[ Returns a torch Module implementation of the network. ]]
+--[[ Returns a torch Module implementation of the network. You must overwrite this function. ]]
 function Model:get_net()
   error('not implemented')
 end
@@ -54,14 +67,17 @@ end
 
 --[[ Applies prepocessing to the batch object returned by `Dataset.batches`.
   
-  Parameters:
-  - `batch`: a map from `Dataset.batches`
-  - `pad`: what to use to pad variably lengthed examples in `batch.X`.
-  
-  By default, this pads the `X` field using `Dataset.pad` and converts the `Y` field to a `Tensor`.
+Parameters:
 
-  Returns the padded batch.
-  ]]
+- `batch`: a map from `Dataset.batches`
+
+- `pad`: what to use to pad variably lengthed examples in `batch.X`.
+
+By default, this pads the `X` field using `Dataset.pad` and converts the `Y` field to a `Tensor`.
+You may want to do different things here, such as convert tensors to CUDA, pad a different field etc.
+
+Returns the padded batch.
+]]
 function Model:process_batch(batch, pad)
   batch.X = Dataset.pad(batch.X, pad)
   batch.Y = torch.Tensor(batch.Y)
@@ -71,12 +87,19 @@ end
 --[[ Trains on a `Dataset` instance.
 
   Parameters:
+
   - `dataset`: a `Dataset` instance to train on.
+
   - `opt`: a key-value map of training options that specifies
+
      - `batch_size`: the number of examples per batch to fetch from `dataset`. By default this is `128`.
+
      - `silent`: whether to prevent progress updates (eg. via a progress bar). By default this is `false`.
+
      - `pad`: The integer used for padding variable lengthed sequences. By default this is `0`.
+
   - `optimize`: optimization procedure. Defaults to `optim.adam`.
+
   - `optim_opt`: options for the optimize function. Defaults to `{learningRate = 1e-3}`.
  
   Returns: average loss per example.
@@ -85,7 +108,7 @@ end
  
   ```
   d = Dataset{X = X, Y = Y}
-  model:train(d, {silent=true, batch_size=10}, optim.adam, {learningRate=1e-3})
+  loss = model:train(d, {silent=true, batch_size=10}, optim.adam, {learningRate=1e-3})
   ```
 ]]
 function Model:train(dataset, opt, optimize, optim_opt)
@@ -100,7 +123,7 @@ function Model:train(dataset, opt, optimize, optim_opt)
   self.net:training()
 
   local x, y
-  local feval = function(params)
+  self.feval = self.feval or function(params)
     if params ~= self.params then self.params:copy(params) end
     self.dparams:zero()
     local scores = self.net:forward(x)
@@ -114,7 +137,7 @@ function Model:train(dataset, opt, optimize, optim_opt)
   for batch, batch_end in dataset:batches(opt.batch_size) do
     batch = self:process_batch(batch, opt.pad)
     x, y = batch.X, batch.Y
-    _, ret = optimize(feval, self.params, {learningRate = opt.lr})
+    _, ret = optimize(self.feval, self.params, {learningRate = opt.lr})
     loss = loss + ret[1] * x:size(1)
     if not opt.silent then xlua.progress(batch_end, dataset:size()) end
   end
@@ -124,26 +147,37 @@ end
 
 --[[ Evaluates on a `Dataset` instance.
 
-  Parameters:
-  - `dataset`: a `Dataset` instance to evaluate on.
-  - `opt`: a key-value map of training options that specifies
-     - `batch_size`: the number of examples per batch to fetch from `dataset`. By default this is `128`.
-     - `silent`: whether to prevent progress updates (eg. via a progress bar). By default this is `false`.
-     - `pad`: The integer used for padding variable lengthed sequences. By default this is `0`.
- 
-  Returns a map of:
-  - `loss`: average loss per example
-  - `pred`: a `Tensor` contintaing the predictions made
-  - `targ`: a `Tensor` contintaing the ground truth
-  - `max_scores`: a `Tensor` contintaing the max scores for each prediction
-  - `raw_scores`: a `Tensor` contintaing the raw scores for each prediction
- 
-  Example:
- 
-  ```
-  d = Dataset{X = X, Y = Y}
-  model:evaluate(d, {silent=true, batch_size=10})
-  ```
+Parameters:
+
+- `dataset`: a `Dataset` instance to evaluate on.
+
+- `opt`: a key-value map of training options that specifies
+
+   - `batch_size`: the number of examples per batch to fetch from `dataset`. By default this is `128`.
+
+   - `silent`: whether to prevent progress updates (eg. via a progress bar). By default this is `false`.
+
+   - `pad`: The integer used for padding variable lengthed sequences. By default this is `0`.
+
+Returns a map of:
+
+- `loss`: average loss per example
+
+- `pred`: a `Tensor` contintaing the predictions made
+
+- `targ`: a `Tensor` contintaing the ground truth
+
+- `max_scores`: a `Tensor` contintaing the max scores for each prediction
+
+- `raw_scores`: a `Tensor` contintaing the raw scores for each prediction
+
+
+Example:
+
+```
+d = Dataset{X = X, Y = Y}
+loss, pred, targ, max_scores, raw_scores = model:evaluate(d, {silent=true, batch_size=10})
+```
 ]]
 function Model:evaluate(dataset, opt)
   opt = opt or {}
@@ -178,32 +212,64 @@ end
 
 --[[ Trains and evaluates a model.
 
-  Parameters:
-  - `dataset`: a map containing
-      - `train`: the `Dataset` to train on.
-      - `dev`: the development `Dataset` to evaluate on. Used for early stopping
-      - `test`: the `Dataset` to test on. Optional. If specified, then will be evaluated on at the end of training.
-  - `opt`: a key-value map of training options that specifies
-      - `batch_size`: the number of examples per batch to fetch from `dataset`. By default this is `128`.
-      - `silent`: whether to prevent progress updates (eg. via a progress bar). By default this is `false`.
-      - `patience`: the number of sub-optimal epochs to tolerate before early stopping. Default is `5`.
-      - `n_epoch`: the maximum number of epochs to train for. Default is `30`.
-      - `save`: where to save progress. If not specified then no saving will be done.
-  - `callbacks`: an optional map containing functions that run every epoch with the following argument:
-      - `split`: the name of the split being run
-      - `res`: the evaluation results for the split
+Parameters:
 
-      If a callback returns values, then the values will be stored in the evaluation results for that epoch
-      and printed to stdout.
-  - `progress`: a function that takes as arguments
-      - `curr`: the evaluation results for the current epoch
-      - `best`: the best evaluation result so far
+- `dataset`: a map containing
 
-      and returns whether `curr` is better than `best`. By default, this compares the `loss` field.
-  - `optim`: optimizer for `train`
-  - `optim_opt`: optimizer options for `train`
- 
-  Returns a the best evaluation results seen during training and the training history of all evaluation results.
+    - `train`: the `Dataset` to train on.
+
+    - `dev`: the development `Dataset` to evaluate on. Used for early stopping
+
+    - `test`: the `Dataset` to test on. Optional. If specified, then will be evaluated on at the end of training.
+
+- `opt`: a key-value map of training options that specifies
+
+    - `batch_size`: the number of examples per batch to fetch from `dataset`. By default this is `128`.
+
+    - `silent`: whether to prevent progress updates (eg. via a progress bar). By default this is `false`.
+
+    - `patience`: the number of sub-optimal epochs to tolerate before early stopping. Default is `5`.
+
+    - `n_epoch`: the maximum number of epochs to train for. Default is `30`.
+
+    - `save`: where to save progress. If not specified then no saving will be done.
+
+- `callbacks`: an optional map containing functions that run every epoch with the following argument:
+
+    - `split`: the name of the split being run
+
+    - `res`: the evaluation results for the split
+
+
+
+    If a callback returns values, then the values will be stored in the evaluation results for that epoch
+
+    and printed to stdout.
+
+- `progress`: a function that takes as arguments
+
+    - `curr`: the evaluation results for the current epoch
+
+    - `best`: the best evaluation result so far
+
+    and returns whether `curr` is better than `best`. By default, this compares the `loss` field.
+
+- `optim`: optimizer for `train`
+
+- `optim_opt`: optimizer options for `train`
+
+Returns a the best evaluation results seen during training and the training history of all evaluation results.
+
+Example:
+
+```
+d = {
+  train=Dataset{X = Xtrain, Y = Ytrain}, 
+  dev=Dataset{X = Xdev, Y = Ydev}, 
+  test=Dataset{X = Xtest, Y = Ytest}, 
+}
+best_scores, train_hist = model:fit(d, {silent=true, batch_size=10})
+```
 ]]
 function Model:fit(dataset, opt, callbacks, progress, optim, optim_opt)
   assert(dataset)

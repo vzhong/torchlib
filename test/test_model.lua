@@ -102,9 +102,9 @@ function TestModel.test_fit()
   optimize = optim.adam
   optim_opt = {learningRate = 1e-2}
   local best = model:fit(dataset, opt, callbacks)
-  tester:assertGeneralEq(0.2101357, best.dev.loss, 1e-5)
-  tester:assertGeneralEq(0.2766255, best.train.loss, 1e-5)
-  tester:assertGeneralEq(0.3989304, best.test.loss, 1e-5)
+  tester:assertGeneralEq(0.225155, best.dev.loss, 1e-5)
+  tester:assertGeneralEq(0.342600, best.train.loss, 1e-5)
+  tester:assertGeneralEq(0.432770, best.test.loss, 1e-5)
   tester:asserteq(opt.n_epoch, counter.train)
   tester:asserteq(opt.n_epoch, counter.dev)
   tester:asserteq(1, counter.test)

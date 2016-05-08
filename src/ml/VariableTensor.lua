@@ -4,8 +4,11 @@ local VariableTensor = torch.class('tl.VariableTensor', 'tl.Object')
 require 'torch'
 
 --[[ Constructor.
+
   Options:
+
   - `preinit_size`: how many indices to preallocate for, defaults to 1
+
   - `preinit_store_size`: how many elements to preallocate for, defaults to 1
 ]]
 function VariableTensor:__init(opt)

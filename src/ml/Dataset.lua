@@ -2,20 +2,35 @@ require 'xlua'
 local util = tl.util
 local Set = tl.Set
 
---[[ Implementation of dataset container. ]]
+--[[ Implementation of dataset container.
+
+The goal of this class is to provide utilities for manipulating generic datasets. in particular, a
+dataset can be a list of examples, each with a fixed set of fields.
+]]
 local Dataset = torch.class('tl.Dataset', 'tl.Object')
 
 
 --[[ Constructor.
-  Parameters:
-  - `fields`: A table containing key value pairs.
 
-  Each value is a list of tensors and `value[i]` contains the value corresponding to the `i`th example.
+Parameters:
 
-  Example:
-  ```
-  d = Dataset{X = X, Y = Y}
-  ```
+- `fields`: A table containing key value pairs.
+
+Each value is a list of tensors and `value[i]` contains the value corresponding to the `i`th example.
+
+Example:
+
+Suppose we have two examples, with fields `X` and `Y`. The first example has `X=[1, 2, 3], Y=1` while
+the second example has `X=[4, 5, 6, 7, 8}, Y=4`. To create a dataset:
+
+```
+X = {torch.Tensor{1, 2, 3}, torch.Tensor{4, 5, 6, 7, 8}}
+Y = {1, 4}
+d = Dataset{X = X, Y = Y}
+```
+
+Of course, in practice the fields can be arbitrary, so long as each field is a table and has an equal
+number of elements.
 ]]
 function Dataset:__init(fields)
   self.fields = {}
@@ -30,7 +45,14 @@ function Dataset:__init(fields)
 end
 
 
---[[ Creates a dataset from CONLL format. The format is as follows:
+--[[ Creates a dataset from CONLL format.
+
+Parameters:
+
+- `fname`: path to CONLL file.
+
+
+The format is as follows:
 
 ```
 # word  subj  subj_ner  obj obj_ner stanford_pos  stanford_ner  stanford_dep_edge stanford_dep_governor
@@ -43,11 +65,17 @@ Haig  SUBJECT PERSON  - - NNP PERSON  dep 1
 , - - - - , O punct 4
 US  - - - - NNP LOCATION  compound  7
 secretary - - - - NN  O appos 4
-...
 ```
 
 That is, the first line is a tab delimited header, followed by examples separated by a blank line.
 The first line of the example is the class label. The rest of the rows correspond to tokens and their associated attributes.
+
+Example:
+
+```
+dataset = Dataset.from_conll('data.conll')
+```
+
 ]]
 function Dataset.from_conll(fname)
   local file = assert(io.open(fname), fname .. ' does not exist!')
@@ -110,17 +138,34 @@ function Dataset:size()
   return #self[self.fields[1]]
 end
 
---[[ Returns a table of `k` folds of the dataset. ]]
+--[[ Returns a table of `k` folds of the dataset.
+
+Parameters:
+
+- `k`: an integer denoting how many folds to create.
+
+Each fold consists of a random table of indices corresponding to the examples in the fold.
+--]]
 function Dataset:kfolds(k)
   local indices = torch.randperm(self:size()):long()
   return util.map(indices:chunk(k), function(l) return l:totable() end)
 end
 
 --[[ Copies out a new Dataset which is a view into the current Dataset.
-  Example:
-  ```
-  a, b = dataset:view(torch.IntTensor{1, 3}, torch.IntTensor{1, 2, 3})
-  ```
+
+Parameters:
+
+- `vargs`: tables of integer indices for each view to create.
+
+Example:
+
+Suppose we already have a `dataset` and would like to split it into two datasets. We want
+the first dataset `a` to contain examples 1 and 3 of the original dataset. We want the
+second dataset `b` to contain examples 1, 2 and 3 (yes, duplicates are supported).
+
+```
+a, b = dataset:view({1, 3}, {1, 2, 3})
+```
 ]]
 function Dataset:view(...)
   local indices = table.pack(...)
@@ -135,14 +180,41 @@ function Dataset:view(...)
   return table.unpack(datasets)
 end
 
---[[ Creates a train split and a test split given the train indices. ]]
+--[[ Creates a train split and a test split given the train indices.
+
+Parameters:
+
+- `train_indices`: a table of integers. Examples in this table will be used as training,
+other examples will be used as test examples.
+
+Example:
+
+Suppose we'd like to split a `dataset` and use its 1, 2, 4 and 5th examples for training.
+
+```
+train, test = dataset:train_dev_split{1, 2, 4, 5}
+```
+--]]
 function Dataset:train_dev_split(train_indices)
   local train = Set(train_indices)
   local all = Set(torch.range(1, self:size()):totable())
   return self:view(train:totable(), all:subtract(train):totable())
 end
 
---[[ Reindexes the dataset accoring to the new indices. ]]
+--[[ Reindexes the dataset accoring to the new indices.
+
+Parameters:
+
+- `indices`: table of integer indices to re-index the dataset with.
+
+Example:
+
+Suppose we have a `dataset` of 5 examples and want to swap example 1 with example 5.
+
+```
+dataset:index{5, 2, 3, 4, 1}
+```
+--]]
 function Dataset:index(indices)
   for _, k in ipairs(self.fields) do
     local shuffled = {}
@@ -169,30 +241,53 @@ function Dataset:sort_by_length(field)
 end
 
 --[[ Prepends shorter tensors in a table of tensors with `PAD` such that each tensor in the batch are of the same length.
-By default `PAD` is 0.
+
+Parameters:
+
+- `tensors`: a table of Torch tensors of varying lengths.
+
+- `PAD` (default 0): the integer index to pad missing elements with.
+
+Example:
+
+```
+X = {torch.Tensor{1, 2, 3}, torch.Tensor{4}}
+Y = Dataset.pad(X, 0)
+```
+
+`Y` is now:
+
+```
+torch.Tensor{{1, 2, 3}, {0, 0, 4}}
+```
 ]]
-function Dataset.pad(batch, PAD)
+function Dataset.pad(tensors, PAD)
   PAD = PAD or 0
-  local lengths = torch.Tensor(util.map(batch, function(a) return a:size(1) end))
+  local lengths = torch.Tensor(util.map(tensors, function(a) return a:size(1) end))
   local min, max = lengths:min(), lengths:max()
-  local X = torch.Tensor(#batch, max):fill(PAD)
-  for i, x in ipairs(batch) do
+  local X = torch.Tensor(#tensors, max):fill(PAD)
+  for i, x in ipairs(tensors) do
     -- pad the beginning with zeros
     X[{i, {max-x:size(1)+1, max}}] = x
   end
   return X
 end
 
---[[ Creates a batch iterator over the dataset. `batch_size` is the maximum size of each batch.
+--[[ Creates a batch iterator over the dataset.
 
-  Usage:
-  ```
-  d = Dataset{X=X, Y=Y}
-  for batch, batch_end in d:batches(5) do
-    print(batch.X)
-    print(batch.Y)
-  end
-  ```
+Parameters:
+
+- `batch_size`: the maximum size of each batch.
+
+Example:
+
+```
+d = Dataset{X=X, Y=Y}
+for batch, batch_end in d:batches(5) do
+  print(batch.X)
+  print(batch.Y)
+end
+```
 ]]
 function Dataset:batches(batch_size)
   local batch_start, batch_end = 1
