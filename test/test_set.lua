@@ -145,8 +145,8 @@ function TestSet.testSubtract()
 end
 
 function TestSet.testToString()
-  local s = Set():addMany(5, 5)
-  tester:asserteq('tl.Set(5, 5)', tostring(s))
+  local s = Set():addMany(5)
+  tester:asserteq('tl.Set(5)', tostring(s))
 end
 
 function TestSet.testCopy()
