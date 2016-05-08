@@ -324,7 +324,7 @@ dataset2 = dataset:transform{names=string.upper, id=function(x) return x+1 end}
 
 ```
 dataset = Dataset{names={'alice', 'bob', 'charlie'}, id={1, 2, 3}}
-dataset2 = dataset:transform{names=string.upper}
+dataset2 = dataset:transform({names=string.upper}, true)
 ```
 
 `dataset` is now `Dataset{names={'ALICE', 'BOB', 'CHARLIE'}, id={1, 2, 3}}` and `dataset2` refers to `dataset`.
