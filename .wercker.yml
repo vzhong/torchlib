@@ -25,9 +25,11 @@ build:
       code: |
         luarocks make
     - script:
-      name: test
+      name: test and generate coverage
       code: |
-        ./test.lua
+        luarocks install luacov
+        th -lluacov test.lua
+        bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
     - script:
       name: docs
       code: |

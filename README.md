@@ -1,11 +1,13 @@
 # Torchlib
 
-
 [![wercker status](https://app.wercker.com/status/c7bd97d06535598d96937e0cf5ace629/m "wercker status")](https://app.wercker.com/project/bykey/c7bd97d06535598d96937e0cf5ace629)
+[![codecov](https://codecov.io/gh/vzhong/torchlib/branch/master/graph/badge.svg)](https://codecov.io/gh/vzhong/torchlib)
 
 Data structures and libraries for Torch. All instances are Torch serializable with `torch.save` and `torch.load`.
+[View documentation here.](http://www.victorzhong.com/torchlib/tl/index.html).
 
-# Installation
+
+## Installation
 
 You can install `torchlib` as follows:
 
@@ -22,11 +24,12 @@ local m = tl.DirectedGraph()
 
 Examples and use cases are shown in the documentation.
 
-# Overview
+
+## Overview
 
 Torchlib's can be divided into categories based on usecases.
 
-## Basic Datastructures and Algorithms
+### Basic Datastructures and Algorithms
 
 - [Graphs](http://www.victorzhong.com/torchlib/tl/index.html#tl.src.graph.DirectedGraph.dok)
 - [Lists, heaps, queues, and stacks](http://www.victorzhong.com/torchlib/tl/index.html#tl.src.list.ArrayList.dok)
@@ -34,7 +37,7 @@ Torchlib's can be divided into categories based on usecases.
 - [Sets](http://www.victorzhong.com/torchlib/tl/index.html#tl.src.set.Set.dok)
 - [Trees](http://www.victorzhong.com/torchlib/tl/index.html#tl.src.tree.BinarySearchTree.dok)
 
-## Machine Learning
+### Machine Learning
 
 The [machine learning package](http://www.victorzhong.com/torchlib/tl/index.html#tl.src.ml.dok) contains utilities that facilitate the training of and evaluation of machine learning models. These include:
 
@@ -43,11 +46,13 @@ The [machine learning package](http://www.victorzhong.com/torchlib/tl/index.html
 - [Model](http://www.victorzhong.com/torchlib/tl/index.html#tl.src.ml.Model.dok), an abstract class to facilitate the training of Torch based machine learning models
 - [Scorer](http://www.victorzhong.com/torchlib/tl/index.html#tl.src.ml.Scorer.dok), for evaluating precision/recall metrics
 
-# Documentation
+
+## Documentation
 
 The documentation is hosted [here](http://www.victorzhong.com/torchlib/tl/index.html).
 Alternatively you can build your own documentation with `torch-dokx`, which you can get [here](https://github.com/deepmind/torch-dokx).
 
-# Contribution
+
+## Contribution
 
 Pull requests are welcome! Torchlib is unit tested with the default Torch testing framework. Continuous integration is hosted on [Wercker](http://wercker.com/) which also automatically builds the documentations and deploys them on Github pages (of this repo).
