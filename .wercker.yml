@@ -27,7 +27,7 @@ build:
     - script:
       name: test
       code: |
-        ./test.sh
+        ./test.lua
     - script:
       name: docs
       code: |
