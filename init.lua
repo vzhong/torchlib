@@ -7,7 +7,9 @@ function Object:__tostring__()
   return torch.type(self)
 end
 
-require('torchlib/src/util/util')
+require('torchlib/src/util/global')
+tl.table = {}
+require('torchlib/src/util/table')
 require('torchlib/src/util/Download')
 
 require('torchlib/src/list/List')

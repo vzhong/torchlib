@@ -2,7 +2,6 @@
 local DirectedGraph = torch.class('tl.DirectedGraph', 'tl.Graph')
 local Set = tl.Set
 local Graph = tl.Graph
-local util = tl.util
 
 --[[ Connects `nodeA` to `nodeB`. ]]
 function DirectedGraph:connect(nodeA, nodeB)
@@ -82,7 +81,7 @@ function DirectedGraph:stronglyConnectedComponents()
   function discoverCallback(node)
     table.insert(roots, node)
   end
-  self:depthFirstSearch(util.tableReverse(firstToLastFinish), {discover=discoverCallback})
+  self:depthFirstSearch(tl.table.reverse(firstToLastFinish), {discover=discoverCallback})
   return roots
 end
 

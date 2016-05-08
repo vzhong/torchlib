@@ -1,8 +1,8 @@
-tl.util = {}
-local util = tl.util
+tl.table = {}
+local M = tl.table
 
 --[[ Prints table `t` with indentation for nested tables. ]]
-function util.printTable(t)
+function M.print(t)
     function printTableHelper(t, spacing)
         for k,v in pairs(t) do
             print(spacing..tostring(k), v)
@@ -14,23 +14,8 @@ function util.printTable(t)
     printTableHelper(t, "");
 end
 
---[[ Returns a table of indices from `from` to `to`, incrementing by `inc`. ]]
-function util.range(from, to, inc)
-  inc = inc or 1
-  if to == nil then
-    to = from
-    from = 1
-  end
-
-  local t = {}
-  for i = from, to, inc do
-    table.insert(t, i)
-  end
-  return t
-end
-
 --[[ Shuffles a table randomly. ]]
-function util.shuffle(t)
+function M.shuffle(t)
   local iter = #t
   local j
   for i = iter, 2, -1 do
@@ -39,24 +24,15 @@ function util.shuffle(t)
   end
 end
 
---[[ Returns whether two objects are equal to each other. ]]
-function util.equals(a, b)
-  if torch.type(a) ~= torch.type(b) then return false end
-  if a.equals ~= nil and b.equals ~= nil then
-    return a:equals(b)
-  end
-  return a == b
-end
-
 --[[ Returns whether two tables contain identical content. ]]
-function util.tableEquals(t1, t2)
+function M.equal(t1, t2)
   for k1, v1 in pairs(t1) do
-    if not util.equals(t2[k1], v1) then
+    if not tl.equals(t2[k1], v1) then
       return false
     end
   end
   for k2, v2 in pairs(t2) do
-    if not util.equals(t1[k2], v2) then
+    if not tl.equals(t1[k2], v2) then
       return false
     end
   end
@@ -64,14 +40,14 @@ function util.tableEquals(t1, t2)
 end
 
 --[[ Returns whether two tables contain identical values. ]]
-function util.tableValuesEqual(t1, t2)
+function M.valuesEqual(t1, t2)
   for _, v1 in pairs(t1) do
-    if not util.tableContains(t2, v1) then
+    if not M.contains(t2, v1) then
       return false
     end
   end
   for _, v2 in pairs(t2) do
-    if not util.tableContains(t1, v2) then
+    if not M.contains(t1, v2) then
       return false
     end
   end
@@ -79,7 +55,7 @@ function util.tableValuesEqual(t1, t2)
 end
 
 --[[ Reverses `t` into a new table and returns it. ]]
-function util.tableReverse(t)
+function M.reverse(t)
   local tab = {}
   for i, e in ipairs(t) do
     table.insert(tab, 1, e)
@@ -87,19 +63,10 @@ function util.tableReverse(t)
   return tab
 end
 
---[[ Returns a copy of table `t`. ]]
-function util.tableCopy(t)
-  local tab = {}
-  for k, v in pairs(t) do
-    tab[k] = v
-  end
-  return tab
-end
-
 --[[ Returns whether table `t` contains the values `val`. ]]
-function util.tableContains(t, val)
+function M.contains(t, val)
   for k, v in pairs(t) do
-    if util.equals(v, val) then
+    if tl.equals(v, val) then
       return true
     end
   end
@@ -107,12 +74,12 @@ function util.tableContains(t, val)
 end
 
 --[[ Flattens a table. ]]
-function util.tableFlatten(t, tab, prefix)
+function M.flatten(t, tab, prefix)
   tab = tab or {}
   prefix = prefix or ''
   for k, v in pairs(t) do
     if type(v) == 'table' then
-      util.tableFlatten(v, tab, prefix..k..'__')
+      M.flatten(v, tab, prefix..k..'__')
     else
       tab[prefix..k] = v
     end
@@ -121,7 +88,7 @@ function util.tableFlatten(t, tab, prefix)
 end
 
 --[[ Applies `callback` to each element in `t` and returns the results in another table. ]]
-function util.map(t, callback)
+function M.map(t, callback)
   local results = {}
   for k, v in pairs(t) do
     results[k] = callback(v)
@@ -133,7 +100,7 @@ end
   Options:
   - `forget_keys`: if `true` then the new table will be an array, defaults to false
 ]]
-function util.select(t, keys, opt)
+function M.select(t, keys, opt)
   opt = opt or {}
   local results = {}
   for _, k in ipairs(keys) do
@@ -147,7 +114,7 @@ function util.select(t, keys, opt)
 end
 
 --[[ Extends the table `t` with another table `another` and returns the first table. ]]
-function util.extend(t, another)
+function M.extend(t, another)
   for _, v in ipairs(another) do
     table.insert(t, v)
   end
@@ -155,7 +122,7 @@ function util.extend(t, another)
 end
 
 --[[ Returns all combinations of elements in a table. ]]
-function util.combinations(input)
+function M.combinations(input)
   local result = {}
   function recurse(tab, idx, ...)
     if idx < 1 then
@@ -168,22 +135,4 @@ function util.combinations(input)
 
   recurse(input, #input)
   return result
-end
-
---[[ Deep copies a table.
-from https://gist.github.com/MihailJP/3931841
-]]
-function util.deepcopy(t)
-  if type(t) ~= "table" then return t end
-  local meta = getmetatable(t)
-  local target = {}
-  for k, v in pairs(t) do
-    if type(v) == "table" then
-      target[k] = util.deepcopy(v)
-    else
-      target[k] = v
-    end
-  end
-  setmetatable(target, meta)
-  return target
 end

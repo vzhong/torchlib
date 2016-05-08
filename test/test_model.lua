@@ -1,6 +1,5 @@
 local Model = require('torchlib').Model
 local Dataset = require('torchlib').Dataset
-local util = require('torchlib').util
 local optim = require 'optim'
 
 local TestModel = torch.TestSuite()

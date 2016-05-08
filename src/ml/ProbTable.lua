@@ -64,7 +64,7 @@ end
 
 --[[ Returns a copy. ]]
 function ProbTable:clone()
-  local names = tl.util.tableCopy(self.names)
+  local names = tl.copy(self.names)
   local P = self.P:clone()
   return ProbTable.new(P, names)
 end
@@ -81,7 +81,7 @@ function ProbTable:__tostring__()
   for i, d in ipairs(dims) do
     dims[i] = torch.range(1, d):totable()
   end
-  for _, ind in ipairs(tl.util.combinations(dims)) do
+  for _, ind in ipairs(tl.table.combinations(dims)) do
     for _, i in ipairs(ind) do
       s = s .. i .. '\t'
     end
@@ -94,8 +94,8 @@ end
 function ProbTable:mul(B)
   -- allocate new P and name for the new product ProbTable
   local P = self.P:clone()
-  local names = tl.util.tableCopy(self.names)
-  local name2index = tl.util.tableCopy(self.name2index)
+  local names = tl.copy(self.names)
+  local name2index = tl.copy(self.name2index)
 
   -- the idea is that we will extend the new name order such that
   -- the beginning names are in the exact same order as B.names.
@@ -127,7 +127,7 @@ function ProbTable:mul(B)
   end
   local dims = B.P:size():totable()
   for i, d in ipairs(dims) do dims[i] = torch.range(1, d):totable() end
-  for _, ind in ipairs(tl.util.combinations(dims)) do
+  for _, ind in ipairs(tl.table.combinations(dims)) do
     if type(P[ind]) == 'number' then
       P[ind] = P[ind] * B.P[ind]
     else

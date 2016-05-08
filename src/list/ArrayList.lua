@@ -1,10 +1,9 @@
 --[[ Array implementation of list. ]]
 local ArrayList = torch.class('tl.ArrayList', 'tl.List')
-local util = tl.util
 
 function ArrayList:__init(values)
   values = values or {}
-  self._arr = util.tableCopy(values)
+  self._arr = tl.copy(values)
   self._size = #self._arr
 end
 

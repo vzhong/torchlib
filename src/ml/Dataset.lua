@@ -1,5 +1,4 @@
 require 'xlua'
-local util = tl.util
 local Set = tl.Set
 
 --[[ Implementation of dataset container.
@@ -148,7 +147,7 @@ Each fold consists of a random table of indices corresponding to the examples in
 --]]
 function Dataset:kfolds(k)
   local indices = torch.randperm(self:size()):long()
-  return util.map(indices:chunk(k), function(l) return l:totable() end)
+  return tl.table.map(indices:chunk(k), function(l) return l:totable() end)
 end
 
 --[[ Copies out a new Dataset which is a view into the current Dataset.
@@ -173,7 +172,7 @@ function Dataset:view(...)
   for i, t in ipairs(indices) do
     local fields = {}
     for _, k in ipairs(self.fields) do
-      fields[k] = util.select(self[k], t, {forget_keys=true})
+      fields[k] = tl.table.select(self[k], t, {forget_keys=true})
     end
     table.insert(datasets, Dataset.new(fields))
   end
@@ -235,7 +234,7 @@ end
 --[[ Sorts the examples in place by the length of the requested field. ]]
 function Dataset:sort_by_length(field)
   assert(self.fields[field], field .. ' is not a valid field')
-  local lengths = torch.Tensor(util.map(self[field], function(a) return a:size(1) end))
+  local lengths = torch.Tensor(tl.table.map(self[field], function(a) return a:size(1) end))
   local sorted, indices = torch.sort(lengths)
   return self:index(indices)
 end
@@ -263,7 +262,7 @@ torch.Tensor{{1, 2, 3}, {0, 0, 4}}
 ]]
 function Dataset.pad(tensors, PAD)
   PAD = PAD or 0
-  local lengths = torch.Tensor(util.map(tensors, function(a) return a:size(1) end))
+  local lengths = torch.Tensor(tl.table.map(tensors, function(a) return a:size(1) end))
   local min, max = lengths:min(), lengths:max()
   local X = torch.Tensor(#tensors, max):fill(PAD)
   for i, x in ipairs(tensors) do
@@ -296,7 +295,7 @@ function Dataset:batches(batch_size)
     if batch_start <= self:size() then
       batch_end = batch_start + batch_size - 1
       for _, k in ipairs(self.fields) do
-        batch[k] = util.select(self[k], util.range(batch_start, batch_end), {forget_keys=true})
+        batch[k] = tl.table.select(self[k], tl.range(batch_start, batch_end), {forget_keys=true})
       end
       batch_start = batch_end + 1
       return batch, math.min(batch_end, self:size())
@@ -331,7 +330,7 @@ dataset2 = dataset:transform({names=string.upper}, true)
 ]]
 function Dataset:transform(transforms, in_place)
   local d = self
-  if not in_place then d = tl.util.deepcopy(self) end
+  if not in_place then d = tl.deepcopy(self) end
   for k, f in pairs(transforms) do
     local ex = assert(d[k], 'transform '..k..' is not a valid field')
     for i, e in ipairs(ex) do ex[i] = f(e) end

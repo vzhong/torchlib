@@ -1,5 +1,4 @@
 local Dataset = require('torchlib').Dataset
-local util = require('torchlib').util
 
 local TestDataset = torch.TestSuite()
 local tester = torch.Tester()
@@ -29,15 +28,15 @@ local X = {T{1, 2, 3}, T{2, 3}, T{1, 3, 5, 2}}
 local Y = {2, 5, 1}
 
 local toyDataset = function()
-  return Dataset{X=util.tableCopy(X), Y=util.tableCopy(Y)}
+  return Dataset{X=tl.copy(X), Y=tl.copy(Y)}
 end
 
 function TestDataset.test_shuffle()
   local d = toyDataset()
   d:shuffle()
-  tester:assert(not util.tableEquals(d.X, X))
+  tester:assert(not tl.table.equal(d.X, X))
   for _, t in ipairs(X) do
-    tester:assert(util.tableContains(d.X, t))
+    tester:assert(tl.table.contains(d.X, t))
   end
 end
 

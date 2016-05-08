@@ -3,7 +3,6 @@ local Graph = tl.Graph
 local DirectedGraph = tl.DirectedGraph
 local UndirectedGraph = tl.UndirectedGraph
 local Set = tl.Set
-local util = tl.util
 
 
 local TestDirectedGraph = torch.TestSuite()
@@ -34,7 +33,7 @@ function TestUndirectedGraph.testAddNodeUndirected()
 
   g:connect(na, nb)
   g:connect(nc, na)
-  tester:assert(util.tableValuesEqual({nb, nc}, g:connectionsOf(na)))
+  tester:assert(tl.table.valuesEqual({nb, nc}, g:connectionsOf(na)))
   tester:assertTableEq({na}, g:connectionsOf(nc))
 end
 
@@ -180,7 +179,7 @@ function TestDirectedGraph.testTopologicalSort()
   local g, undershorts, pands, belt, shirt, tie, jacket, socks, shoes, watch = getDirectedAcyclicGraph()
   local sorted = g:topologicalSort()
   -- test correctness automatically
-  -- util.printTable(sorted)
+  -- tl.table.print(sorted)
 end
 
 function TestDirectedGraph.testHasCycle()
@@ -212,7 +211,7 @@ function TestDirectedGraph.testStronglyConnectedComponents()
   local g = getDirectedGraph()
   local roots = g:stronglyConnectedComponents()
   -- test correctness automatically
-  -- util.printTable(roots)
+  -- tl.table.print(roots)
 end
 
 tester:add(TestDirectedGraph)
