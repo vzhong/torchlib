@@ -10,6 +10,7 @@ end
 require('torchlib/src/util/global')
 tl.table = {}
 require('torchlib/src/util/table')
+require('torchlib/src/util/string')
 require('torchlib/src/util/Download')
 
 require('torchlib/src/list/List')
@@ -39,5 +40,6 @@ require('torchlib/src/ml/Scorer')
 require('torchlib/src/ml/VariableTensor')
 require('torchlib/src/ml/ProbTable')
 require('torchlib/src/ml/Model')
+require('torchlib/src/ml/Experiment')
 
 return tl
