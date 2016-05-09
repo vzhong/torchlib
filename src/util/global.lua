@@ -18,7 +18,7 @@ end
 --[[ Returns whether two objects are equal to each other. ]]
 function M.equals(a, b)
   if torch.type(a) ~= torch.type(b) then return false end
-  if a.equals ~= nil and b.equals ~= nil then
+  if type(a) == 'table' and a.equals ~= nil and type(b) == 'table' and b.equals ~= nil then
     return a:equals(b)
   end
   return a == b

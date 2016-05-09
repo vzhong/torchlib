@@ -33,7 +33,7 @@ function TestUndirectedGraph.testAddNodeUndirected()
 
   g:connect(na, nb)
   g:connect(nc, na)
-  tester:assert(tl.table.valuesEqual({nb, nc}, g:connectionsOf(na)))
+  tester:assert(table.valuesEqual({nb, nc}, g:connectionsOf(na)))
   tester:assertTableEq({na}, g:connectionsOf(nc))
 end
 
@@ -118,6 +118,11 @@ function TestUndirectedGraph.testShortestPath()
 
   got = g:shortestPath(v, y)
   tester:assertTableEq({v, r, s, w, x, y}, got)
+
+  g = UndirectedGraph()
+  r = g:addNode('r')
+  s = g:addNode('s')
+  tester:assertErrorPattern(function() g:shortestPath(r, s) end, 'Error: no path from tl.GraphNode.r. to tl.GraphNode.s.')
 end
 
 function getDirectedGraph()
@@ -179,7 +184,7 @@ function TestDirectedGraph.testTopologicalSort()
   local g, undershorts, pands, belt, shirt, tie, jacket, socks, shoes, watch = getDirectedAcyclicGraph()
   local sorted = g:topologicalSort()
   -- test correctness automatically
-  -- tl.table.print(sorted)
+  -- table.print(sorted)
 end
 
 function TestDirectedGraph.testHasCycle()
@@ -211,7 +216,7 @@ function TestDirectedGraph.testStronglyConnectedComponents()
   local g = getDirectedGraph()
   local roots = g:stronglyConnectedComponents()
   -- test correctness automatically
-  -- tl.table.print(roots)
+  -- table.print(roots)
 end
 
 tester:add(TestDirectedGraph)

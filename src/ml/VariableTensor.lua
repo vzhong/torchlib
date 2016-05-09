@@ -1,5 +1,6 @@
 --[[ Implementation of a variable tensor class to efficiently store tensors of varying lengths. ]]
 local VariableTensor = torch.class('tl.VariableTensor', 'tl.Object')
+local Dataset = tl.Dataset
 
 require 'torch'
 
@@ -64,24 +65,18 @@ function VariableTensor:get(i)
   return self.store[{{self.indices[i][1], self.indices[i][2]}}]
 end
 
---[[ Creates a zero-padded batch from tensors at the indices `indices`. `b` is an optional batch tensor that, if given, will be filled with the requested tensors. ]]
-function VariableTensor:batch(indices, b)
-  if not self.max_len then
-    local _
-    self.max_len, _ = (self.indices[{{1, self:size()}, 2}] - self.indices[{{1, self:size()}, 1}] + 1):max(1)
-    self.max_len = self.max_len[1]
-  end
+--[[ Creates a zero-padded batch from tensors at the indices `indices`.
 
-  b = b or torch.Tensor(indices:size(1), self.max_len):type(self.store:type())
-  b:fill(1)
-  local mask = b:clone():zero()
+Parameters:
 
-  for i = 1, indices:size(1) do
-    local t = self:get(indices[i])
-    b[{i, {1, t:size(1)}}]:copy(t)
-    mask[{i, {1, t:size(1)}}] = 1
-  end
-  return b:narrow(1, 1, indices:size(1)), mask:narrow(1, 1, indices:size(1))
+-`indices`: a table of integer indices.
+
+-`pad` (default 0): the number to use to pad shorter tensors.
+]]
+function VariableTensor:batch(indices, pad)
+  local b = {}
+  for _, i in ipairs(indices) do table.insert(b, self:get(i)) end
+  return Dataset.pad(b, pad)
 end
 
 return VariableTensor

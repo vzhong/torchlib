@@ -1,4 +1,21 @@
---[[ Binary Search Tree. An implementation of `BinaryTree`. ]]
+--[[ Binary Search Tree. An implementation of `BinaryTree`.
+
+Example:
+
+```
+local t = BinarySearchTree.new()
+t:insert(BinarySearchTreeNode.new(12))
+t:insert(BinarySearchTreeNode.new(5))
+t:insert(BinarySearchTreeNode.new(2))
+t:insert(BinarySearchTreeNode.new(9))
+t:insert(BinarySearchTreeNode.new(18))
+t:insert(BinarySearchTreeNode.new(15))
+t:insert(BinarySearchTreeNode.new(13))
+t:insert(BinarySearchTreeNode.new(17))
+t:insert(BinarySearchTreeNode.new(19))
+print(t)
+```
+]]
 local BinarySearchTree, parent = torch.class('tl.BinarySearchTree', 'tl.BinaryTree')
 function BinarySearchTree:__init(key, val)
   parent:__init(key, val)
@@ -132,9 +149,9 @@ function BinarySearchTree:delete(node)
   if node.left == nil then
     BinarySearchTree:transplant(node, node.right)
   elseif node.right == nil then
-    BinarySearchTree:transplant(node, node.right)
+    BinarySearchTree:transplant(node, node.left)
   else
-    local rightSubtreeMin = node.right:minimum()
+    local rightSubtreeMin = node.right:min()
     if rightSubtreeMin.parent ~= node then
       -- has two children and successor is not its right child
       self:transplant(rightSubtreeMin, rightSubtreeMin.right)
@@ -147,21 +164,6 @@ function BinarySearchTree:delete(node)
   end
   self._size = self._size - 1
   return self
-end
-
---[[ Generates a dummy BST. ]]
-function BinarySearchTree.fake()
-  local t = BinarySearchTree.new()
-  t:insert(BinarySearchTreeNode.new(12))
-  t:insert(BinarySearchTreeNode.new(5))
-  t:insert(BinarySearchTreeNode.new(2))
-  t:insert(BinarySearchTreeNode.new(9))
-  t:insert(BinarySearchTreeNode.new(18))
-  t:insert(BinarySearchTreeNode.new(15))
-  t:insert(BinarySearchTreeNode.new(13))
-  t:insert(BinarySearchTreeNode.new(17))
-  t:insert(BinarySearchTreeNode.new(19))
-  return t
 end
 
 return BinarySearchTree

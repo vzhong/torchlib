@@ -1,17 +1,19 @@
-tl.table = {}
-local M = tl.table
+local M = table
 
 --[[ Prints table `t` with indentation for nested tables. ]]
-function M.print(t)
-    function printTableHelper(t, spacing)
-        for k,v in pairs(t) do
-            print(spacing..tostring(k), v)
-            if (type(v) == "table") then
-                printTableHelper(v, spacing.."\t")
-            end
-        end
+function M.tostring(t, indent, s)
+  indent = indent or 0
+  s = s or ''
+  for k, v in pairs(t) do
+    formatting = string.rep("  ", indent) .. k .. ": "
+    if type(v) == "table" then
+      s = s .. formatting .. '\n'
+      s = M.tostring(v, indent+1, s)
+    else
+      s = s .. formatting .. tostring(v) .. '\n'
     end
-    printTableHelper(t, "");
+  end
+  return s
 end
 
 --[[ Shuffles a table randomly. ]]
@@ -25,7 +27,7 @@ function M.shuffle(t)
 end
 
 --[[ Returns whether two tables contain identical content. ]]
-function M.equal(t1, t2)
+function M.equals(t1, t2)
   for k1, v1 in pairs(t1) do
     if not tl.equals(t2[k1], v1) then
       return false
@@ -97,14 +99,15 @@ function M.map(t, callback)
 end
 
 --[[ Selects items with keys `keys` from table `t` and returns the results in another table.
-  Options:
-  - `forget_keys`: if `true` then the new table will be an array, defaults to false
+
+Parameters:
+
+  - `forget_keys` (default false): if `true` then the new table will be an array
 ]]
-function M.select(t, keys, opt)
-  opt = opt or {}
+function M.select(t, keys, forget_keys)
   local results = {}
   for _, k in ipairs(keys) do
-    if opt.forget_keys then
+    if forget_keys then
       table.insert(results, t[k])
     else
       results[k] = t[k]
@@ -121,7 +124,16 @@ function M.extend(t, another)
   return t
 end
 
---[[ Returns all combinations of elements in a table. ]]
+--[[ Returns all combinations of elements in a table.
+
+Example:
+
+```
+table.combinations{{1, 2}, {'a', 'b', 'c'}}
+```
+
+This returns `{{1, 'a'}, {1, 'b'}, {1, 'c'}, {2, 'a'}, {2, 'b'}, {2, 'c'}}`
+]]
 function M.combinations(input)
   local result = {}
   function recurse(tab, idx, ...)
@@ -134,5 +146,6 @@ function M.combinations(input)
   end
 
   recurse(input, #input)
+  for i, t in ipairs(result) do t.n = nil end
   return result
 end

@@ -67,12 +67,25 @@ Parameters:
 
 - `ignore` (optional): If given, `ignore` is taken to be the "negative" class and its statistics will be withheld from the computation.
 
+Example:
+
+```
+local s = Scorer()
+s:add_pred('a', 'b', 1)
+s:add_pred('b', 'b', 2)
+s:add_pred('c', 'a', 3)
+local micro, macro, all_stats = s:precision_recall_f1(ignore)
+```
+
 Returns a tuple:
 - `micro`: the micro averaged precision/recall/f1 statistics
 - `macro`: the macro averaged precision/recall/f1 statistics
 - `class_stats`: the precision/recall/f1 for each class
 ]]
 function Scorer:precision_recall_f1(ignore)
+  if ignore ~= nil then
+     assert(self.class2ind[ignore], 'ignore '..ignore..' is not a valid class')
+  end
   local pred = torch.Tensor(self.pred)
   local gold = torch.Tensor(self.gold)
   local all_stats = {}
@@ -97,15 +110,23 @@ function Scorer:precision_recall_f1(ignore)
   end
   local macro = {precision=0, recall=0}
   local micro = {relevant=0, retrieved=0, relevant_and_retrieved=0}
+  local n_classes = #self.ind2class
+  if ignore then n_classes = n_classes - 1 end
   for class, s in pairs(all_stats) do
     if class ~= ignore then
       for _, k in ipairs{'precision', 'recall'} do
-        macro[k] = macro[k] + s[k] / #self.ind2class
+        macro[k] = macro[k] + s[k] / n_classes
       end
       for _, k in ipairs{'relevant', 'retrieved', 'relevant_and_retrieved'} do
         micro[k] = micro[k] + s[k]
         s[k] = nil
       end
+    end
+  end
+
+  if ignore then
+    for _, k in ipairs{'relevant', 'retrieved', 'relevant_and_retrieved'} do
+      all_stats[ignore][k] = nil
     end
   end
 

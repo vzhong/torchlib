@@ -1,3 +1,4 @@
+local Map = require('torchlib').Map
 local HashMap = require('torchlib').HashMap
 
 local TestMap = torch.TestSuite()
@@ -60,8 +61,8 @@ function TestMap.testGet()
   tester:asserteq('hi', m:get(10))
   tester:asserteq('bye', m:get(20))
 
-  local s, e = pcall(m.get, m, 'bad')
-  tester:assert(string.match(e, 'Error: key bad not found in HashMap') ~= nil)
+  tester:assertErrorPattern(function() m:get('bad') end, 'Error: key bad not found in HashMap', 'get invalid key should error')
+  tester:assert(m:get('bad', true) == nil)
 end
 
 function TestMap.testRemove()
@@ -100,6 +101,13 @@ end
 function TestMap.testToTable()
   local m = HashMap{foo=1, bar=2, baz=3}
   tester:assertTableEq({foo=1, bar=2, baz=3}, m:totable())
+end
+
+function TestMap.testAbstractMethods()
+  local funcs = {'__init', 'add', 'addMany', 'copy', 'contains', 'get', 'remove', 'keySet', 'equals', 'totable'}
+  for _, fname in ipairs(funcs) do
+    tester:assertErrorPattern(Map[fname], 'not implemented', fname..' should be a virtual method')
+  end
 end
 
 tester:add(TestMap)

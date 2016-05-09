@@ -72,7 +72,7 @@ end
 
 --[[ Returns a copy of this list. ]]
 function List:copy()
-  return self.new(self.totable())
+  return self.new(self:totable())
 end
 
 --[[ Returns whether the list is empty. ]]

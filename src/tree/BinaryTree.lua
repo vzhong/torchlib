@@ -3,8 +3,8 @@ local BinaryTree = torch.class('tl.BinaryTree', 'tl.Tree')
 
 local BinaryTreeNode, parent = torch.class('tl.BinaryTreeNode', 'tl.TreeNode')
 
-function BinaryTree:__init(key, val)
-  parent:__init(key, val)
+function BinaryTreeNode:__init(key, val)
+  parent.__init(self, key, val)
   self.left = nil
   self.right = nil
 end

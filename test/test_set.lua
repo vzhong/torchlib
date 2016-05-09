@@ -113,6 +113,10 @@ function TestSet.testEquals()
   t:add(5)
   tester:asserteq(true, s:equals(t))
 
+  tester:asserteq(false, Set():addMany(1, 2):equals(Set():addMany(1)))
+  tester:asserteq(false, Set():addMany(1):equals(Set():addMany(1, 2)))
+  tester:asserteq(false, Set():addMany(1, 2):equals(Set():addMany(1, 3)))
+
   s:add(5)
   tester:asserteq(true, s:equals(t))
 
@@ -147,6 +151,8 @@ end
 function TestSet.testToString()
   local s = Set():addMany(5)
   tester:asserteq('tl.Set(5)', tostring(s))
+  s:add(6)
+  tester:assert(tostring(s) == 'tl.Set(5, 6)' or tostring(s) == 'tl.Set(6, 5)')
 end
 
 function TestSet.testCopy()

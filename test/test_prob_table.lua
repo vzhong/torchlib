@@ -106,5 +106,19 @@ function TestTable.test_normalize()
   tester:assertTensorEq(torch.Tensor{{0.2/3, 0.8/3}, {0.4/3, 0.6/3}, {0.1/3, 0.9/3}}, t.P, 1e-5)
 end
 
+function TestTable.test_tostring()
+  local t = t1()
+  local expect = [[a	b	P
+-	-	-
+1	1	0.2
+2	1	0.4
+3	1	0.1
+1	2	0.8
+2	2	0.6
+3	2	0.9
+]]
+  tester:asserteq(expect, tostring(t))
+end
+
 tester:add(TestTable)
 tester:run()

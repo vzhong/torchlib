@@ -1,5 +1,5 @@
 --[[ Implementation of a vocabulary class ]]
-local Vocab = torch.class("tl.Vocab", 'tl.Object')
+local Vocab, parent = torch.class("tl.Vocab", 'tl.Object')
 
 --[[ Constructor.
 
@@ -20,7 +20,7 @@ function Vocab:__init(unk)
 end
 
 function Vocab:__tostring__()
-  return "Vocab("..self:size()..' words, unk='..self.unk..")"
+  return parent.__tostring__(self).."("..self:size()..' words, unk='..self.unk..")"
 end
 
 --[[ Returns whether `word` is in the vocabulary. ]]

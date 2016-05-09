@@ -6,7 +6,7 @@ local Set = tl.Set
 The goal of this class is to provide utilities for manipulating generic datasets. in particular, a
 dataset can be a list of examples, each with a fixed set of fields.
 ]]
-local Dataset = torch.class('tl.Dataset', 'tl.Object')
+local Dataset, parent = torch.class('tl.Dataset', 'tl.Object')
 
 
 --[[ Constructor.
@@ -119,7 +119,7 @@ end
 
 
 function Dataset:__tostring__()
-  local s = "Dataset("
+  local s = parent.__tostring__(self) .. "("
   for i, k in ipairs(self.fields) do
     s = s .. k
     if i < #self.fields then
@@ -147,7 +147,7 @@ Each fold consists of a random table of indices corresponding to the examples in
 --]]
 function Dataset:kfolds(k)
   local indices = torch.randperm(self:size()):long()
-  return tl.table.map(indices:chunk(k), function(l) return l:totable() end)
+  return table.map(indices:chunk(k), function(l) return l:totable() end)
 end
 
 --[[ Copies out a new Dataset which is a view into the current Dataset.
@@ -172,7 +172,7 @@ function Dataset:view(...)
   for i, t in ipairs(indices) do
     local fields = {}
     for _, k in ipairs(self.fields) do
-      fields[k] = tl.table.select(self[k], t, {forget_keys=true})
+      fields[k] = table.select(self[k], t, {forget_keys=true})
     end
     table.insert(datasets, Dataset.new(fields))
   end
@@ -231,12 +231,15 @@ function Dataset:shuffle()
   return self:index(indices)
 end
 
---[[ Sorts the examples in place by the length of the requested field. ]]
+--[[ Sorts the examples in place by the length of the requested field.
+
+It is assumed that the field contains torch Tensors. Sorts in ascending order.
+]]
 function Dataset:sort_by_length(field)
-  assert(self.fields[field], field .. ' is not a valid field')
-  local lengths = torch.Tensor(tl.table.map(self[field], function(a) return a:size(1) end))
+  assert(self[field], field .. ' is not a valid field')
+  local lengths = torch.Tensor(table.map(self[field], function(a) return a:size(1) end))
   local sorted, indices = torch.sort(lengths)
-  return self:index(indices)
+  return self:index(indices:totable())
 end
 
 --[[ Prepends shorter tensors in a table of tensors with `PAD` such that each tensor in the batch are of the same length.
@@ -262,7 +265,7 @@ torch.Tensor{{1, 2, 3}, {0, 0, 4}}
 ]]
 function Dataset.pad(tensors, PAD)
   PAD = PAD or 0
-  local lengths = torch.Tensor(tl.table.map(tensors, function(a) return a:size(1) end))
+  local lengths = torch.Tensor(table.map(tensors, function(a) return a:size(1) end))
   local min, max = lengths:min(), lengths:max()
   local X = torch.Tensor(#tensors, max):fill(PAD)
   for i, x in ipairs(tensors) do
@@ -295,7 +298,7 @@ function Dataset:batches(batch_size)
     if batch_start <= self:size() then
       batch_end = batch_start + batch_size - 1
       for _, k in ipairs(self.fields) do
-        batch[k] = tl.table.select(self[k], tl.range(batch_start, batch_end), {forget_keys=true})
+        batch[k] = table.select(self[k], tl.range(batch_start, batch_end), {forget_keys=true})
       end
       batch_start = batch_end + 1
       return batch, math.min(batch_end, self:size())

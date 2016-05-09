@@ -81,7 +81,7 @@ function ProbTable:__tostring__()
   for i, d in ipairs(dims) do
     dims[i] = torch.range(1, d):totable()
   end
-  for _, ind in ipairs(tl.table.combinations(dims)) do
+  for _, ind in ipairs(table.combinations(dims)) do
     for _, i in ipairs(ind) do
       s = s .. i .. '\t'
     end
@@ -127,7 +127,7 @@ function ProbTable:mul(B)
   end
   local dims = B.P:size():totable()
   for i, d in ipairs(dims) do dims[i] = torch.range(1, d):totable() end
-  for _, ind in ipairs(tl.table.combinations(dims)) do
+  for _, ind in ipairs(table.combinations(dims)) do
     if type(P[ind]) == 'number' then
       P[ind] = P[ind] * B.P[ind]
     else

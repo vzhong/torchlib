@@ -84,12 +84,23 @@ function TestVocab.testIndexOf()
   tester:asserteq(v:indexOf('bar'), 2)
 end
 
-function TestVocab.testIndices()
+function TestVocab.testIndicesOf()
   local v = Vocab()
   v:add('foo')
 
   -- with add
   tester:assertTableEq(v:indicesOf({'foo', 'bar', 'this', 'this', 'this'}, true), {2, 3, 4, 4, 4})
+  tester:asserteq(v:count('foo'), 2)
+  tester:asserteq(v:count('bar'), 1)
+  tester:asserteq(v:count('this'), 3)
+end
+
+function TestVocab.testTensorIndicesOf()
+  local v = Vocab()
+  v:add('foo')
+
+  -- with add
+  tester:assertTensorEq(v:tensorIndicesOf({'foo', 'bar', 'this', 'this', 'this'}, true), torch.Tensor{2, 3, 4, 4, 4}, 1e-5)
   tester:asserteq(v:count('foo'), 2)
   tester:asserteq(v:count('bar'), 1)
   tester:asserteq(v:count('this'), 3)
@@ -101,6 +112,14 @@ function TestVocab.testWordsAt()
   local status, err = pcall(v.wordsAt, v, {1, 5, 3})
   tester:assert(string.match(err, 'Error: attempted to get word at index 5 which exceeds the vocab size') ~= nil)
   tester:assertTableEq(v:wordsAt({4, 2, 3}), {'this', 'foo', 'bar'})
+end
+
+function TestVocab.testTensorWordsAt()
+  local v = Vocab()
+  v:indicesOf({'foo', 'bar', 'this'}, true)
+  local status, err = pcall(v.tensorWordsAt, v, torch.Tensor{1, 5, 3})
+  tester:assert(string.match(err, 'Error: attempted to get word at index 5 which exceeds the vocab size') ~= nil)
+  tester:assertTableEq(v:tensorWordsAt(torch.Tensor{4, 2, 3}), {'this', 'foo', 'bar'})
 end
 
 function TestVocab.testCopyAndPruneRares()
@@ -115,6 +134,12 @@ function TestVocab.testCopyAndPruneRares()
   local pruned = v:copyAndPruneRares(2)
   tester:assertTableEq(pruned.counter, {unk=0, bar=2, this=3})
   tester:asserteq(pruned.unk, 'unk')
+end
+
+function TestVocab.testToString()
+  local v = Vocab('hi')
+  v:add('boo')
+  tester:asserteq('tl.Vocab(2 words, unk=hi)', tostring(v))
 end
 
 tester:add(TestVocab)

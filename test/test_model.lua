@@ -1,6 +1,7 @@
 local Model = require('torchlib').Model
 local Dataset = require('torchlib').Dataset
 local optim = require 'optim'
+local nn = require 'nn'
 
 local TestModel = torch.TestSuite()
 local tester = torch.Tester()
@@ -97,7 +98,7 @@ function TestModel.test_fit()
   local model = MyModel.new{d_in=2, d_hid=3}
   local dataset = {train=get_dataset(100), dev=get_dataset(20), test=get_dataset(10)}
   local opt, optimize, optim_opt
-  opt = {batch_size=2, silent=true, pad=0, n_epoch=10}
+  opt = {batch_size=2, silent=true, pad=0, n_epoch=10, save='./tmp'}
   optimize = optim.adam
   optim_opt = {learningRate = 1e-2}
   local best = model:fit(dataset, opt, callbacks)
@@ -107,6 +108,15 @@ function TestModel.test_fit()
   tester:asserteq(opt.n_epoch, counter.train)
   tester:asserteq(opt.n_epoch, counter.dev)
   tester:asserteq(1, counter.test)
+end
+
+function TestModel.test_default()
+  local M = torch.class('TmpModel', 'tl.Model')
+  function M:get_net() return nn.Sequential() end
+  local m = M.new()
+  tester:assertTableEq({}, m:required_params())
+  tester:assertErrorPattern(function() Model.get_net(m) end, 'not implemented')
+  tester:asserteq('nn.CrossEntropyCriterion', torch.type(m:get_criterion()))
 end
 
 tester:add(TestModel)

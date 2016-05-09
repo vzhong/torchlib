@@ -32,11 +32,12 @@ local toyDataset = function()
 end
 
 function TestDataset.test_shuffle()
-  local d = toyDataset()
+  local x = {1, 2, 3, 4, 5, 6, 7}
+  local d = Dataset{x=x}
   d:shuffle()
-  tester:assert(not tl.table.equal(d.X, X))
-  for _, t in ipairs(X) do
-    tester:assert(tl.table.contains(d.X, t))
+  tester:assertTableNe(x, d.x)
+  for _, t in ipairs(x) do
+    tester:assert(table.contains(d.x, t))
   end
 end
 
@@ -124,6 +125,23 @@ function TestDataset.test_transform()
   local d2 = d:transform({names=string.lower}, true)
   tester:assertTableEq({'alice', 'bob'}, d.names)
   tester:assertTableEq({'alice', 'bob'}, d2.names)
+end
+
+function TestDataset.test_tostring()
+  local d = Dataset{names={'Alice', 'Bob'}, ids={3, 2}}
+  tester:assert('tl.Dataset(names, ids) of size 2' == tostring(d) or 'tl.Dataset(ids, names) of size 2' == tostring(d))
+end
+
+function TestDataset.test_sort_by_length()
+  local a, b, c = torch.rand(3), torch.rand(2), torch.rand(4)
+  local d = Dataset{a={a, b, c}, b={1, 2, 3}}
+  d:sort_by_length('a')
+  tester:asserteq(d.a[1], b)
+  tester:asserteq(d.b[1], 2)
+  tester:asserteq(d.a[2], a)
+  tester:asserteq(d.b[2], 1)
+  tester:asserteq(d.a[3], c)
+  tester:asserteq(d.b[3], 3)
 end
 
 tester:add(TestDataset)

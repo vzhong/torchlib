@@ -81,7 +81,7 @@ function DirectedGraph:stronglyConnectedComponents()
   function discoverCallback(node)
     table.insert(roots, node)
   end
-  self:depthFirstSearch(tl.table.reverse(firstToLastFinish), {discover=discoverCallback})
+  self:depthFirstSearch(table.reverse(firstToLastFinish), {discover=discoverCallback})
   return roots
 end
 
