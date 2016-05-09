@@ -1,10 +1,11 @@
 # Torchlib
 
 [![wercker status](https://app.wercker.com/status/c7bd97d06535598d96937e0cf5ace629/m "wercker status")](https://app.wercker.com/project/bykey/c7bd97d06535598d96937e0cf5ace629)
+
 [![codecov](https://codecov.io/gh/vzhong/torchlib/branch/master/graph/badge.svg)](https://codecov.io/gh/vzhong/torchlib)
 
 Data structures and libraries for Torch. All instances are Torch serializable with `torch.save` and `torch.load`.
-[View documentation here.](http://www.victorzhong.com/torchlib/tl/index.html).
+[View documentation here](http://www.victorzhong.com/torchlib/tl/index.html).
 
 
 ## Installation
@@ -39,13 +40,13 @@ Torchlib's can be divided into categories based on usecases.
 
 ### Machine Learning
 
-The [machine learning package](http://www.victorzhong.com/torchlib/tl/index.html#tl.src.ml.dok) contains utilities that facilitate the training of and evaluation of machine learning models. These include:
+The [machine learning package](http://www.victorzhong.com/torchlib/tl/index.html#tl.src.ml.Dataset.dok) contains utilities that facilitate the training of and evaluation of machine learning models. These include:
 
 - [Dataset](http://www.victorzhong.com/torchlib/tl/index.html#tl.src.ml.Dataset.dok), which provides mechanisms for subsampling, shuffling, batching of arbitrary examples.
 - [Vocab](http://www.victorzhong.com/torchlib/tl/index.html#tl.src.ml.Vocab.dok), for mapping between indices and words
 - [Model](http://www.victorzhong.com/torchlib/tl/index.html#tl.src.ml.Model.dok), an abstract class to facilitate the training of Torch based machine learning models
 - [Scorer](http://www.victorzhong.com/torchlib/tl/index.html#tl.src.ml.Scorer.dok), for evaluating precision/recall metrics
-
+- [Experiment](http://www.victorzhong.com/torchlib/tl/index.html#tl.src.ml.Experiment.dok), for logging experiment progress to a postgres instance.
 
 ## Documentation
 
