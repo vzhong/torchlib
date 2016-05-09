@@ -40,7 +40,7 @@ Torchlib's can be divided into categories based on usecases.
 
 ### Machine Learning
 
-The [machine learning package](http://www.victorzhong.com/torchlib/tl/index.html#tl.src.ml.dok) contains utilities that facilitate the training of and evaluation of machine learning models. These include:
+The [machine learning package](http://www.victorzhong.com/torchlib/tl/index.html#tl.src.ml.Dataset.dok) contains utilities that facilitate the training of and evaluation of machine learning models. These include:
 
 - [Dataset](http://www.victorzhong.com/torchlib/tl/index.html#tl.src.ml.Dataset.dok), which provides mechanisms for subsampling, shuffling, batching of arbitrary examples.
 - [Vocab](http://www.victorzhong.com/torchlib/tl/index.html#tl.src.ml.Vocab.dok), for mapping between indices and words
