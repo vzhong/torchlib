@@ -32,9 +32,20 @@ Parameters:
 
 - `name`: name of the experiment.
 
+- `username` (optional): username for postgres
+
+- `password` (optional): password for postgres
+
+- `hostname` (optional): hostname for postgres
+
+- `port` (optional): port for postgres
+
 It is assumed that a database with this name also exists and the user has permission to connect to it.
+For more information on the parameters for postgres, see:
+
+http://keplerproject.github.io/luasql/manual.html#postgres_extensions
 ]]
-function Experiment:__init(name)
+function Experiment:__init(name, username, password, hostname, port)
   self.name = assert(name, 'name must be given')
 
   -- lazily load driver and postgres
@@ -44,7 +55,7 @@ function Experiment:__init(name)
   end
 
   -- connect to the database
-  self.conn = assert(postgres:connect(self.name), 'cannot connect to database '..self.name)
+  self.conn = assert(postgres:connect(self.name, username, password, hostname, port), 'cannot connect to database '..self.name)
 
   -- check whether needed table exist
   if not pcall(function()
@@ -85,6 +96,7 @@ function Experiment:setup()
     )]])
 end
 
+--[[ Drops tables for this experiment. ]]
 function Experiment:delete()
   self:query('DROP TABLE IF EXISTS runs CASCADE')
   self:query('DROP TABLE IF EXISTS scores')
