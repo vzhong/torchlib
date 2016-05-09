@@ -9,6 +9,27 @@ The idea of this class is to provide a standard interface for training/evaluatin
 It is set up in a modular fashion such that a model can overwrite key components of the training process (eg. the actual
 implementation of the network via `get_net`, the criterion via `get_criterion`, how batches from the dataset are preprocessed
 via `process_batch`).
+
+Example:
+
+```
+local MyModel = torch.class('MyModel', 'tl.Model')
+
+function MyModel:required_params()
+  return {'d_in', 'd_hid'}
+end
+
+function MyModel:get_net()
+  return nn.Sequential()
+      :add(nn.Linear(self.opt.d_in, self.opt.d_hid))
+      :add(nn.Tanh())
+      :add(nn.Linear(self.opt.d_hid, 1))
+end
+
+function MyModel:get_criterion()
+  return nn.MSECriterion()
+end
+```
 ]]
 local Model = torch.class('tl.Model')
 
