@@ -1,14 +1,12 @@
-local M = table
-
 --[[ Prints table `t` with indentation for nested tables. ]]
-function M.tostring(t, indent, s)
+function table.tostring(t, indent, s)
   indent = indent or 0
   s = s or ''
   for k, v in pairs(t) do
     formatting = string.rep("  ", indent) .. k .. ": "
     if type(v) == "table" then
       s = s .. formatting .. '\n'
-      s = M.tostring(v, indent+1, s)
+      s = table.tostring(v, indent+1, s)
     else
       s = s .. formatting .. tostring(v) .. '\n'
     end
@@ -17,7 +15,7 @@ function M.tostring(t, indent, s)
 end
 
 --[[ Shuffles a table randomly. ]]
-function M.shuffle(t)
+function table.shuffle(t)
   local iter = #t
   local j
   for i = iter, 2, -1 do
@@ -27,7 +25,7 @@ function M.shuffle(t)
 end
 
 --[[ Returns whether two tables contain identical content. ]]
-function M.equals(t1, t2)
+function table.equals(t1, t2)
   for k1, v1 in pairs(t1) do
     if not tl.equals(t2[k1], v1) then
       return false
@@ -42,14 +40,14 @@ function M.equals(t1, t2)
 end
 
 --[[ Returns whether two tables contain identical values. ]]
-function M.valuesEqual(t1, t2)
+function table.valuesEqual(t1, t2)
   for _, v1 in pairs(t1) do
-    if not M.contains(t2, v1) then
+    if not table.contains(t2, v1) then
       return false
     end
   end
   for _, v2 in pairs(t2) do
-    if not M.contains(t1, v2) then
+    if not table.contains(t1, v2) then
       return false
     end
   end
@@ -57,7 +55,7 @@ function M.valuesEqual(t1, t2)
 end
 
 --[[ Reverses `t` into a new table and returns it. ]]
-function M.reverse(t)
+function table.reverse(t)
   local tab = {}
   for i, e in ipairs(t) do
     table.insert(tab, 1, e)
@@ -66,7 +64,7 @@ function M.reverse(t)
 end
 
 --[[ Returns whether table `t` contains the values `val`. ]]
-function M.contains(t, val)
+function table.contains(t, val)
   for k, v in pairs(t) do
     if tl.equals(v, val) then
       return true
@@ -76,12 +74,12 @@ function M.contains(t, val)
 end
 
 --[[ Flattens a table. ]]
-function M.flatten(t, tab, prefix)
+function table.flatten(t, tab, prefix)
   tab = tab or {}
   prefix = prefix or ''
   for k, v in pairs(t) do
     if type(v) == 'table' then
-      M.flatten(v, tab, prefix..k..'__')
+      table.flatten(v, tab, prefix..k..'__')
     else
       tab[prefix..k] = v
     end
@@ -90,7 +88,7 @@ function M.flatten(t, tab, prefix)
 end
 
 --[[ Applies `callback` to each element in `t` and returns the results in another table. ]]
-function M.map(t, callback)
+function table.map(t, callback)
   local results = {}
   for k, v in pairs(t) do
     results[k] = callback(v)
@@ -104,7 +102,7 @@ Parameters:
 
   - `forget_keys` (default false): if `true` then the new table will be an array
 ]]
-function M.select(t, keys, forget_keys)
+function table.select(t, keys, forget_keys)
   local results = {}
   for _, k in ipairs(keys) do
     if forget_keys then
@@ -117,7 +115,7 @@ function M.select(t, keys, forget_keys)
 end
 
 --[[ Extends the table `t` with another table `another` and returns the first table. ]]
-function M.extend(t, another)
+function table.extend(t, another)
   for _, v in ipairs(another) do
     table.insert(t, v)
   end
@@ -134,7 +132,7 @@ table.combinations{{1, 2}, {'a', 'b', 'c'}}
 
 This returns `{{1, 'a'}, {1, 'b'}, {1, 'c'}, {2, 'a'}, {2, 'b'}, {2, 'c'}}`
 ]]
-function M.combinations(input)
+function table.combinations(input)
   local result = {}
   function recurse(tab, idx, ...)
     if idx < 1 then

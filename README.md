@@ -4,8 +4,9 @@
 
 [![codecov](https://codecov.io/gh/vzhong/torchlib/branch/master/graph/badge.svg)](https://codecov.io/gh/vzhong/torchlib)
 
+[View documentation](http://www.victorzhong.com/torchlib/tl/index.html).
+
 Data structures and libraries for Torch. All instances are Torch serializable with `torch.save` and `torch.load`.
-[View documentation here](http://www.victorzhong.com/torchlib/tl/index.html).
 
 
 ## Installation
@@ -47,6 +48,13 @@ The [machine learning package](http://www.victorzhong.com/torchlib/tl/index.html
 - [Model](http://www.victorzhong.com/torchlib/tl/index.html#tl.src.ml.Model.dok), an abstract class to facilitate the training of Torch based machine learning models
 - [Scorer](http://www.victorzhong.com/torchlib/tl/index.html#tl.src.ml.Scorer.dok), for evaluating precision/recall metrics
 - [Experiment](http://www.victorzhong.com/torchlib/tl/index.html#tl.src.ml.Experiment.dok), for logging experiment progress to a postgres instance.
+
+### Utilities
+
+- [Downloader](http://www.victorzhong.com/torchlib/tl/index.html#tl.Downloader), for downloading content via http.
+- [Global](http://www.victorzhong.com/torchlib/tl/index.html#tl.range), global convenience functions namespaced under `tl`.
+- [String](http://www.victorzhong.com/torchlib/tl/index.html#tl.string.startswith), string convenience functions namespaced under `tl.string` and monkeypatched into `string`.
+- [Table](http://www.victorzhong.com/torchlib/tl/index.html#tl.table.tostring), table convenience functions namespaced under `tl.table` and monkeypatched into `table`.
 
 ## Documentation
 
