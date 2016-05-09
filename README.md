@@ -1,10 +1,11 @@
 # Torchlib
 
 [![wercker status](https://app.wercker.com/status/c7bd97d06535598d96937e0cf5ace629/m "wercker status")](https://app.wercker.com/project/bykey/c7bd97d06535598d96937e0cf5ace629)
+
 [![codecov](https://codecov.io/gh/vzhong/torchlib/branch/master/graph/badge.svg)](https://codecov.io/gh/vzhong/torchlib)
 
 Data structures and libraries for Torch. All instances are Torch serializable with `torch.save` and `torch.load`.
-[View documentation here.](http://www.victorzhong.com/torchlib/tl/index.html).
+[View documentation here](http://www.victorzhong.com/torchlib/tl/index.html).
 
 
 ## Installation
