@@ -46,7 +46,7 @@ The [machine learning package](http://www.victorzhong.com/torchlib/tl/index.html
 - [Vocab](http://www.victorzhong.com/torchlib/tl/index.html#tl.src.ml.Vocab.dok), for mapping between indices and words
 - [Model](http://www.victorzhong.com/torchlib/tl/index.html#tl.src.ml.Model.dok), an abstract class to facilitate the training of Torch based machine learning models
 - [Scorer](http://www.victorzhong.com/torchlib/tl/index.html#tl.src.ml.Scorer.dok), for evaluating precision/recall metrics
-
+- [Experiment](http://www.victorzhong.com/torchlib/tl/index.html#tl.src.ml.Experiment.dok), for logging experiment progress to a postgres instance.
 
 ## Documentation
 
