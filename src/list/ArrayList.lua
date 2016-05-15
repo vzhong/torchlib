@@ -1,4 +1,7 @@
---[[ Array implementation of list. ]]
+--- @module ArrayList
+-- Array list implementation.
+-- This is a subclass of `List`.
+
 local ArrayList = torch.class('tl.ArrayList', 'tl.List')
 
 function ArrayList:__init(values)

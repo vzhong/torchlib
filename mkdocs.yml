@@ -1,0 +1,42 @@
+copyright: Copyright 2016 Victor Zhong (victor@victorzhong.com)
+site_description: Documentation for torchlib
+repo_name: https://github.com/vzhong/torchlib
+site_author: Victor Zhong (victor@victorzhong.com)
+site_name: torchlib
+pages:
+- 'Home': 'index.md'
+- graph:
+  - 'DirectedGraph': 'graph/DirectedGraph.md'
+  - 'Graph': 'graph/Graph.md'
+  - 'UndirectedGraph': 'graph/UndirectedGraph.md'
+- list:
+  - 'ArrayList': 'list/ArrayList.md'
+  - 'Heap': 'list/Heap.md'
+  - 'LinkedList': 'list/LinkedList.md'
+  - 'List': 'list/List.md'
+  - 'Queue': 'list/Queue.md'
+  - 'Stack': 'list/Stack.md'
+- map:
+  - 'Counter': 'map/Counter.md'
+  - 'HashMap': 'map/HashMap.md'
+  - 'Map': 'map/Map.md'
+- ml:
+  - 'Dataset': 'ml/Dataset.md'
+  - 'Experiment': 'ml/Experiment.md'
+  - 'GloveVocab': 'ml/GloveVocab.md'
+  - 'Model': 'ml/Model.md'
+  - 'ProbTable': 'ml/ProbTable.md'
+  - 'Scorer': 'ml/Scorer.md'
+  - 'VariableTensor': 'ml/VariableTensor.md'
+  - 'Vocab': 'ml/Vocab.md'
+- set:
+  - 'Set': 'set/Set.md'
+- tree:
+  - 'BinarySearchTree': 'tree/BinarySearchTree.md'
+  - 'BinaryTree': 'tree/BinaryTree.md'
+  - 'Tree': 'tree/Tree.md'
+- util:
+  - 'Download': 'util/Download.md'
+  - 'global': 'util/global.md'
+  - 'string': 'util/string.md'
+  - 'table': 'util/table.md'

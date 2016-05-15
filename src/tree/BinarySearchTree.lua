@@ -1,37 +1,15 @@
---[[ Binary Search Tree. An implementation of `BinaryTree`.
+local torch = require 'torch'
 
-Example:
-
-```
-local t = BinarySearchTree.new()
-t:insert(BinarySearchTreeNode.new(12))
-t:insert(BinarySearchTreeNode.new(5))
-t:insert(BinarySearchTreeNode.new(2))
-t:insert(BinarySearchTreeNode.new(9))
-t:insert(BinarySearchTreeNode.new(18))
-t:insert(BinarySearchTreeNode.new(15))
-t:insert(BinarySearchTreeNode.new(13))
-t:insert(BinarySearchTreeNode.new(17))
-t:insert(BinarySearchTreeNode.new(19))
-print(t)
-```
-]]
+--- @module BinarySearchTree.Node
+-- A node in the binary search tree.
+-- This is a subclass of `BinaryTree.Node`.
 local BinarySearchTree, parent = torch.class('tl.BinarySearchTree', 'tl.BinaryTree')
-function BinarySearchTree:__init(key, val)
-  parent:__init(key, val)
-end
+local BinarySearchTreeNode, parent = torch.class('tl.BinarySearchTree.Node', 'tl.BinaryTree.Node')
 
---[[ A node in the binary search tree, an implementation of `BinaryTreeNode`. ]]
-local BinarySearchTreeNode, parent = torch.class('tl.BinarySearchTreeNode', 'tl.BinaryTreeNode')
-BinarySearchTreeNode.__init = parent.__init
-
---[[ Searches for a key in the BST.
-
-Parameters:
-- `key`: the key to retrieve
-
-If found, then the node with `key` is returned. Otherwise `nil` is returned.
-]]
+--- Searches for a key in the BST.
+-- 
+-- @arg {number} key - the key to retrieve
+-- @returns {BinarySearchTree.Node} the node with the requested key
 function BinarySearchTreeNode:search(key)
   local curr = self
   while curr ~= nil do
@@ -46,7 +24,7 @@ function BinarySearchTreeNode:search(key)
   return nil
 end
 
---[[ Returns the minimum node of the subtree rooted at this node. ]]
+--- @returns {int} the minimum node of the subtree rooted at this node.
 function BinarySearchTreeNode:min()
   local curr = self
   while curr.left ~= nil do
@@ -55,7 +33,7 @@ function BinarySearchTreeNode:min()
   return curr
 end
 
---[[ Returns the maximum node of the subtree rooted at this node. ]]
+--- @returns {int} the maximum node of the subtree rooted at this node.
 function BinarySearchTreeNode:max()
   local curr = self
   while curr.right ~= nil do
@@ -64,7 +42,7 @@ function BinarySearchTreeNode:max()
   return curr
 end
 
---[[ Returns the smallest node that is greater than this node. ]]
+--- @returns {BinarySearchTre.Node} the node with the smallest key that is larger than this one.
 function BinarySearchTreeNode:successor()
   if self.right ~= nil then
     return self.right:min()
@@ -79,7 +57,7 @@ function BinarySearchTreeNode:successor()
   return p
 end
 
---[[ Returns the largest node that is smaller than this one. ]]
+--- @returns {BinarySearchTre.Node} the node with the largest key that is smaller than this one.
 function BinarySearchTreeNode:predecessor()
   if self.left ~= nil then
     return self.left:max()
@@ -94,7 +72,28 @@ function BinarySearchTreeNode:predecessor()
   return p
 end
 
---[[ Inserts a node into the BST, starting at the root. ]]
+--- @module BinarySearchTree
+-- Binary Search Tree. An implementation of `BinaryTree`.
+-- 
+-- Example:
+-- 
+-- @code {lua}
+-- local t = BinarySearchTree.new()
+-- t:insert(BinarySearchTreeNode.new(12))
+-- t:insert(BinarySearchTreeNode.new(5))
+-- t:insert(BinarySearchTreeNode.new(2))
+-- t:insert(BinarySearchTreeNode.new(9))
+-- t:insert(BinarySearchTreeNode.new(18))
+-- t:insert(BinarySearchTreeNode.new(15))
+-- t:insert(BinarySearchTreeNode.new(13))
+-- t:insert(BinarySearchTreeNode.new(17))
+-- t:insert(BinarySearchTreeNode.new(19))
+-- print(t)
+
+
+--- Inserts a node into the tree.
+-- @arg {BinarySearchTree.Node} node - node to insert
+-- @returns {BinarySearchTree} modified tree
 function BinarySearchTree:insert(node)
   local p = nil
   local curr = self.root
@@ -111,25 +110,29 @@ function BinarySearchTree:insert(node)
     p.right = node
   end
   self._size = self._size + 1
-  return node
+  return self
 end
 
---[[ Performs a `search` on the root node. ]]
+--- @arg {number} key - key to search for.
+-- @returns {BinarySearchTree.Node} node with the requested key
 function BinarySearchTree:search(key)
   return self.root:search(key)
 end
 
---[[ Performs a `min` on the root node. ]]
+--- @returns {BinarySearchTree.Node} node with the minimum key
 function BinarySearchTree:min()
   return self.root:min()
 end
 
---[[ Performs a `max` on the root node. ]]
+--- @returns {BinarySearchTree.Node} node with the maximum key
 function BinarySearchTree:max()
   return self.root:max()
 end
 
---[[ Replaces the subtree rooted at `old` with the one rooted at `new`. ]]
+--- Replaces the subtree rooted at `old` with the one rooted at `new`.
+-- @arg {BinarySearchTree.Node} old - node to replace
+-- @arg {BinarySearchTree.Node} new - new node to use
+-- @returns {BinarySearchTree} modified tree
 function BinarySearchTree:transplant(old, new)
   if old == self.root then
     self.root = new
@@ -144,7 +147,9 @@ function BinarySearchTree:transplant(old, new)
   return self
 end
 
---[[ Deletes `node` from the BST. ]]
+--- Deletes a node from the tree.
+-- @arg {BinarySearchTree.Node} node - node to delete
+-- @returns {BinarySearchTree} modified tree
 function BinarySearchTree:delete(node)
   if node.left == nil then
     BinarySearchTree:transplant(node, node.right)

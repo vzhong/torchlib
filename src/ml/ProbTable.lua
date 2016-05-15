@@ -1,23 +1,19 @@
---[[ Implementation of probability table using Torch tensor. ]]
+local torch = require 'torch'
+
+--- @module ProbTable
+-- Implementation of probability table using Torch tensor
 local ProbTable = torch.class('tl.ProbTable')
 
---[[ Constructor.
-
-Parameters:
-
-- `P`: probability Tensor, the `i`th dimension corresponds to the `i`th variable.
-
-- `names` (optional): A table of names for the variables. By default theses will be assigned using indices.
-
-
-Example:
-
-```
-local t = ProbTable(torch.Tensor{{0.2, 0.8}, {0.4, 0.6}, {0.1, 0.9}}, {'a', 'b'})
-t:query{a=1, b=2}  -- 0.8
-t:query{a=2}  -- Tensor{0.4, 0.6}
-```
-]]
+--- Constructor.
+-- @arg {torch.tensor} P - probability Tensor, the `i`th dimension corresponds to the `i`th variable.
+-- @arg {table[string]=} names - A table of names for the variables. By default theses will be assigned using indices.
+-- 
+-- Example:
+-- 
+-- @code {lua}
+-- local t = ProbTable(torch.Tensor{{0.2, 0.8}, {0.4, 0.6}, {0.1, 0.9}}, {'a', 'b'})
+-- t:query{a=1, b=2}  -- 0.8
+-- t:query{a=2}  -- Tensor{0.4, 0.6}
 function ProbTable:__init(P, names)
   if not names then names = torch.range(1, P:nDimension()):totable() end
   self.names = {}
@@ -35,21 +31,22 @@ function ProbTable:__init(P, names)
   self.P = P
 end
 
---[[ Returns the number of variables in the table. ]]
+--- @returns {int} number of variables in the table
 function ProbTable:size()
   return self.P:nDimension()
 end
 
---[[ Returns the probabilities for the assignments in `dict`.
-
-Example:
-
-```
-local t = ProbTable(torch.Tensor{{0.2, 0.8}, {0.4, 0.6}, {0.1, 0.9}}, {'a', 'b'})
-t:query{a=1, b=2}  -- 0.8
-t:query{a=2}  -- Tensor{0.4, 0.6}
-```
-]]
+--- @returns {torch.Tensor} probabilities for the assignments in `dict`.
+-- @arg {table[string=int]} dict - an assignment to consider
+-- 
+-- Example:
+-- 
+-- @code {lua}
+-- local t = ProbTable(torch.Tensor{{0.2, 0.8}, {0.4, 0.6}, {0.1, 0.9}}, {'a', 'b'})
+-- t:query{a=1, b=2}
+-- t:query{a=2}
+--
+-- The first query is `0.8`. The second query is `Tensor{0.4, 0.6}`
 function ProbTable:query(dict)
   for name, value in pairs(dict) do
     local i = assert(self.name2index[name], name .. ' is not a valid name')
@@ -62,13 +59,14 @@ function ProbTable:query(dict)
   return self.P[ind]
 end
 
---[[ Returns a copy. ]]
+--- @returns {ProbTable} a copy
 function ProbTable:clone()
   local names = tl.copy(self.names)
   local P = self.P:clone()
   return ProbTable.new(P, names)
 end
 
+--- @returns {string} string representation
 function ProbTable:__tostring__()
   local s = ''
   local divider = ''
@@ -90,7 +88,9 @@ function ProbTable:__tostring__()
   return s
 end
 
---[[ Returns a new table that is the product of two tables. ]]
+--- Returns a new table that is the product of two tables.
+-- @arg {ProbTable} B - another table
+-- @returns {ProbTable} product of this and another table
 function ProbTable:mul(B)
   -- allocate new P and name for the new product ProbTable
   local P = self.P:clone()
@@ -137,7 +137,9 @@ function ProbTable:mul(B)
   return ProbTable.new(P, names)
 end
 
---[[ Returns this probability table with the variable `name` marginalized out. ]]
+--- Marginalizes this probability table in place.
+-- @arg {string} name - the variable to marginalize
+-- @returns {ProbTable} this probability table with the variable `name` marginalized out
 function ProbTable:marginalize(name)
   local dim = assert(self.name2index[name], tostring(name) .. ' is not a valid name')
   self.P = self.P:sum(dim):squeeze(dim)
@@ -152,7 +154,9 @@ function ProbTable:marginalize(name)
   return self
 end
 
---[[ Returns the marginal for variable of `name` by marginalizing out every other variable. ]]
+--- Marginalizes this probability table in place to calculate a marginal.
+-- @arg {string} name - the variable to calculate
+-- @returns {ProbTable} this probability table marginalizing all variables except `name`
 function ProbTable:marginal(name)
   assert(self.name2index[name], 'Table does not contain variable with name '..name)
   while self:size() > 1 do
@@ -166,7 +170,8 @@ function ProbTable:marginal(name)
   return self
 end
 
---[[ Normalizes this table by dividing by the sum of all probabilities. ]]
+--- Normalizes this table by dividing by the sum of all probabilities.
+-- @returns {ProbTable} normalized table
 function ProbTable:normalize()
   self.P:div(self.P:sum())
   return self

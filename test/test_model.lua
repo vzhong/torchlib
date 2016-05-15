@@ -2,14 +2,11 @@ local Model = require('torchlib').Model
 local Dataset = require('torchlib').Dataset
 local optim = require 'optim'
 local nn = require 'nn'
+local torch = require 'torch'
+local dir = require 'pl.dir'
 
 local TestModel = torch.TestSuite()
 local tester = torch.Tester()
-
-local eps = 1e-5
-
-local torch = require 'torch'
-local T = torch.Tensor
 
 -- seed the shuffling
 torch.manualSeed(12)
@@ -108,6 +105,7 @@ function TestModel.test_fit()
   tester:asserteq(opt.n_epoch, counter.train)
   tester:asserteq(opt.n_epoch, counter.dev)
   tester:asserteq(1, counter.test)
+  dir.rmtree('./tmp')
 end
 
 function TestModel.test_default()

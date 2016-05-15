@@ -1,16 +1,18 @@
---[[Abstract graph.
-A `Graph` consists of `GraphNode`s. Each `GraphNode` can be in three states:
-  - `UNDISCOVERED`
-  - `VISITED`
-  - `FINISHED`
-]]
+--- @module Graph
+-- Abstract graph implementation.
+-- 
+-- A `Graph` consists of `GraphNode`s. Each `GraphNode` can be in three states:
+--   - `UNDISCOVERED`
+--   - `VISITED`
+--   - `FINISHED`
 
+local torch = require 'torch'
 local HashMap = tl.HashMap
 local Set = tl.Set
 local Queue = tl.Queue
 
 local Graph, parent = torch.class('tl.Graph', 'tl.Object')
-Graph.GraphNode = torch.class('tl.GraphNode', 'tl.Object')
+local GraphNode = torch.class('tl.Graph.Node', 'tl.Object')
 
 Graph.state = {UNDISCOVERED = 1, VISITED = 2, FINISHED = 3}
 
@@ -19,48 +21,60 @@ Graph.state = {UNDISCOVERED = 1, VISITED = 2, FINISHED = 3}
   Parameter:
   - `val`: the value for this node
 ]]
-function Graph.GraphNode:__init(val)
+--- Constructor.
+-- @arg {any} val - value for the new node.
+function GraphNode:__init(val)
   self.val = val
 end
 
-function Graph.GraphNode:__tostring__()
+--- @returns {string} string representation
+function GraphNode:__tostring__()
   return parent.__tostring__(self) .. '(' .. self.val .. ')'
 end
 
---[[ Constructor for a graph. ]]
+--- Constructor.
 function Graph:__init()
   self._nodeMap = HashMap.new()
 end
 
---[[ Returns the number of nodes in the graph. ]]
+--- @returns {int} number of nodes in the graph.
 function Graph:size()
   return self._nodeMap:size()
 end
 
---[[ Asserts that the node is in the graph. ]]
+--- Verifies that the node is in the graph
+-- @arg {Graph.Node} node - the node to verify.
 function Graph:assertValidNode(node)
   assert(self._nodeMap:contains(node), 'Error: node ' .. tostring(node.val) .. ' is not in graph')
 end
 
---[[ Adds a node with value `val` to the graph. ]]
+--- Adds a node with given value to the graph.
+-- @arg {any} val - value for the new node.
+-- @returns {Graph.Node}
 function Graph:addNode(val)
-  local node = Graph.GraphNode.new(val)
+  local node = GraphNode.new(val)
   self._nodeMap:add(node, Set())
   return node
 end
 
---[[ Returns a table of nodes that are children to `node`. ]]
+--- Returns neighbours of a given node.
+-- @arg {Graph.Node} node - the node to find neighbours for.
+-- @returns {table(Graph.Node)}
 function Graph:connectionsOf(node)
   self:assertValidNode(node)
   return self._nodeMap:get(node):totable()
 end
 
---[[ Returns a `Set` of nodes in the graph. ]]
+--- Returns a set of nodes in the graph.
+-- @returns {Set(Graph.Node)}
 function Graph:nodeSet()
-  return self._nodeMap:keySet()
+  return self._nodeMap:keys()
 end
 
---[[ Initializes all nodes to `UNDISCOVERED`. ]]
+--- Initializes all nodes to `Graph.state.UNDISCOVERED`.
+-- @returns {Graph}
+--
+-- The graph will be returned
 function Graph:resetState()
   local nodes = self:nodeSet():totable()
   for i = 1, #nodes do
@@ -69,18 +83,19 @@ function Graph:resetState()
     node.timestamp = math.huge
     node.parent = nil
   end
+  return self
 end
 
---[[ Performs BFS on this graph.
-
-Parameters:
-- `source`: the source node to start BFS
-- `callbacks` (optional): a table with two optional callbacks
-
-Available callbacks:
-- `discover(node)`: called when a node is initially encountered
-- `finish(node)`: called when a node has been fully explored (eg. its connected nodes have all been visited)
-]]
+--- Performs breadth first search.
+-- 
+-- @arg {Graph.Node} source - the source node to start BFS
+-- @arg {table[string:function]=} callbacks - a map with optional callbacks
+-- 
+-- Available callbacks:
+--
+-- - `discover = function(Graph.Node)`: called when a node is initially encountered
+--
+-- - `finish = function(Graph.Node)`: called when a node has been fully explored (eg. its connected nodes have all been visited)
 function Graph:breadthFirstSearch(source, callbacks)
   callbacks = callbacks or {}
   callbacks.discover = callbacks.discover or function(node) end
@@ -111,12 +126,15 @@ function Graph:breadthFirstSearch(source, callbacks)
   end
 end
 
---[[ Returns the shortest path from the `source` node to the `destination` node.
-
-  Note: This function relies on the results from a BFS call. By default, a BFS is performed before
-  retrieving the shortest path. Alternatively, if the caller has already performed BFS, then
-  this BFS can be skipped by passing in `skipBFS = true`.
-]]
+--- Returns the shortest path from source to destination
+--
+-- @arg {Graph.Node} source - starting node
+-- @arg {Graph.Node} destination - end node
+-- @arg {boolean=} skipBFS - whether BFS has already been performned
+--
+-- Note: This function relies on the results from a BFS call. By default, a BFS is performed before
+-- retrieving the shortest path. Alternatively, if the caller has already performed BFS, then
+-- this BFS can be skipped by passing in `skipBFS = true`.
 function Graph:shortestPath(source, destination, skipBFS)
   if skipBFS ~= true then
     self:breadthFirstSearch(source)
@@ -136,23 +154,23 @@ function Graph:shortestPath(source, destination, skipBFS)
   return path
 end
 
---[[ Performs DFS on the graph.
-
-Parameters:
-- `nodes` (optional): the table of nodes on which to perform DFS. If not set, then all nodes in the graph are used.
-- `callbacks` (optional): a table with two optional callbacks
-
-Available callbacks:
-- `discover(node)`: called when a node is initially encountered
-- `finish(node)`: called when a node has been fully explored (eg. its connected nodes have all been visited)
-]]
+--- Performs depth first search.
+-- 
+-- @arg {table[Graph.Node]} nodes - the table of nodes on which to perform DFS. If not set, then all nodes in the graph are used
+-- @arg {table[string:function]=} callbacks - a map with optional callbacks
+-- 
+-- Available callbacks:
+--
+-- - `discover = function(Graph.Node)`: called when a node is initially encountered
+--
+-- - `finish = function(Graph.Node)`: called when a node has been fully explored (eg. its connected nodes have all been visited)
 function Graph:depthFirstSearch(nodes, callbacks)
   callbacks = callbacks or {}
   callbacks.discover = callbacks.discover or function(node) end
   callbacks.finish = callbacks.finish or function(node) end
   self:resetState()
   local timestamp = 0
-  local nodes = nodes or self:nodeSet():totable()
+  nodes = nodes or self:nodeSet():totable()
 
   local function DFSVisit(graph, node)
     timestamp = timestamp + 1
@@ -173,11 +191,10 @@ function Graph:depthFirstSearch(nodes, callbacks)
     callbacks.finish(node)
   end
 
-  local roots = {}
   for i = 1, #nodes do
     local node = nodes[i]
     if node.state == Graph.state.UNDISCOVERED then
-      DFSVisit(graph, node)
+      DFSVisit(self, node)
     end
   end
 end

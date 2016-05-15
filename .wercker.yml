@@ -31,12 +31,25 @@ build:
         th -lluacov test.lua
         bash <(curl -s https://codecov.io/bash) || echo "Codecov did not collect coverage reports"
     - script:
-      name: docs
+      name: generate markdown
       code: |
-        luarocks install https://raw.githubusercontent.com/deepmind/torch-dokx/master/dokx-0-0.rockspec
-        ./build_docs.sh
+        git clone https://github.com/vzhong/docroc.git
+        cd docroc && luarocks make && cd -
+        th docroc/docroc src docs --index README.md --config mkdocs.yml --github_src_dir http://github.com/vzhong/torchlib/blob/master/src/
 deploy:
   steps:
+    - script:
+      name: install dependencies
+      code: |
+        apt-get -yqq update
+        apt-get install -yqq python python-pip
+        apt-get install -yqq git
+        pip install mkdocs
+    - script:
+      name: build docs
+      code: |
+        mkdocs build --clean
+        touch site/.nojekyll
     - lukevivier/gh-pages:
       token: $GH_TOKEN
-      basedir: build/tl/docs
+      basedir: site

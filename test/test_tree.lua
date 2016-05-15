@@ -1,7 +1,7 @@
 local BinarySearchTree = require('torchlib').BinarySearchTree
-local BinaryTreeNode = require('torchlib').BinaryTreeNode
-local BinarySearchTreeNode = require('torchlib').BinarySearchTreeNode
-local TreeNode = require('torchlib').TreeNode
+local BinaryTreeNode = require('torchlib').BinaryTree.Node
+local BinarySearchTreeNode = require('torchlib').BinarySearchTree.Node
+local TreeNode = require('torchlib').Tree.Node
 
 local TestTree = torch.TestSuite()
 local TestBinaryTree = torch.TestSuite()
@@ -23,7 +23,7 @@ end
 
 function TestTree.testToString()
   local node = BinaryTreeNode(5, 'hi')
-  tester:asserteq('tl.BinaryTreeNode<hi(5)>', tostring(node))
+  tester:asserteq('tl.BinaryTree.Node<hi(5)>', tostring(node))
 end
 
 function TestTree.testWalkInOrder()
@@ -160,15 +160,15 @@ end
 
 function TestBinaryTree.testToStringBinarySearchTree()
   local tree = dummyTree()
-  local expect = [[|__ tl.BinarySearchTreeNode<n1(12)>
-    |__ tl.BinarySearchTreeNode<n2(5)>
-        |__ tl.BinarySearchTreeNode<n3(2)>
-        |__ tl.BinarySearchTreeNode<n4(9)>
-    |__ tl.BinarySearchTreeNode<n5(18)>
-        |__ tl.BinarySearchTreeNode<n6(15)>
-            |__ tl.BinarySearchTreeNode<n7(13)>
-            |__ tl.BinarySearchTreeNode<n8(17)>
-        |__ tl.BinarySearchTreeNode<n9(19)>
+  local expect = [[|__ tl.BinarySearchTree.Node<n1(12)>
+    |__ tl.BinarySearchTree.Node<n2(5)>
+        |__ tl.BinarySearchTree.Node<n3(2)>
+        |__ tl.BinarySearchTree.Node<n4(9)>
+    |__ tl.BinarySearchTree.Node<n5(18)>
+        |__ tl.BinarySearchTree.Node<n6(15)>
+            |__ tl.BinarySearchTree.Node<n7(13)>
+            |__ tl.BinarySearchTree.Node<n8(17)>
+        |__ tl.BinarySearchTree.Node<n9(19)>
 ]]
   tester:asserteq(expect, tostring(tree))
 end

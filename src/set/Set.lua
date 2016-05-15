@@ -1,7 +1,11 @@
---[[ Implementation of set. ]]
+--- @module Set
+-- Implementation of set.
+
+local torch = require 'torch'
 local Set, parent = torch.class('tl.Set', 'tl.Object')
 
---[[ Constructor. `values` is an optional table of values that is used to initialize the set. ]]
+--- Constructor.
+-- @arg {table[any]=} values - used to initialize the set
 function Set:__init(values)
   self._map = {}
   self._size = 0
@@ -9,7 +13,8 @@ function Set:__init(values)
   self:addMany(table.unpack(values))
 end
 
---[[ Returns a unique key for a value. ]]
+--- @arg {any} val - value to produce a key for
+-- @returns {torch.pointer} unique key for the value
 function Set.keyOf(val)
   if torch.type(val) == 'number' or torch.type(val) == 'nil' or torch.type(val) == 'string' then
     return val
@@ -18,22 +23,26 @@ function Set.keyOf(val)
   end
 end
 
---[[ Returns the number of values in the set. ]]
+--- @returns {int} number of values in the set
 function Set:size()
   return self._size
 end
 
---[[ Adds a value to the set. ]]
+--- Adds a value to the set.
+-- @arg {any} val - value to add to the set
+-- @returns {Set} modified set
 function Set:add(val)
   if not self:contains(val) then
     self._size = self._size + 1
   end
-  key = Set.keyOf(val)
+  local key = Set.keyOf(val)
   self._map[key] = val
   return self
 end
 
---[[ Adds a variable number of values to the set. ]]
+--- Adds a variable number of values to the set.
+-- @arg {vararg} vararg - values to add to the set
+-- @returns {Set} modified set
 function Set:addMany(...)
   local args = table.pack(...)
   for i, val in ipairs(args) do
@@ -42,37 +51,41 @@ function Set:addMany(...)
   return self
 end
 
---[[ Returns a copy of the set. ]]
+--- @returns {Set} copy of the set
 function Set:copy()
   return Set.new():addMany(table.unpack(self:totable()))
 end
 
---[[ Returns whether the set contains `val`. ]]
+--- @returns {boolean} whether the set contains `val`
+-- @arg {any} val - value to check for
 function Set:contains(val)
-  key = Set.keyOf(val)
+  local key = Set.keyOf(val)
   return self._map[key] ~= nil
 end
 
---[[ Removes `val` from the set. If `val` is not found then an error is raised. ]]
+--- @arg {any} val - value to remove from the set.
+-- @returns {Set} modified set
+-- If `val` is not found then an error is raised.
 function Set:remove(val)
   assert(self:contains(val) == true, 'Error: value ' .. tostring(val) .. ' not found in Set')
-  key = Set.keyOf(val)
-  val = self._map[key]
+  local key = Set.keyOf(val)
   self._map[key] = nil
   self._size = self._size - 1
   return self
 end
 
---[[ Returns the set in table format. ]]
+--- @returns {tabl} the set in table format
 function Set:totable()
-  tab = {}
+  local tab = {}
   for k, v in pairs(self._map) do
     table.insert(tab, v)
   end
   return tab
 end
 
---[[ Returns whether the set is equal to `another`. Sets are considered equal if the values contained are identical. ]]
+--- Compares two sets.
+-- @arg {Set} another - another set
+-- @returns {boolean} whether this set and `another` contain the same values
 function Set:equals(another)
   if self:size() ~= another:size() then
     return false
@@ -86,7 +99,9 @@ function Set:equals(another)
   return true
 end
 
---[[ Returns the union of this set and `another`. ]]
+--- Computes the union of two sets.
+-- @arg {Set} another - another set
+-- @returns {Set} a set of values that are in this set or in `another`
 function Set:union(another)
   local s = self:copy()
   for i, v in ipairs(another:totable()) do
@@ -95,7 +110,9 @@ function Set:union(another)
   return s
 end
 
---[[ Returns the intersection of this set and `another`. ]]
+--- Computes the intersection of two sets.
+-- @arg {Set} another - another set
+-- @returns {Set} a set of values that are in this set and in `another`
 function Set:intersect(another)
   local s = self:copy()
   for i, v in ipairs(self:totable()) do
@@ -106,7 +123,9 @@ function Set:intersect(another)
   return s
 end
 
---[[ Returns a set of values that are in this set but not in `another`. ]]
+--- Subtracts another set from this one.
+-- @arg {Set} another - another set
+-- @returns {Set} a set of values that are in this set but not in `another`
 function Set:subtract(another)
   local s = self:copy()
   for i, v in ipairs(self:totable()) do
@@ -117,7 +136,7 @@ function Set:subtract(another)
   return s
 end
 
-
+--- @returns {string} string representation
 function Set:__tostring__()
   local s = parent.__tostring__(self) .. '('
   local max = 5
@@ -134,3 +153,5 @@ function Set:__tostring__()
   s = s .. ')'
   return s
 end
+
+return Set

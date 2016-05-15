@@ -1,31 +1,40 @@
---[[ Implementation of a tree. ]]
-local Tree = torch.class('tl.Tree')
-local TreeNode = torch.class('tl.TreeNode')
+local torch = require 'torch'
 
+--- @module Tree
+-- Implementation of tree.
+local Tree = torch.class('tl.Tree')
+local TreeNode = torch.class('tl.Tree.Node')
+
+--- Constructor.
 function TreeNode:__init(key, val)
   if val == nil then val = key end
   self.parent = nil
   self.key = key
   self.val = val
+  self._size = 0
 end
 
---[[ Returns a table of the children of this node. ]]
+--- @returns {table} children of this node
 function TreeNode:children()
   error('not implemented')
 end
 
+--- @returns {string} string representation
 function TreeNode:__tostring__()
   return torch.type(self) .. '<' .. tostring(self.val) .. '(' .. tostring(self.key) .. ')' .. '>'
 end
 
-function TreeNode:subtreeToString(prefix, isTail)
+--- @returns {string} string representation
+-- @arg {string} prefix - string to add before each line
+-- @arg {boolean} isLeaf - whether the subtree is a leaf
+function TreeNode:subtreeToString(prefix, isLeaf)
   prefix = prefix or ''
-  isTail = isTail or true
+  isLeaf = isLeaf or true
   local s = prefix
-  if isTail then s = s .. '|__ ' else s = s .. '|-- ' end
+  if isLeaf then s = s .. '|__ ' else s = s .. '|-- ' end
   s = s .. tostring(self) .. "\n"
   local newPrefix = prefix
-  if isTail then newPrefix = newPrefix .. '    ' else newPrefix = newPrefix .. '|   ' end
+  if isLeaf then newPrefix = newPrefix .. '    ' else newPrefix = newPrefix .. '|   ' end
   local children = self:children()
   for i = 1, #children do
     s = s .. children[i]:subtreeToString(newPrefix, false)
@@ -36,6 +45,7 @@ function TreeNode:subtreeToString(prefix, isTail)
   return string.sub(s, 0, -1)
 end
 
+--- @returns {string} string representation
 function Tree:__tostring__()
   local s = torch.type(self)
   if self.root ~= nil then
@@ -44,7 +54,7 @@ function Tree:__tostring__()
   return s
 end
 
---[[ Returns the number of nodes in the tree. ]]
+--- @returns {int} number of nodes in the tree
 function Tree:size()
   return self._size
 end

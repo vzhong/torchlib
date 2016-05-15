@@ -1,12 +1,17 @@
---[[ A download utility with caching support. ]]
+local torch = require 'torch'
+local path = require 'pl.path'
+
+--- @module Downloader
+-- A download utility with caching support.
 local Downloader = torch.class('tl.Downloader')
 
---[[ Constructor.
-  - `cache` (optional): cache directory, defaults to `/tmp/torchlib`
-
-  Options:
-  - `verbose`: prints out progress
-]]
+--- Constructor.
+--
+--  @arg {string='/tmp/torchlib'} cache - cache directory
+--
+--  Options:
+--
+--  - `verbose`: prints out progress
 function Downloader:__init(cache, opt)
   opt = opt or {}
   self.cache = cache or '/tmp/torchlib'
@@ -17,19 +22,18 @@ function Downloader:__init(cache, opt)
   end
 end
 
---[[ Retrieves a file from cache, downloading it from `url` if it doesn't exists
-  - `to`: Location to download to, relative to the cache directory
-  - `url` (optional): URL to download from.
-
-  Options:
-  - `force`: overwrite the file if one exists.
-]]
+--- Retrieves a file from cache, downloading it from `url` if it doesn't exists.
+--  @arg {string} to - location to download to, relative to the cache directory
+--  @arg {string=} url - url to download from
+--  @arg {table[string:any]=} opt - options
+--
+--  Options:
+--
+--  - `force`: overwrite the file if one exists.
 function Downloader:get(to, url, opt)
   opt = opt or {}
   local to_path = path.join(self.cache, to)
-  if path.exists(to_path) and not opt.force then
-    -- exists already, just return the path
-  else
+  if (not path.exists(to_path)) or opt.force then
     os.execute('wget -O '..to_path..' '..url)
     local f = assert(io.open(to_path, 'rb'))
     f:close()

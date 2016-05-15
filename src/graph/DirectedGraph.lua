@@ -1,18 +1,24 @@
---[[ A directed graph implementation. ]]
+--- @module DirectedGraph
+-- A directed graph implementation.
+-- This is a subclass of `Graph`.
+local torch = require 'torch'
 local DirectedGraph = torch.class('tl.DirectedGraph', 'tl.Graph')
 local Set = tl.Set
 local Graph = tl.Graph
 
---[[ Connects `nodeA` to `nodeB`. ]]
+--- Connects two nodes.
+-- @arg {Graph.Node} nodeA - starting node
+-- @arg {Graph.Node} nodeB - ending node
 function DirectedGraph:connect(nodeA, nodeB)
   self:assertValidNode(nodeA)
   self:assertValidNode(nodeB)
   self._nodeMap:get(nodeA):add(nodeB)
 end
 
---[[ Returns a table of the nodes in this graph in topologically sorted order. ]]
+--- Returns nodes in this graph in topologically sorted order
+-- @returns {table}
 function DirectedGraph:topologicalSort()
-  ordered = {}
+  local ordered = {}
   local function callback(node)
     table.insert(ordered, 1, node)
   end
@@ -20,7 +26,8 @@ function DirectedGraph:topologicalSort()
   return ordered
 end
 
---[[ Returns whether the graph has a cycle. ]]
+--- Returns whether the graph has a cycle
+-- @returns {boolean}
 function DirectedGraph:hasCycle()
   self:resetState()
   local nodes = self:nodeSet():totable()
@@ -43,7 +50,7 @@ function DirectedGraph:hasCycle()
   for i = 1, #nodes do
     local node = nodes[i]
     if node.state == Graph.state.UNDISCOVERED then
-      if DFSVisit(graph, node) then
+      if DFSVisit(self, node) then
         return true
       end
     end
@@ -51,7 +58,8 @@ function DirectedGraph:hasCycle()
   return false
 end
 
---[[ Returns a transpose of this graph (eg. with the edges reversed) ]]
+--- Returns a transpose of this graph (eg. with the edges reversed)
+-- @returns {DirectedGraph}
 function DirectedGraph:transpose()
   local g = DirectedGraph.new()
   g._nodeMap = self._nodeMap:copy()
@@ -73,12 +81,13 @@ function DirectedGraph:transpose()
   return g
 end
 
---[[ Returns a table of strongly connected components. Each strongly connected component is itself a table. ]]
+--- Returns strongly connected components.
+-- Each strongly connected component is itself a table.
+-- @returns {table[table]} a table of strongly connected components.
 function DirectedGraph:stronglyConnectedComponents()
   local firstToLastFinish = self:topologicalSort()
-  local transpose = self:transpose()
   local roots = {}
-  function discoverCallback(node)
+  local discoverCallback = function(node)
     table.insert(roots, node)
   end
   self:depthFirstSearch(table.reverse(firstToLastFinish), {discover=discoverCallback})

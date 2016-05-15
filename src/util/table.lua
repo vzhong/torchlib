@@ -1,4 +1,7 @@
---[[ Prints table `t` with indentation for nested tables. ]]
+--- @arg {table} t - a table
+-- @arg {string=} indent - indentation for nested keys
+-- @arg {string=} s - accumulated string
+--@returns {string} string representation for the table
 function table.tostring(t, indent, s)
   indent = indent or 0
   s = s or ''
@@ -14,7 +17,8 @@ function table.tostring(t, indent, s)
   return s
 end
 
---[[ Shuffles a table randomly. ]]
+--- @arg {table} t - table to shuffle in place
+-- @returns {table} shuffled table
 function table.shuffle(t)
   local iter = #t
   local j
@@ -22,9 +26,12 @@ function table.shuffle(t)
     j = math.random(i)
     t[i], t[j] = t[j], t[i] -- swap
   end
+  return t
 end
 
---[[ Returns whether two tables contain identical content. ]]
+--- @arg {table[any]} t1 - first table
+-- @arg {table[any]} t2 - seoncd table
+-- @returns {boolean} whether the keys and values of each table are equal
 function table.equals(t1, t2)
   for k1, v1 in pairs(t1) do
     if not tl.equals(t2[k1], v1) then
@@ -39,7 +46,9 @@ function table.equals(t1, t2)
   return true
 end
 
---[[ Returns whether two tables contain identical values. ]]
+--- @arg {table[any]} t1 - first table
+-- @arg {table[any]} t2 - seoncd table
+-- @returns {boolean} whether the values of each table are equal, disregarding order
 function table.valuesEqual(t1, t2)
   for _, v1 in pairs(t1) do
     if not table.contains(t2, v1) then
@@ -54,7 +63,8 @@ function table.valuesEqual(t1, t2)
   return true
 end
 
---[[ Reverses `t` into a new table and returns it. ]]
+--- @arg {table} t - table to reverse
+-- @returns {table} A copy of the table, reversed.
 function table.reverse(t)
   local tab = {}
   for i, e in ipairs(t) do
@@ -63,7 +73,9 @@ function table.reverse(t)
   return tab
 end
 
---[[ Returns whether table `t` contains the values `val`. ]]
+--- @arg {table} t - table to check
+-- @arg {any} val - value to check
+-- @returns {boolean} whether the tabale contains the value
 function table.contains(t, val)
   for k, v in pairs(t) do
     if tl.equals(v, val) then
@@ -73,7 +85,11 @@ function table.contains(t, val)
   return false
 end
 
---[[ Flattens a table. ]]
+--- Flattens the table.
+-- @arg {table} t - the table to modify
+-- @arg {table=} tab - where to store the results. If not given, then a new table will be used.
+-- @arg {string='__'} prefix - string to use to join nested keys.
+-- @returns {table} flattened table
 function table.flatten(t, tab, prefix)
   tab = tab or {}
   prefix = prefix or ''
@@ -87,7 +103,10 @@ function table.flatten(t, tab, prefix)
   return tab
 end
 
---[[ Applies `callback` to each element in `t` and returns the results in another table. ]]
+--- Applies `callback` to each element in `t` and returns the results in another table.
+-- @arg {table} t - the table to modify
+-- @arg {function} callback - function to apply
+-- @returns {table} modified table
 function table.map(t, callback)
   local results = {}
   for k, v in pairs(t) do
@@ -96,12 +115,13 @@ function table.map(t, callback)
   return results
 end
 
---[[ Selects items with keys `keys` from table `t` and returns the results in another table.
-
-Parameters:
-
-  - `forget_keys` (default false): if `true` then the new table will be an array
-]]
+--- Selects items from table `t`.
+-- @arg {table} t - table to select from
+-- @arg {table} keys - table of keys
+-- @arg {boolean=} forget_keys - whether to retain the keys
+-- @returns {table} a table of key value pairs where the keys are `keys` and the values are corresponding values from `t`.
+--
+-- If `forget_keys` is `true`, then the returned table will have integer keys.
 function table.select(t, keys, forget_keys)
   local results = {}
   for _, k in ipairs(keys) do
@@ -114,7 +134,10 @@ function table.select(t, keys, forget_keys)
   return results
 end
 
---[[ Extends the table `t` with another table `another` and returns the first table. ]]
+--- Extends the table `t` with another table `another`
+-- @arg {table} t - first table
+-- @arg {table} another - second table
+-- @returns {table} modified first table
 function table.extend(t, another)
   for _, v in ipairs(another) do
     table.insert(t, v)
@@ -122,19 +145,21 @@ function table.extend(t, another)
   return t
 end
 
---[[ Returns all combinations of elements in a table.
-
-Example:
-
-```
-table.combinations{{1, 2}, {'a', 'b', 'c'}}
-```
-
-This returns `{{1, 'a'}, {1, 'b'}, {1, 'c'}, {2, 'a'}, {2, 'b'}, {2, 'c'}}`
-]]
+--- Returns all combinations of elements in a table.
+-- 
+-- @arg {table[table[any]]} input - a collection of lists to compute the combination for
+-- @returns {table[table[any]]} combinations of the input
+-- 
+-- Example:
+-- 
+-- @code
+-- table.combinations{{1, 2}, {'a', 'b', 'c'}}
+-- 
+-- This returns `{{1, 'a'}, {1, 'b'}, {1, 'c'}, {2, 'a'}, {2, 'b'}, {2, 'c'}}`
 function table.combinations(input)
   local result = {}
-  function recurse(tab, idx, ...)
+  local recurse
+  recurse = function(tab, idx, ...)
     if idx < 1 then
       table.insert(result, table.pack(...))
     else

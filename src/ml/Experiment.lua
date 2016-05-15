@@ -1,50 +1,40 @@
---[[
-Experiment container that is backed up to a Postgres instance.
-
-Example:
-
-Suppose we have already made a postgres database called `myexp`.
-
-```
-local c = Experiment.new('myexp')
-local run = c:create_run{dataset='foobar', lr=1.0, n_hid=10}
-print(run:info())
-run:submit_scores(1, {macro={f1=0.53, precision=0.52, recall=0.54}, micro={f1=0.10, precision=0.10, recall=0.10}})
-run:submit_scores(2, {macro={f1=0.55, precision=0.55, recall=0.55}, micro={f1=0.10, precision=0.10, recall=0.10}})
-print(run:scores())
-
-run:submit_prediction(1, 'person', 'thing', {dataset='foobar'})
-run:submit_prediction(2, 'person', 'person', {dataset='foobar'})
-run:submit_prediction(3, 'person', 'thing', {dataset='foobar'})
-run:submit_prediction(4, 'thing', 'thing', {dataset='foobar'})
-print(run:predictions())
-```
-]]
+local torch = require 'torch'
 local driver, postgres
 local json = require 'cjson'
 
-
+--- @module Experiment
+-- Experiment container that is backed up to a Postgres instance.
+-- 
+-- Example:
+-- 
+-- Suppose we have already made a postgres database called `myexp`.
+-- 
+-- @code
+-- local c = Experiment.new('myexp')
+-- local run = c:create_run{dataset='foobar', lr=1.0, n_hid=10}
+-- print(run:info())
+-- run:submit_scores(1, {macro={f1=0.53, precision=0.52, recall=0.54}, micro={f1=0.10, precision=0.10, recall=0.10}})
+-- run:submit_scores(2, {macro={f1=0.55, precision=0.55, recall=0.55}, micro={f1=0.10, precision=0.10, recall=0.10}})
+-- print(run:scores())
+-- 
+-- run:submit_prediction(1, 'person', 'thing', {dataset='foobar'})
+-- run:submit_prediction(2, 'person', 'person', {dataset='foobar'})
+-- run:submit_prediction(3, 'person', 'thing', {dataset='foobar'})
+-- run:submit_prediction(4, 'thing', 'thing', {dataset='foobar'})
+-- print(run:predictions())
 local Experiment = torch.class('tl.Experiment')
 
---[[ Constructor.
-
-Parameters:
-
-- `name`: name of the experiment.
-
-- `username` (optional): username for postgres
-
-- `password` (optional): password for postgres
-
-- `hostname` (optional): hostname for postgres
-
-- `port` (optional): port for postgres
-
-It is assumed that a database with this name also exists and the user has permission to connect to it.
-For more information on the parameters for postgres, see:
-
-http://keplerproject.github.io/luasql/manual.html#postgres_extensions
-]]
+--- Constructor.
+-- 
+-- @arg {string} name - name of the experiment
+-- @arg {username=} - username for postgres
+-- @arg {hostname=} - hostname for postgres
+-- @arg {port=} - port for postgres
+-- 
+-- It is assumed that a database with this name also exists and the user has permission to connect to it.
+-- For more information on the parameters for postgres, see:
+-- 
+-- http://keplerproject.github.io/luasql/manual.html#postgres_extensions
 function Experiment:__init(name, username, password, hostname, port)
   self.name = assert(name, 'name must be given')
 
@@ -67,7 +57,7 @@ function Experiment:__init(name, username, password, hostname, port)
   end
 end
 
---[[ Creates relevant tables. ]]
+--- Creates relevant tables.
 function Experiment:setup()
   self:query([[
     CREATE TABLE runs (
@@ -96,7 +86,7 @@ function Experiment:setup()
     )]])
 end
 
---[[ Drops tables for this experiment. ]]
+--- Drops tables for this experiment.
 function Experiment:delete()
   self:query('DROP TABLE IF EXISTS runs CASCADE')
   self:query('DROP TABLE IF EXISTS scores')
@@ -117,19 +107,17 @@ local convert_row = function(row, names, types)
   return ret
 end
 
---[[ Submits a query to the database and returns the result.
-
-Parameters:
-
-- `query`: query to run
-
-- `iterator` (default `false`): if `true`, then an iterator will be returned. Otherwise, a table will be returned.
-
-if the result is not a number, then results will be returned
-
-]]
+--- Submits a query to the database and returns the result.
+-- @arg {string} query - query to run
+-- @arg {boolean=} iterator - whether to return the result as an iterator or as a table
+-- @returns {conditional} if `true`, then an iterator will be returned. Otherwise, a table will be returned
+-- 
+-- If the result is not a number, then results will be returned. If the result is a number, then no result will
+-- be returned.
+--
+-- If the query fails, then an error will be raised.
 function Experiment:query(query, iterator)
-  local cursor = assert(self.conn:execute(query))
+  local cursor = assert(self.conn:execute(query), 'Query failed: '..query)
   if type(cursor) ~= 'number' then
     local types = cursor:getcoltypes()
     local names = cursor:getcolnames()
@@ -150,29 +138,28 @@ function Experiment:query(query, iterator)
 end
 
 
---[[ Creates a new run for the experiment.
-
-Parameters:
-
-- `opt`: options for the run.
-
-Returns a Run table with the following functions:
-
-- `run.id`: the id for this run
-
-- `run:info()`: retrieves the row in the runs table.
-
-- `run:scores()`: retrieves the scores in the scores table.
-
-- `run:submit_scores(epoch, scores)`: submits scores.
-
-- `run:predictions(example_id)`: retrieves the predictions.
-
-- `run:submit_prediction(example_id, pred, gold, info)`: submits a single prediction.
-
-These are merely convenience functions mapping to corresponding methods in `Experiment`.
-They are convienient in the sense that one does not have to memorize the `id` of the Run to use them.
-]]
+--- Creates a new run for the experiment.
+-- 
+-- @arg {table[any:any]} opt - options for the run
+-- 
+-- @returns {table} a Run object
+--
+-- The Run object returned has the following functions:
+-- 
+-- - `run.id`: the id for this run
+-- 
+-- - `run:info()`: retrieves the row in the runs table.
+-- 
+-- - `run:scores()`: retrieves the scores in the scores table.
+-- 
+-- - `run:submit_scores(epoch, scores)`: submits scores.
+-- 
+-- - `run:predictions(example_id)`: retrieves the predictions.
+-- 
+-- - `run:submit_prediction(example_id, pred, gold, info)`: submits a single prediction.
+-- 
+-- These are merely convenience functions mapping to corresponding methods in `Experiment`.
+-- They are convienient in the sense that one does not have to memorize the `id` of the Run to use them.
 function Experiment:create_run(opt)
   local json_opt = json.encode(assert(opt))
   local id = self:query("INSERT INTO runs (opt) VALUES ('"..self.conn:escape(json_opt).."') RETURNING id")[1].id
@@ -189,26 +176,18 @@ function Experiment:create_run(opt)
   }
 end
 
---[[ Retrieves the options for the requested run.
-
-Parameters:
-
-- `id`: ID of the run to retrieve.
-]]
+--- Retrieves the options for the requested run.
+-- @arg {int} id - ID of the run to retrieve.
 function Experiment:get_run_info(id)
   local rows = self:query("SELECT * FROM runs WHERE id = "..id)
   assert(#rows > 0, 'run with id '..id..' not found!')
   return rows[1]
 end
 
---[[ Submits a score for the run.
-
-Parameter:
-
-- `run_id`: ID of the run to submit scores for.
-- `epoch`: epoch of the score.
-- `scores`: table of scores.
-]]
+--- Submits a score for the run.
+-- @arg {int} run_id - ID of the run to submit scores for
+-- @arg {int} epoch - epoch of the score
+-- @arg {table[string:number]} scores - scores to submit
 function Experiment:submit_scores(run_id, epoch, scores)
   local json_opt = json.encode(assert(scores))
   local query = string.format("INSERT INTO scores (run_id, epoch, scores) VALUES (%s, %s, '%s')",
@@ -218,30 +197,20 @@ function Experiment:submit_scores(run_id, epoch, scores)
   self:query(query)
 end
 
---[[ Retrieves the scores for the requested run.
-
-Parameters:
-
-- `id`: ID of the run to retrieve.
-]]
+--- Retrieves the scores for the requested run.
+--
+-- @arg {int} id - ID of the run to retrieve.
 function Experiment:get_run_scores(id)
   return self:query("SELECT * FROM scores WHERE run_id = "..id.." ORDER BY epoch ASC")
 end
 
---[[ Submits the prediction for a single example for a run.
-
-Parameter:
-
-- `run_id`: ID for the run.
-
-- `example_id`: ID for the example.
-
-- `pred`: prediction.
-
-- `gold` (optional): ground truth.
-
-- `info` (optional): information for the run.
-]]
+--- Submits the prediction for a single example for a run.
+-- 
+-- @arg {int} run_id - ID for the run
+-- @arg {int} example_id - ID for the example
+-- @arg {any} pred - prediction
+-- @arg {any=} gold - ground truth
+-- @arg {table=} info - information for the run
 function Experiment:submit_prediction(run_id, example_id, pred, gold, info)
   local fields = 'run_id, example_id, pred'
   local filler = "%s, %s, '%s'"
@@ -257,21 +226,14 @@ function Experiment:submit_prediction(run_id, example_id, pred, gold, info)
     table.insert(args, json.encode(info))
   end
   table.insert(args, 1, "INSERT INTO predictions ("..fields..") VALUES ("..filler..")")
-  query = string.format(table.unpack(args))
-  print(args)
-  print(query)
+  local query = string.format(table.unpack(args))
   self:query(query)
 end
 
 
---[[ Retrieves the prediction a run.
-
-Parameter:
-
-- `run_id`: ID for the run.
-
-- `example_id` (optional): ID for the example. If this is given then only the prediction for this example is returned.
-]]
+--- Retrieves the prediction a run.
+-- @arg {int} run_id - ID for the run
+-- @arg {int=} example_id - ID for the example. If this is given then only the prediction for this example is returned
 function Experiment:get_predictions(run_id, example_id)
   if example_id then
     return self:query('SELECT * FROM predictions WHERE run_id = '..run_id..' AND example_id = '..example_id)

@@ -1,4 +1,8 @@
---[[ Implementation of hash map. ]]
+--- @module HashMap
+-- Implementation of hash map.
+-- This is a subclass of `Map`
+
+local torch = require 'torch'
 local HashMap, parent = torch.class('tl.HashMap', 'tl.Map')
 local Set = tl.Set
 
@@ -46,13 +50,13 @@ end
 
 function HashMap:remove(key)
   assert(self:contains(key), 'Error: key ' .. tostring(key) .. ' not found in HashMap')
-  val = self:get(key)
+  local val = self:get(key)
   self._map[key] = nil
   self._size = self._size - 1
   return val
 end
 
-function HashMap:keySet()
+function HashMap:keys()
   local keys = Set()
   for k, v in pairs(self._map) do
     keys:add(k)
@@ -61,7 +65,7 @@ function HashMap:keySet()
 end
 
 function HashMap:totable()
-  tab = {}
+  local tab = {}
   for k, v in pairs(self._map) do
     tab[k] = v
   end
@@ -71,10 +75,10 @@ end
 function HashMap:__tostring__()
   local s = parent.__tostring__(self) .. '{'
   local max = 5
-  local keys = self:keySet():totable()
+  local keys = self:keys():totable()
 
   for i = 1, math.min(self:size(), max) do
-    key = keys[i]
+    local key = keys[i]
     s = s .. tostring(key) .. ' -> ' .. tostring(self:get(key))
     if i ~= self:size() then
       s = s .. ', '

@@ -104,7 +104,7 @@ function TestMap.testToTable()
 end
 
 function TestMap.testAbstractMethods()
-  local funcs = {'__init', 'add', 'addMany', 'copy', 'contains', 'get', 'remove', 'keySet', 'equals', 'totable'}
+  local funcs = {'__init', 'add', 'addMany', 'copy', 'contains', 'get', 'remove', 'keys', 'equals', 'totable'}
   for _, fname in ipairs(funcs) do
     tester:assertErrorPattern(Map[fname], 'not implemented', fname..' should be a virtual method')
   end

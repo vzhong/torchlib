@@ -122,7 +122,7 @@ function TestUndirectedGraph.testShortestPath()
   g = UndirectedGraph()
   r = g:addNode('r')
   s = g:addNode('s')
-  tester:assertErrorPattern(function() g:shortestPath(r, s) end, 'Error: no path from tl.GraphNode.r. to tl.GraphNode.s.')
+  tester:assertErrorPattern(function() g:shortestPath(r, s) end, 'Error: no path from tl.Graph.Node.r. to tl.Graph.Node.s.')
 end
 
 function getDirectedGraph()
