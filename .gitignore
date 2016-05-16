@@ -26,7 +26,7 @@
 build/
 
 # docs
-docs/
+site/
 
 glove/
 .DS_Store
