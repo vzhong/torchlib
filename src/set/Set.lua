@@ -10,7 +10,7 @@ function Set:__init(values)
   self._map = {}
   self._size = 0
   values = values or {}
-  self:addMany(table.unpack(values))
+  for _, v in ipairs(values) do self:add(v) end
 end
 
 --- @arg {any} val - value to produce a key for
@@ -53,7 +53,7 @@ end
 
 --- @returns {Set} copy of the set
 function Set:copy()
-  return Set.new():addMany(table.unpack(self:totable()))
+  return Set.new(self:totable())
 end
 
 --- @returns {boolean} whether the set contains `val`
