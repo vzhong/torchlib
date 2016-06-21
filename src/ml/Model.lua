@@ -146,7 +146,7 @@ function Model:train(dataset, opt, optimize, optim_opt)
     batch = self:process_batch(batch, opt.pad)
     x, y = batch.X, batch.Y
     _, ret = optimize(self.feval, self.params, {learningRate = opt.lr})
-    loss = loss + ret[1] * x:size(1)
+    loss = loss + ret[1] * y:size(1)
     if not opt.silent then xlua.progress(batch_end, dataset:size()) end
   end
 
