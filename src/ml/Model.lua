@@ -198,7 +198,7 @@ function Model:evaluate(dataset, opt)
     x, y = batch.X, batch.Y
     targs = table.extend(targs, y:totable())
     scores = table.extend(scores, self.net:forward(x):totable())
-    loss = loss + self.criterion:forward(self.net.output, y) * x:size(1)
+    loss = loss + self.criterion:forward(self.net.output, y) * y:size(1)
     if not opt.silent then xlua.progress(batch_end, dataset:size()) end
   end
 
