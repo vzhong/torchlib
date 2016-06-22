@@ -1,0 +1,1254 @@
+{
+    "docs": [
+        {
+            "location": "/", 
+            "text": "Torchlib\n\n\n\n\n\n\nView documentation\n.\n\n\nData structures and libraries for Torch. All instances are Torch serializable with \ntorch.save\n and \ntorch.load\n.\n\n\nInstallation\n\n\nYou can install \ntorchlib\n as follows:\n\n\ngit clone https://github.com/vzhong/torchlib.git \n cd torchlib \n luarocks make\n\n\nTorchlib is namespaced locally. To use it:\n\n\nlocal tl = require 'torchlib'\n\nlocal m = tl.DirectedGraph()\n...\n\n\n\n\nExamples and use cases are shown in the documentation.\n\n\nDocumentation\n\n\nThe documentation is hosted \nhere\n.\nAlternatively you can build your own documentation with \ndocroc\n, which you can get \nhere\n.\n\n\nOverview\n\n\nTorchlib's can be divided into categories based on usecases.\n\n\nBasic Datastructures and Algorithms\n\n\n\n\nGraphs\n\n\nLists, heaps, queues and stacks\n\n\nMaps and counters\n\n\nSets\n\n\nTrees\n\n\n\n\nMachine Learning\n\n\nThe machine learning package contains utilities that facilitate the training of and evaluation of machine learning models. These include:\n\n\n\n\nDataset, which provides mechanisms for subsampling, shuffling, batching of arbitrary examples.\n\n\nVocab, for mapping between indices and words.\n\n\nModel, an abstract class to facilitate the training of Torch based machine learning models.\n\n\nScorer, for evaluating precision/recall metrics.\n\n\nProbTable, for modeling probability distributions.\n\n\nExperiment, for logging experiment progress to a postgres instance.\n\n\n\n\nUtilities\n\n\n\n\nDownloader, for downloading content via http.\n\n\nGlobal, global convenience functions namespaced under \ntl\n.\n\n\nString, string convenience functions namespaced under \ntl.string\n and monkeypatched into \nstring\n.\n\n\nTable, table convenience functions namespaced under \ntl.table\n and monkeypatched into \ntable\n.\n\n\n\n\nContribution\n\n\nPull requests are welcome! Torchlib is unit tested with the default Torch testing framework. Continuous integration is hosted on \nWercker\n which also automatically builds the documentations and deploys them on Github pages (of this repo).", 
+            "title": "Home"
+        }, 
+        {
+            "location": "/#torchlib", 
+            "text": "View documentation .  Data structures and libraries for Torch. All instances are Torch serializable with  torch.save  and  torch.load .", 
+            "title": "Torchlib"
+        }, 
+        {
+            "location": "/#installation", 
+            "text": "You can install  torchlib  as follows:  git clone https://github.com/vzhong/torchlib.git   cd torchlib   luarocks make  Torchlib is namespaced locally. To use it:  local tl = require 'torchlib'\n\nlocal m = tl.DirectedGraph()\n...  Examples and use cases are shown in the documentation.", 
+            "title": "Installation"
+        }, 
+        {
+            "location": "/#documentation", 
+            "text": "The documentation is hosted  here .\nAlternatively you can build your own documentation with  docroc , which you can get  here .", 
+            "title": "Documentation"
+        }, 
+        {
+            "location": "/#overview", 
+            "text": "Torchlib's can be divided into categories based on usecases.", 
+            "title": "Overview"
+        }, 
+        {
+            "location": "/#basic-datastructures-and-algorithms", 
+            "text": "Graphs  Lists, heaps, queues and stacks  Maps and counters  Sets  Trees", 
+            "title": "Basic Datastructures and Algorithms"
+        }, 
+        {
+            "location": "/#machine-learning", 
+            "text": "The machine learning package contains utilities that facilitate the training of and evaluation of machine learning models. These include:   Dataset, which provides mechanisms for subsampling, shuffling, batching of arbitrary examples.  Vocab, for mapping between indices and words.  Model, an abstract class to facilitate the training of Torch based machine learning models.  Scorer, for evaluating precision/recall metrics.  ProbTable, for modeling probability distributions.  Experiment, for logging experiment progress to a postgres instance.", 
+            "title": "Machine Learning"
+        }, 
+        {
+            "location": "/#utilities", 
+            "text": "Downloader, for downloading content via http.  Global, global convenience functions namespaced under  tl .  String, string convenience functions namespaced under  tl.string  and monkeypatched into  string .  Table, table convenience functions namespaced under  tl.table  and monkeypatched into  table .", 
+            "title": "Utilities"
+        }, 
+        {
+            "location": "/#contribution", 
+            "text": "Pull requests are welcome! Torchlib is unit tested with the default Torch testing framework. Continuous integration is hosted on  Wercker  which also automatically builds the documentations and deploys them on Github pages (of this repo).", 
+            "title": "Contribution"
+        }, 
+        {
+            "location": "/util/Download/", 
+            "text": "Downloader\n\n\nA download utility with caching support.\n\n\nDownloader:__init(cache, opt)\n\n\nView source\n\n\nConstructor.\n\n\nArguments:\n\n\n\n\ncache\n (\nstring\n): cache directory. Optional, Default: \n'/tmp/torchlib'\n.\n\n\n\n\nOptions:\n\n\n\n\nverbose\n: prints out progress\n\n\n\n\nDownloader:get(to, url, opt)\n\n\nView source\n\n\nRetrieves a file from cache, downloading it from \nurl\n if it doesn't exists.\n\n\nArguments:\n\n\n\n\nto\n (\nstring\n): location to download to, relative to the cache directory.\n\n\nurl\n (\nstring\n): url to download from. Optional.\n\n\nopt\n (\ntable[string:any]\n): options. Optional.\n\n\n\n\nOptions:\n\n\n\n\nforce\n: overwrite the file if one exists.", 
+            "title": "Download"
+        }, 
+        {
+            "location": "/util/Download/#downloader", 
+            "text": "A download utility with caching support.", 
+            "title": "Downloader"
+        }, 
+        {
+            "location": "/util/Download/#downloader9595initcache-opt", 
+            "text": "View source  Constructor.  Arguments:   cache  ( string ): cache directory. Optional, Default:  '/tmp/torchlib' .   Options:   verbose : prints out progress", 
+            "title": "Downloader:__init(cache, opt)"
+        }, 
+        {
+            "location": "/util/Download/#downloadergetto-url-opt", 
+            "text": "View source  Retrieves a file from cache, downloading it from  url  if it doesn't exists.  Arguments:   to  ( string ): location to download to, relative to the cache directory.  url  ( string ): url to download from. Optional.  opt  ( table[string:any] ): options. Optional.   Options:   force : overwrite the file if one exists.", 
+            "title": "Downloader:get(to, url, opt)"
+        }, 
+        {
+            "location": "/util/global/", 
+            "text": "tl.range(from, to, inc)\n\n\nView source\n\n\nArguments:\n\n\n\n\nfrom\n (\nint\n): start index.\n\n\nend\n (\nint\n): end index. Optional, Default: \nend\n.\n\n\ninc\n (\nint\n): value to increment by. Optional, Default: \n1\n.\n\n\n\n\nReturns:\n\n\n\n\n(\ntable\n) indices from \nfrom\n to \nto\n, incrementing by \ninc\n\n\n\n\ntl.equals(a, b)\n\n\nView source\n\n\nArguments:\n\n\n\n\na\n (\ntable\n): first object.\n\n\nb\n (\ntable\n): second object.\n\n\n\n\nReturns:\n\n\n\n\n(\nboolean\n) whether the two objects are equal to each other\n\n\n\n\ntl.deepcopy(t)\n\n\nView source\n\n\nArguments:\n\n\n\n\nt\n (\nany\n): object to copy.\n\n\n\n\nReturns:\n\n\n\n\n(\nany\n) deep copy\n\n\n\n\nfrom https://gist.github.com/MihailJP/3931841\n\n\ntl.copy(t)\n\n\nView source\n\n\nArguments:\n\n\n\n\nt\n (\nany\n): object to copy.\n\n\n\n\nReturns:\n\n\n\n\n(\nany\n) shallow copy", 
+            "title": "global"
+        }, 
+        {
+            "location": "/util/global/#tlrangefrom-to-inc", 
+            "text": "View source  Arguments:   from  ( int ): start index.  end  ( int ): end index. Optional, Default:  end .  inc  ( int ): value to increment by. Optional, Default:  1 .   Returns:   ( table ) indices from  from  to  to , incrementing by  inc", 
+            "title": "tl.range(from, to, inc)"
+        }, 
+        {
+            "location": "/util/global/#tlequalsa-b", 
+            "text": "View source  Arguments:   a  ( table ): first object.  b  ( table ): second object.   Returns:   ( boolean ) whether the two objects are equal to each other", 
+            "title": "tl.equals(a, b)"
+        }, 
+        {
+            "location": "/util/global/#tldeepcopyt", 
+            "text": "View source  Arguments:   t  ( any ): object to copy.   Returns:   ( any ) deep copy   from https://gist.github.com/MihailJP/3931841", 
+            "title": "tl.deepcopy(t)"
+        }, 
+        {
+            "location": "/util/global/#tlcopyt", 
+            "text": "View source  Arguments:   t  ( any ): object to copy.   Returns:   ( any ) shallow copy", 
+            "title": "tl.copy(t)"
+        }, 
+        {
+            "location": "/util/string/", 
+            "text": "string.startswith(s, substring)\n\n\nView source\n\n\nArguments:\n\n\n\n\ns\n (\nstring\n): larger string.\n\n\nsubstring\n (\nstring\n): smaller string.\n\n\n\n\nReturns:\n\n\n\n\n(\nboolean\n) whether the larger string starts with the smaller string\n\n\n\n\nstring.endswith(s, substring)\n\n\nView source\n\n\nArguments:\n\n\n\n\ns\n (\nstring\n): larger string.\n\n\nsubstring\n (\nstring\n): smaller string.\n\n\n\n\nReturns:\n\n\n\n\n(\nboolean\n) whether the larger string ends with the smaller string", 
+            "title": "string"
+        }, 
+        {
+            "location": "/util/string/#stringstartswiths-substring", 
+            "text": "View source  Arguments:   s  ( string ): larger string.  substring  ( string ): smaller string.   Returns:   ( boolean ) whether the larger string starts with the smaller string", 
+            "title": "string.startswith(s, substring)"
+        }, 
+        {
+            "location": "/util/string/#stringendswiths-substring", 
+            "text": "View source  Arguments:   s  ( string ): larger string.  substring  ( string ): smaller string.   Returns:   ( boolean ) whether the larger string ends with the smaller string", 
+            "title": "string.endswith(s, substring)"
+        }, 
+        {
+            "location": "/util/table/", 
+            "text": "table.tostring(t, indent, s)\n\n\nView source\n\n\nArguments:\n\n\n\n\nt\n (\ntable\n): a table.\n\n\nindent\n (\nstring\n): indentation for nested keys. Optional.\n\n\ns\n (\nstring\n): accumulated string. Optional.\n\n\n\n\nReturns:\n\n\n\n\n(\nstring\n) string representation for the table\n\n\n\n\ntable.shuffle(t)\n\n\nView source\n\n\nArguments:\n\n\n\n\nt\n (\ntable\n): table to shuffle in place.\n\n\n\n\nReturns:\n\n\n\n\n(\ntable\n) shuffled table\n\n\n\n\ntable.equals(t1, t2)\n\n\nView source\n\n\nArguments:\n\n\n\n\nt1\n (\ntable[any]\n): first table.\n\n\nt2\n (\ntable[any]\n): seoncd table.\n\n\n\n\nReturns:\n\n\n\n\n(\nboolean\n) whether the keys and values of each table are equal\n\n\n\n\ntable.valuesEqual(t1, t2)\n\n\nView source\n\n\nArguments:\n\n\n\n\nt1\n (\ntable[any]\n): first table.\n\n\nt2\n (\ntable[any]\n): seoncd table.\n\n\n\n\nReturns:\n\n\n\n\n(\nboolean\n) whether the values of each table are equal, disregarding order\n\n\n\n\ntable.reverse(t)\n\n\nView source\n\n\nArguments:\n\n\n\n\nt\n (\ntable\n): table to reverse.\n\n\n\n\nReturns:\n\n\n\n\n(\ntable\n) A copy of the table, reversed.\n\n\n\n\ntable.contains(t, val)\n\n\nView source\n\n\nArguments:\n\n\n\n\nt\n (\ntable\n): table to check.\n\n\nval\n (\nany\n): value to check.\n\n\n\n\nReturns:\n\n\n\n\n(\nboolean\n) whether the tabale contains the value\n\n\n\n\ntable.flatten(t, tab, prefix)\n\n\nView source\n\n\nFlattens the table.\n\n\nArguments:\n\n\n\n\nt\n (\ntable\n): the table to modify.\n\n\ntab\n (\ntable\n): where to store the results. If not given, then a new table will be used. Optional.\n\n\nprefix\n (\nstring\n): string to use to join nested keys. Optional, Default: \n'__'\n.\n\n\n\n\nReturns:\n\n\n\n\n(\ntable\n) flattened table\n\n\n\n\ntable.map(t, callback)\n\n\nView source\n\n\nApplies \ncallback\n to each element in \nt\n and returns the results in another table.\n\n\nArguments:\n\n\n\n\nt\n (\ntable\n): the table to modify.\n\n\ncallback\n (\nfunction\n): function to apply.\n\n\n\n\nReturns:\n\n\n\n\n(\ntable\n) modified table\n\n\n\n\ntable.select(t, keys, forget_keys)\n\n\nView source\n\n\nSelects items from table \nt\n.\n\n\nArguments:\n\n\n\n\nt\n (\ntable\n): table to select from.\n\n\nkeys\n (\ntable\n): table of keys.\n\n\nforget_keys\n (\nboolean\n): whether to retain the keys. Optional.\n\n\n\n\nReturns:\n\n\n\n\n(\ntable\n) a table of key value pairs where the keys are \nkeys\n and the values are corresponding values from \nt\n.\n\n\n\n\nIf \nforget_keys\n is \ntrue\n, then the returned table will have integer keys.\n\n\ntable.extend(t, another)\n\n\nView source\n\n\nExtends the table \nt\n with another table \nanother\n\n\nArguments:\n\n\n\n\nt\n (\ntable\n): first table.\n\n\nanother\n (\ntable\n): second table.\n\n\n\n\nReturns:\n\n\n\n\n(\ntable\n) modified first table\n\n\n\n\ntable.combinations(input)\n\n\nView source\n\n\nReturns all combinations of elements in a table.\n\n\nArguments:\n\n\n\n\ninput\n (\ntable[table[any]]\n): a collection of lists to compute the combination for.\n\n\n\n\nReturns:\n\n\n\n\n(\ntable[table[any]]\n) combinations of the input\n\n\n\n\nExample:\n\n\ntable.combinations{{1, 2}, {'a', 'b', 'c'}}\n\nThis returns `{{1, 'a'}, {1, 'b'}, {1, 'c'}, {2, 'a'}, {2, 'b'}, {2, 'c'}}`", 
+            "title": "table"
+        }, 
+        {
+            "location": "/util/table/#tabletostringt-indent-s", 
+            "text": "View source  Arguments:   t  ( table ): a table.  indent  ( string ): indentation for nested keys. Optional.  s  ( string ): accumulated string. Optional.   Returns:   ( string ) string representation for the table", 
+            "title": "table.tostring(t, indent, s)"
+        }, 
+        {
+            "location": "/util/table/#tableshufflet", 
+            "text": "View source  Arguments:   t  ( table ): table to shuffle in place.   Returns:   ( table ) shuffled table", 
+            "title": "table.shuffle(t)"
+        }, 
+        {
+            "location": "/util/table/#tableequalst1-t2", 
+            "text": "View source  Arguments:   t1  ( table[any] ): first table.  t2  ( table[any] ): seoncd table.   Returns:   ( boolean ) whether the keys and values of each table are equal", 
+            "title": "table.equals(t1, t2)"
+        }, 
+        {
+            "location": "/util/table/#tablevaluesequalt1-t2", 
+            "text": "View source  Arguments:   t1  ( table[any] ): first table.  t2  ( table[any] ): seoncd table.   Returns:   ( boolean ) whether the values of each table are equal, disregarding order", 
+            "title": "table.valuesEqual(t1, t2)"
+        }, 
+        {
+            "location": "/util/table/#tablereverset", 
+            "text": "View source  Arguments:   t  ( table ): table to reverse.   Returns:   ( table ) A copy of the table, reversed.", 
+            "title": "table.reverse(t)"
+        }, 
+        {
+            "location": "/util/table/#tablecontainst-val", 
+            "text": "View source  Arguments:   t  ( table ): table to check.  val  ( any ): value to check.   Returns:   ( boolean ) whether the tabale contains the value", 
+            "title": "table.contains(t, val)"
+        }, 
+        {
+            "location": "/util/table/#tableflattent-tab-prefix", 
+            "text": "View source  Flattens the table.  Arguments:   t  ( table ): the table to modify.  tab  ( table ): where to store the results. If not given, then a new table will be used. Optional.  prefix  ( string ): string to use to join nested keys. Optional, Default:  '__' .   Returns:   ( table ) flattened table", 
+            "title": "table.flatten(t, tab, prefix)"
+        }, 
+        {
+            "location": "/util/table/#tablemapt-callback", 
+            "text": "View source  Applies  callback  to each element in  t  and returns the results in another table.  Arguments:   t  ( table ): the table to modify.  callback  ( function ): function to apply.   Returns:   ( table ) modified table", 
+            "title": "table.map(t, callback)"
+        }, 
+        {
+            "location": "/util/table/#tableselectt-keys-forget95keys", 
+            "text": "View source  Selects items from table  t .  Arguments:   t  ( table ): table to select from.  keys  ( table ): table of keys.  forget_keys  ( boolean ): whether to retain the keys. Optional.   Returns:   ( table ) a table of key value pairs where the keys are  keys  and the values are corresponding values from  t .   If  forget_keys  is  true , then the returned table will have integer keys.", 
+            "title": "table.select(t, keys, forget_keys)"
+        }, 
+        {
+            "location": "/util/table/#tableextendt-another", 
+            "text": "View source  Extends the table  t  with another table  another  Arguments:   t  ( table ): first table.  another  ( table ): second table.   Returns:   ( table ) modified first table", 
+            "title": "table.extend(t, another)"
+        }, 
+        {
+            "location": "/util/table/#tablecombinationsinput", 
+            "text": "View source  Returns all combinations of elements in a table.  Arguments:   input  ( table[table[any]] ): a collection of lists to compute the combination for.   Returns:   ( table[table[any]] ) combinations of the input   Example:  table.combinations{{1, 2}, {'a', 'b', 'c'}}\n\nThis returns `{{1, 'a'}, {1, 'b'}, {1, 'c'}, {2, 'a'}, {2, 'b'}, {2, 'c'}}`", 
+            "title": "table.combinations(input)"
+        }, 
+        {
+            "location": "/graph/DirectedGraph/", 
+            "text": "DirectedGraph\n\n\nA directed graph implementation.\nThis is a subclass of \nGraph\n.\n\n\nDirectedGraph:connect(nodeA, nodeB)\n\n\nView source\n\n\nConnects two nodes.\n\n\nArguments:\n\n\n\n\nnodeA\n (\nGraph.Node\n): starting node.\n\n\nnodeB\n (\nGraph.Node\n): ending node.\n\n\n\n\nDirectedGraph:topologicalSort()\n\n\nView source\n\n\nReturns nodes in this graph in topologically sorted order\n\n\nReturns:\n\n\n\n\n(\ntable\n) \n\n\n\n\nDirectedGraph:hasCycle()\n\n\nView source\n\n\nReturns whether the graph has a cycle\n\n\nReturns:\n\n\n\n\n(\nboolean\n) \n\n\n\n\nDirectedGraph:transpose()\n\n\nView source\n\n\nReturns a transpose of this graph (eg. with the edges reversed)\n\n\nReturns:\n\n\n\n\n(\nDirectedGraph\n) \n\n\n\n\nDirectedGraph:stronglyConnectedComponents()\n\n\nView source\n\n\nReturns strongly connected components.\n\n\nEach strongly connected component is itself a table.\n\n\nReturns:\n\n\n\n\n(\ntable[table]\n) a table of strongly connected components.", 
+            "title": "DirectedGraph"
+        }, 
+        {
+            "location": "/graph/DirectedGraph/#directedgraph", 
+            "text": "A directed graph implementation.\nThis is a subclass of  Graph .", 
+            "title": "DirectedGraph"
+        }, 
+        {
+            "location": "/graph/DirectedGraph/#directedgraphconnectnodea-nodeb", 
+            "text": "View source  Connects two nodes.  Arguments:   nodeA  ( Graph.Node ): starting node.  nodeB  ( Graph.Node ): ending node.", 
+            "title": "DirectedGraph:connect(nodeA, nodeB)"
+        }, 
+        {
+            "location": "/graph/DirectedGraph/#directedgraphtopologicalsort", 
+            "text": "View source  Returns nodes in this graph in topologically sorted order  Returns:   ( table )", 
+            "title": "DirectedGraph:topologicalSort()"
+        }, 
+        {
+            "location": "/graph/DirectedGraph/#directedgraphhascycle", 
+            "text": "View source  Returns whether the graph has a cycle  Returns:   ( boolean )", 
+            "title": "DirectedGraph:hasCycle()"
+        }, 
+        {
+            "location": "/graph/DirectedGraph/#directedgraphtranspose", 
+            "text": "View source  Returns a transpose of this graph (eg. with the edges reversed)  Returns:   ( DirectedGraph )", 
+            "title": "DirectedGraph:transpose()"
+        }, 
+        {
+            "location": "/graph/DirectedGraph/#directedgraphstronglyconnectedcomponents", 
+            "text": "View source  Returns strongly connected components.  Each strongly connected component is itself a table.  Returns:   ( table[table] ) a table of strongly connected components.", 
+            "title": "DirectedGraph:stronglyConnectedComponents()"
+        }, 
+        {
+            "location": "/graph/UndirectedGraph/", 
+            "text": "UndirectedGraph\n\n\nUndirected graph implementation\nThis is a subclass of \nGraph\n.\n\n\nUndirectedGraph:connect(nodeA, nodeB)\n\n\nView source\n\n\nConnects two nodes.\n\n\nArguments:\n\n\n\n\nnodeA\n (\nGraph.Node\n): starting node.\n\n\nnodeB\n (\nGraph.Node\n): ending node.", 
+            "title": "UndirectedGraph"
+        }, 
+        {
+            "location": "/graph/UndirectedGraph/#undirectedgraph", 
+            "text": "Undirected graph implementation\nThis is a subclass of  Graph .", 
+            "title": "UndirectedGraph"
+        }, 
+        {
+            "location": "/graph/UndirectedGraph/#undirectedgraphconnectnodea-nodeb", 
+            "text": "View source  Connects two nodes.  Arguments:   nodeA  ( Graph.Node ): starting node.  nodeB  ( Graph.Node ): ending node.", 
+            "title": "UndirectedGraph:connect(nodeA, nodeB)"
+        }, 
+        {
+            "location": "/graph/Graph/", 
+            "text": "Graph\n\n\nAbstract graph implementation.\n\n\nA \nGraph\n consists of \nGraphNode\ns. Each \nGraphNode\n can be in three states:\n  - \nUNDISCOVERED\n\n  - \nVISITED\n\n  - \nFINISHED\n\n\nGraphNode:__init(val)\n\n\nView source\n\n\nConstructor.\n\n\nArguments:\n\n\n\n\nval\n (\nany\n): value for the new node.\n\n\n\n\nGraphNode:__tostring__()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\nstring\n) string representation\n\n\n\n\nGraph:__init()\n\n\nView source\n\n\nConstructor.\n\n\nGraph:size()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\nint\n) number of nodes in the graph.\n\n\n\n\nGraph:assertValidNode(node)\n\n\nView source\n\n\nVerifies that the node is in the graph\n\n\nArguments:\n\n\n\n\nnode\n (\nGraph.Node\n): the node to verify.\n\n\n\n\nGraph:addNode(val)\n\n\nView source\n\n\nAdds a node with given value to the graph.\n\n\nArguments:\n\n\n\n\nval\n (\nany\n): value for the new node.\n\n\n\n\nReturns:\n\n\n\n\n(\nGraph.Node\n) \n\n\n\n\nGraph:connectionsOf(node)\n\n\nView source\n\n\nReturns neighbours of a given node.\n\n\nArguments:\n\n\n\n\nnode\n (\nGraph.Node\n): the node to find neighbours for.\n\n\n\n\nReturns:\n\n\n\n\n(\ntable(Graph.Node)\n) \n\n\n\n\nGraph:nodeSet()\n\n\nView source\n\n\nReturns a set of nodes in the graph.\n\n\nReturns:\n\n\n\n\n(\nSet(Graph.Node)\n) \n\n\n\n\nGraph:resetState()\n\n\nView source\n\n\nInitializes all nodes to \nGraph.state.UNDISCOVERED\n.\n\n\nReturns:\n\n\n\n\n(\nGraph\n) \n\n\n\n\nThe graph will be returned\n\n\nGraph:breadthFirstSearch(source, callbacks)\n\n\nView source\n\n\nPerforms breadth first search.\n\n\nArguments:\n\n\n\n\nsource\n (\nGraph.Node\n): the source node to start BFS.\n\n\ncallbacks\n (\ntable[string:function]\n): a map with optional callbacks\n\n\n\n\nAvailable callbacks:. Optional.\n\n\n\n\n\n\ndiscover = function(Graph.Node)\n: called when a node is initially encountered\n\n\n\n\n\n\nfinish = function(Graph.Node)\n: called when a node has been fully explored (eg. its connected nodes have all been visited)\n\n\n\n\n\n\nGraph:shortestPath(source, destination, skipBFS)\n\n\nView source\n\n\nReturns the shortest path from source to destination\n\n\nArguments:\n\n\n\n\nsource\n (\nGraph.Node\n): starting node.\n\n\ndestination\n (\nGraph.Node\n): end node.\n\n\nskipBFS\n (\nboolean\n): whether BFS has already been performned. Optional.\n\n\n\n\nNote: This function relies on the results from a BFS call. By default, a BFS is performed before\n\n\nretrieving the shortest path. Alternatively, if the caller has already performed BFS, then\n\n\nthis BFS can be skipped by passing in \nskipBFS = true\n.\n\n\nGraph:depthFirstSearch(nodes, callbacks)\n\n\nView source\n\n\nPerforms depth first search.\n\n\nArguments:\n\n\n\n\nnodes\n (\ntable[Graph.Node]\n): the table of nodes on which to perform DFS. If not set, then all nodes in the graph are used.\n\n\ncallbacks\n (\ntable[string:function]\n): a map with optional callbacks\n\n\n\n\nAvailable callbacks:. Optional.\n\n\n\n\n\n\ndiscover = function(Graph.Node)\n: called when a node is initially encountered\n\n\n\n\n\n\nfinish = function(Graph.Node)\n: called when a node has been fully explored (eg. its connected nodes have all been visited)", 
+            "title": "Graph"
+        }, 
+        {
+            "location": "/graph/Graph/#graph", 
+            "text": "Abstract graph implementation.  A  Graph  consists of  GraphNode s. Each  GraphNode  can be in three states:\n  -  UNDISCOVERED \n  -  VISITED \n  -  FINISHED", 
+            "title": "Graph"
+        }, 
+        {
+            "location": "/graph/Graph/#graphnode9595initval", 
+            "text": "View source  Constructor.  Arguments:   val  ( any ): value for the new node.", 
+            "title": "GraphNode:__init(val)"
+        }, 
+        {
+            "location": "/graph/Graph/#graphnode9595tostring9595", 
+            "text": "View source  Returns:   ( string ) string representation", 
+            "title": "GraphNode:__tostring__()"
+        }, 
+        {
+            "location": "/graph/Graph/#graph9595init", 
+            "text": "View source  Constructor.", 
+            "title": "Graph:__init()"
+        }, 
+        {
+            "location": "/graph/Graph/#graphsize", 
+            "text": "View source  Returns:   ( int ) number of nodes in the graph.", 
+            "title": "Graph:size()"
+        }, 
+        {
+            "location": "/graph/Graph/#graphassertvalidnodenode", 
+            "text": "View source  Verifies that the node is in the graph  Arguments:   node  ( Graph.Node ): the node to verify.", 
+            "title": "Graph:assertValidNode(node)"
+        }, 
+        {
+            "location": "/graph/Graph/#graphaddnodeval", 
+            "text": "View source  Adds a node with given value to the graph.  Arguments:   val  ( any ): value for the new node.   Returns:   ( Graph.Node )", 
+            "title": "Graph:addNode(val)"
+        }, 
+        {
+            "location": "/graph/Graph/#graphconnectionsofnode", 
+            "text": "View source  Returns neighbours of a given node.  Arguments:   node  ( Graph.Node ): the node to find neighbours for.   Returns:   ( table(Graph.Node) )", 
+            "title": "Graph:connectionsOf(node)"
+        }, 
+        {
+            "location": "/graph/Graph/#graphnodeset", 
+            "text": "View source  Returns a set of nodes in the graph.  Returns:   ( Set(Graph.Node) )", 
+            "title": "Graph:nodeSet()"
+        }, 
+        {
+            "location": "/graph/Graph/#graphresetstate", 
+            "text": "View source  Initializes all nodes to  Graph.state.UNDISCOVERED .  Returns:   ( Graph )    The graph will be returned", 
+            "title": "Graph:resetState()"
+        }, 
+        {
+            "location": "/graph/Graph/#graphbreadthfirstsearchsource-callbacks", 
+            "text": "View source  Performs breadth first search.  Arguments:   source  ( Graph.Node ): the source node to start BFS.  callbacks  ( table[string:function] ): a map with optional callbacks   Available callbacks:. Optional.    discover = function(Graph.Node) : called when a node is initially encountered    finish = function(Graph.Node) : called when a node has been fully explored (eg. its connected nodes have all been visited)", 
+            "title": "Graph:breadthFirstSearch(source, callbacks)"
+        }, 
+        {
+            "location": "/graph/Graph/#graphshortestpathsource-destination-skipbfs", 
+            "text": "View source  Returns the shortest path from source to destination  Arguments:   source  ( Graph.Node ): starting node.  destination  ( Graph.Node ): end node.  skipBFS  ( boolean ): whether BFS has already been performned. Optional.   Note: This function relies on the results from a BFS call. By default, a BFS is performed before  retrieving the shortest path. Alternatively, if the caller has already performed BFS, then  this BFS can be skipped by passing in  skipBFS = true .", 
+            "title": "Graph:shortestPath(source, destination, skipBFS)"
+        }, 
+        {
+            "location": "/graph/Graph/#graphdepthfirstsearchnodes-callbacks", 
+            "text": "View source  Performs depth first search.  Arguments:   nodes  ( table[Graph.Node] ): the table of nodes on which to perform DFS. If not set, then all nodes in the graph are used.  callbacks  ( table[string:function] ): a map with optional callbacks   Available callbacks:. Optional.    discover = function(Graph.Node) : called when a node is initially encountered    finish = function(Graph.Node) : called when a node has been fully explored (eg. its connected nodes have all been visited)", 
+            "title": "Graph:depthFirstSearch(nodes, callbacks)"
+        }, 
+        {
+            "location": "/tree/Tree/", 
+            "text": "Tree\n\n\nImplementation of tree.\n\n\nTreeNode:__init(key, val)\n\n\nView source\n\n\nConstructor.\n\n\nTreeNode:children()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\ntable\n) children of this node\n\n\n\n\nTreeNode:__tostring__()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\nstring\n) string representation\n\n\n\n\nTreeNode:subtreeToString(prefix, isLeaf)\n\n\nView source\n\n\nArguments:\n\n\n\n\nprefix\n (\nstring\n): string to add before each line.\n\n\nisLeaf\n (\nboolean\n): whether the subtree is a leaf.\n\n\n\n\nReturns:\n\n\n\n\n(\nstring\n) string representation\n\n\n\n\nTree:__tostring__()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\nstring\n) string representation\n\n\n\n\nTree:size()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\nint\n) number of nodes in the tree", 
+            "title": "Tree"
+        }, 
+        {
+            "location": "/tree/Tree/#tree", 
+            "text": "Implementation of tree.", 
+            "title": "Tree"
+        }, 
+        {
+            "location": "/tree/Tree/#treenode9595initkey-val", 
+            "text": "View source  Constructor.", 
+            "title": "TreeNode:__init(key, val)"
+        }, 
+        {
+            "location": "/tree/Tree/#treenodechildren", 
+            "text": "View source  Returns:   ( table ) children of this node", 
+            "title": "TreeNode:children()"
+        }, 
+        {
+            "location": "/tree/Tree/#treenode9595tostring9595", 
+            "text": "View source  Returns:   ( string ) string representation", 
+            "title": "TreeNode:__tostring__()"
+        }, 
+        {
+            "location": "/tree/Tree/#treenodesubtreetostringprefix-isleaf", 
+            "text": "View source  Arguments:   prefix  ( string ): string to add before each line.  isLeaf  ( boolean ): whether the subtree is a leaf.   Returns:   ( string ) string representation", 
+            "title": "TreeNode:subtreeToString(prefix, isLeaf)"
+        }, 
+        {
+            "location": "/tree/Tree/#tree9595tostring9595", 
+            "text": "View source  Returns:   ( string ) string representation", 
+            "title": "Tree:__tostring__()"
+        }, 
+        {
+            "location": "/tree/Tree/#treesize", 
+            "text": "View source  Returns:   ( int ) number of nodes in the tree", 
+            "title": "Tree:size()"
+        }, 
+        {
+            "location": "/tree/BinarySearchTree/", 
+            "text": "BinarySearchTree.Node\n\n\nA node in the binary search tree.\nThis is a subclass of \nBinaryTree.Node\n.\n\n\nBinarySearchTreeNode:search(key)\n\n\nView source\n\n\nSearches for a key in the BST.\n\n\nArguments:\n\n\n\n\nkey\n (\nnumber\n): the key to retrieve.\n\n\n\n\nReturns:\n\n\n\n\n(\nBinarySearchTree.Node\n) the node with the requested key\n\n\n\n\nBinarySearchTreeNode:min()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\nint\n) the minimum node of the subtree rooted at this node.\n\n\n\n\nBinarySearchTreeNode:max()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\nint\n) the maximum node of the subtree rooted at this node.\n\n\n\n\nBinarySearchTreeNode:successor()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\nBinarySearchTre.Node\n) the node with the smallest key that is larger than this one.\n\n\n\n\nBinarySearchTreeNode:predecessor()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\nBinarySearchTre.Node\n) the node with the largest key that is smaller than this one.\n\n\n\n\nBinarySearchTree\n\n\nBinary Search Tree. An implementation of \nBinaryTree\n.\n\n\nExample:\n\n\nlocal t = BinarySearchTree.new()\nt:insert(BinarySearchTreeNode.new(12))\nt:insert(BinarySearchTreeNode.new(5))\nt:insert(BinarySearchTreeNode.new(2))\nt:insert(BinarySearchTreeNode.new(9))\nt:insert(BinarySearchTreeNode.new(18))\nt:insert(BinarySearchTreeNode.new(15))\nt:insert(BinarySearchTreeNode.new(13))\nt:insert(BinarySearchTreeNode.new(17))\nt:insert(BinarySearchTreeNode.new(19))\nprint(t)\n\n\n\n\nBinarySearchTree:insert(node)\n\n\nView source\n\n\nInserts a node into the tree.\n\n\nArguments:\n\n\n\n\nnode\n (\nBinarySearchTree.Node\n): node to insert.\n\n\n\n\nReturns:\n\n\n\n\n(\nBinarySearchTree\n) modified tree\n\n\n\n\nBinarySearchTree:search(key)\n\n\nView source\n\n\nArguments:\n\n\n\n\nkey\n (\nnumber\n): key to search for.\n\n\n\n\nReturns:\n\n\n\n\n(\nBinarySearchTree.Node\n) node with the requested key\n\n\n\n\nBinarySearchTree:min()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\nBinarySearchTree.Node\n) node with the minimum key\n\n\n\n\nBinarySearchTree:max()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\nBinarySearchTree.Node\n) node with the maximum key\n\n\n\n\nBinarySearchTree:transplant(old, new)\n\n\nView source\n\n\nReplaces the subtree rooted at \nold\n with the one rooted at \nnew\n.\n\n\nArguments:\n\n\n\n\nold\n (\nBinarySearchTree.Node\n): node to replace.\n\n\nnew\n (\nBinarySearchTree.Node\n): new node to use.\n\n\n\n\nReturns:\n\n\n\n\n(\nBinarySearchTree\n) modified tree\n\n\n\n\nBinarySearchTree:delete(node)\n\n\nView source\n\n\nDeletes a node from the tree.\n\n\nArguments:\n\n\n\n\nnode\n (\nBinarySearchTree.Node\n): node to delete.\n\n\n\n\nReturns:\n\n\n\n\n(\nBinarySearchTree\n) modified tree", 
+            "title": "BinarySearchTree"
+        }, 
+        {
+            "location": "/tree/BinarySearchTree/#binarysearchtreenode", 
+            "text": "A node in the binary search tree.\nThis is a subclass of  BinaryTree.Node .", 
+            "title": "BinarySearchTree.Node"
+        }, 
+        {
+            "location": "/tree/BinarySearchTree/#binarysearchtreenodesearchkey", 
+            "text": "View source  Searches for a key in the BST.  Arguments:   key  ( number ): the key to retrieve.   Returns:   ( BinarySearchTree.Node ) the node with the requested key", 
+            "title": "BinarySearchTreeNode:search(key)"
+        }, 
+        {
+            "location": "/tree/BinarySearchTree/#binarysearchtreenodemin", 
+            "text": "View source  Returns:   ( int ) the minimum node of the subtree rooted at this node.", 
+            "title": "BinarySearchTreeNode:min()"
+        }, 
+        {
+            "location": "/tree/BinarySearchTree/#binarysearchtreenodemax", 
+            "text": "View source  Returns:   ( int ) the maximum node of the subtree rooted at this node.", 
+            "title": "BinarySearchTreeNode:max()"
+        }, 
+        {
+            "location": "/tree/BinarySearchTree/#binarysearchtreenodesuccessor", 
+            "text": "View source  Returns:   ( BinarySearchTre.Node ) the node with the smallest key that is larger than this one.", 
+            "title": "BinarySearchTreeNode:successor()"
+        }, 
+        {
+            "location": "/tree/BinarySearchTree/#binarysearchtreenodepredecessor", 
+            "text": "View source  Returns:   ( BinarySearchTre.Node ) the node with the largest key that is smaller than this one.", 
+            "title": "BinarySearchTreeNode:predecessor()"
+        }, 
+        {
+            "location": "/tree/BinarySearchTree/#binarysearchtree", 
+            "text": "Binary Search Tree. An implementation of  BinaryTree .  Example:  local t = BinarySearchTree.new()\nt:insert(BinarySearchTreeNode.new(12))\nt:insert(BinarySearchTreeNode.new(5))\nt:insert(BinarySearchTreeNode.new(2))\nt:insert(BinarySearchTreeNode.new(9))\nt:insert(BinarySearchTreeNode.new(18))\nt:insert(BinarySearchTreeNode.new(15))\nt:insert(BinarySearchTreeNode.new(13))\nt:insert(BinarySearchTreeNode.new(17))\nt:insert(BinarySearchTreeNode.new(19))\nprint(t)", 
+            "title": "BinarySearchTree"
+        }, 
+        {
+            "location": "/tree/BinarySearchTree/#binarysearchtreeinsertnode", 
+            "text": "View source  Inserts a node into the tree.  Arguments:   node  ( BinarySearchTree.Node ): node to insert.   Returns:   ( BinarySearchTree ) modified tree", 
+            "title": "BinarySearchTree:insert(node)"
+        }, 
+        {
+            "location": "/tree/BinarySearchTree/#binarysearchtreesearchkey", 
+            "text": "View source  Arguments:   key  ( number ): key to search for.   Returns:   ( BinarySearchTree.Node ) node with the requested key", 
+            "title": "BinarySearchTree:search(key)"
+        }, 
+        {
+            "location": "/tree/BinarySearchTree/#binarysearchtreemin", 
+            "text": "View source  Returns:   ( BinarySearchTree.Node ) node with the minimum key", 
+            "title": "BinarySearchTree:min()"
+        }, 
+        {
+            "location": "/tree/BinarySearchTree/#binarysearchtreemax", 
+            "text": "View source  Returns:   ( BinarySearchTree.Node ) node with the maximum key", 
+            "title": "BinarySearchTree:max()"
+        }, 
+        {
+            "location": "/tree/BinarySearchTree/#binarysearchtreetransplantold-new", 
+            "text": "View source  Replaces the subtree rooted at  old  with the one rooted at  new .  Arguments:   old  ( BinarySearchTree.Node ): node to replace.  new  ( BinarySearchTree.Node ): new node to use.   Returns:   ( BinarySearchTree ) modified tree", 
+            "title": "BinarySearchTree:transplant(old, new)"
+        }, 
+        {
+            "location": "/tree/BinarySearchTree/#binarysearchtreedeletenode", 
+            "text": "View source  Deletes a node from the tree.  Arguments:   node  ( BinarySearchTree.Node ): node to delete.   Returns:   ( BinarySearchTree ) modified tree", 
+            "title": "BinarySearchTree:delete(node)"
+        }, 
+        {
+            "location": "/tree/BinaryTree/", 
+            "text": "BinaryTree.Node\n\n\nNode in a binary tree.\nThis is a subclass of \nTree.Node\n\n\nBinaryTreeNode:__init(key, val)\n\n\nView source\n\n\nConstructor\n\n\nBinaryTreeNode:children()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\ntable\n) children of this node\n\n\n\n\nBinaryTreeNode:walkInOrder(callback)\n\n\nView source\n\n\nTraverses the tree in order.\n\n\nArguments:\n\n\n\n\ncallback\n (\nfunction\n): function to execute at each node. Optional.\n\n\n\n\nBinaryTree\n\n\nImplementation of binary tree.\nThis is a subclass of \nTree\n.\n\n\nBinaryTree:__init()\n\n\nView source\n\n\nConstructor.\n\n\nBinaryTree:walkInOrder(callback)\n\n\nView source\n\n\nTraverses the binary tree starting from the root in order\n\n\nArguments:\n\n\n\n\ncallback\n (\nfunction\n): function to execute at each node. Optional.", 
+            "title": "BinaryTree"
+        }, 
+        {
+            "location": "/tree/BinaryTree/#binarytreenode", 
+            "text": "Node in a binary tree.\nThis is a subclass of  Tree.Node", 
+            "title": "BinaryTree.Node"
+        }, 
+        {
+            "location": "/tree/BinaryTree/#binarytreenode9595initkey-val", 
+            "text": "View source  Constructor", 
+            "title": "BinaryTreeNode:__init(key, val)"
+        }, 
+        {
+            "location": "/tree/BinaryTree/#binarytreenodechildren", 
+            "text": "View source  Returns:   ( table ) children of this node", 
+            "title": "BinaryTreeNode:children()"
+        }, 
+        {
+            "location": "/tree/BinaryTree/#binarytreenodewalkinordercallback", 
+            "text": "View source  Traverses the tree in order.  Arguments:   callback  ( function ): function to execute at each node. Optional.", 
+            "title": "BinaryTreeNode:walkInOrder(callback)"
+        }, 
+        {
+            "location": "/tree/BinaryTree/#binarytree", 
+            "text": "Implementation of binary tree.\nThis is a subclass of  Tree .", 
+            "title": "BinaryTree"
+        }, 
+        {
+            "location": "/tree/BinaryTree/#binarytree9595init", 
+            "text": "View source  Constructor.", 
+            "title": "BinaryTree:__init()"
+        }, 
+        {
+            "location": "/tree/BinaryTree/#binarytreewalkinordercallback", 
+            "text": "View source  Traverses the binary tree starting from the root in order  Arguments:   callback  ( function ): function to execute at each node. Optional.", 
+            "title": "BinaryTree:walkInOrder(callback)"
+        }, 
+        {
+            "location": "/map/Map/", 
+            "text": "Map\n\n\nAbstract map implementation.\n\n\nMap:__init(key_values)\n\n\nView source\n\n\nConstructor.\n\n\nArguments:\n\n\n\n\nkey_values\n (\ntable[any:any]\n): used to initialize the map. Optional.\n\n\n\n\nMap:add(key, val)\n\n\nView source\n\n\nAdds an entry to the map.\n\n\nArguments:\n\n\n\n\nkey\n (\nany\n): key to add.\n\n\nvalue\n (\nany\n): value to add.\n\n\n\n\nMap:addMany(tab)\n\n\nView source\n\n\nAdds many entries to the map.\n\n\nArguments:\n\n\n\n\ntab\n (\ntable[any:any]\n): a map of key value pairs to add. Optional.\n\n\n\n\nMap:copy()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\nMap\n) copy of this map\n\n\n\n\nMap:contains(key)\n\n\nView source\n\n\nArguments:\n\n\n\n\nkey\n (\nany\n): key to check.\n\n\n\n\nReturns:\n\n\n\n\n(\ncoolean\n) whether the map contains the key\n\n\n\n\nMap:get(key, returnNilIfMissing)\n\n\nView source\n\n\nRetrieves the value for a key.\n\n\nArguments:\n\n\n\n\nkey\n (\nany\n): key to retrive.\n\n\nreturnNilIfMissing\n (\nboolean\n): whether to tolerate missing keys. Optional.\n\n\n\n\nReturns:\n\n\n\n\n(\nany\n) value corresponding to the key\n\n\n\n\nBy default, asserts error if \nkey\n is not found. If \nreturnNilIfMissing\n is true,\n\n\nthen a \nnil\n will be returned if \nkey\n is not found.\n\n\nMap:remove(key)\n\n\nView source\n\n\nRemoves a key value pair\n\n\nArguments:\n\n\n\n\nkey\n (\nany\n): key to remove.\n\n\n\n\nReturns:\n\n\n\n\n(\nany\n) the removed value\n\n\n\n\nAsserts error if \nkey\n is not in the map.\n\n\nMap:keys()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\ntable[any]\n) a table of the keys in the map\n\n\n\n\nMap:totable()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\ntable[any:any]\n) the map in table form\n\n\n\n\nMap:equals(another)\n\n\nView source\n\n\nArguments:\n\n\n\n\nanother\n (\nMap\n): another map to compare to.\n\n\n\n\nReturns:\n\n\n\n\n(\nboolean\n) whether this map equals \nanother\n.\n\n\n\n\nMaps are considered equal if all keys and corresponding values match.\n\n\nMap:size()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\nint\n) number of key value pairs in the map", 
+            "title": "Map"
+        }, 
+        {
+            "location": "/map/Map/#map", 
+            "text": "Abstract map implementation.", 
+            "title": "Map"
+        }, 
+        {
+            "location": "/map/Map/#map9595initkey95values", 
+            "text": "View source  Constructor.  Arguments:   key_values  ( table[any:any] ): used to initialize the map. Optional.", 
+            "title": "Map:__init(key_values)"
+        }, 
+        {
+            "location": "/map/Map/#mapaddkey-val", 
+            "text": "View source  Adds an entry to the map.  Arguments:   key  ( any ): key to add.  value  ( any ): value to add.", 
+            "title": "Map:add(key, val)"
+        }, 
+        {
+            "location": "/map/Map/#mapaddmanytab", 
+            "text": "View source  Adds many entries to the map.  Arguments:   tab  ( table[any:any] ): a map of key value pairs to add. Optional.", 
+            "title": "Map:addMany(tab)"
+        }, 
+        {
+            "location": "/map/Map/#mapcopy", 
+            "text": "View source  Returns:   ( Map ) copy of this map", 
+            "title": "Map:copy()"
+        }, 
+        {
+            "location": "/map/Map/#mapcontainskey", 
+            "text": "View source  Arguments:   key  ( any ): key to check.   Returns:   ( coolean ) whether the map contains the key", 
+            "title": "Map:contains(key)"
+        }, 
+        {
+            "location": "/map/Map/#mapgetkey-returnnilifmissing", 
+            "text": "View source  Retrieves the value for a key.  Arguments:   key  ( any ): key to retrive.  returnNilIfMissing  ( boolean ): whether to tolerate missing keys. Optional.   Returns:   ( any ) value corresponding to the key   By default, asserts error if  key  is not found. If  returnNilIfMissing  is true,  then a  nil  will be returned if  key  is not found.", 
+            "title": "Map:get(key, returnNilIfMissing)"
+        }, 
+        {
+            "location": "/map/Map/#mapremovekey", 
+            "text": "View source  Removes a key value pair  Arguments:   key  ( any ): key to remove.   Returns:   ( any ) the removed value   Asserts error if  key  is not in the map.", 
+            "title": "Map:remove(key)"
+        }, 
+        {
+            "location": "/map/Map/#mapkeys", 
+            "text": "View source  Returns:   ( table[any] ) a table of the keys in the map", 
+            "title": "Map:keys()"
+        }, 
+        {
+            "location": "/map/Map/#maptotable", 
+            "text": "View source  Returns:   ( table[any:any] ) the map in table form", 
+            "title": "Map:totable()"
+        }, 
+        {
+            "location": "/map/Map/#mapequalsanother", 
+            "text": "View source  Arguments:   another  ( Map ): another map to compare to.   Returns:   ( boolean ) whether this map equals  another .   Maps are considered equal if all keys and corresponding values match.", 
+            "title": "Map:equals(another)"
+        }, 
+        {
+            "location": "/map/Map/#mapsize", 
+            "text": "View source  Returns:   ( int ) number of key value pairs in the map", 
+            "title": "Map:size()"
+        }, 
+        {
+            "location": "/map/Counter/", 
+            "text": "Counter\n\n\nImplementation of a counter.\n\n\nCounter:__init()\n\n\nView source\n\n\nConstructor.\n\n\nCounter:add(key, count)\n\n\nView source\n\n\nIncrements the count for a key.\n\n\nArguments:\n\n\n\n\nkey\n (\nany\n): key to increment count for.\n\n\ncount\n (\nint\n): how much to increment count by.\n\n\n\n\nReturns:\n\n\n\n\n(\nint\n) the new count\n\n\n\n\nCounter:get(key)\n\n\nView source\n\n\nArguments:\n\n\n\n\nkey\n (\nany\n): key to return count for.\n\n\n\n\nReturns:\n\n\n\n\n(\nint\n) the count for the key\n\n\n\n\nIf \nkey\n has not been added to the counter, then returns 0.\n\n\nCounter:reset()\n\n\nView source\n\n\nClears the counter.\n\n\nReturns:\n\n\n\n\n(\nCounter\n) the modified counter", 
+            "title": "Counter"
+        }, 
+        {
+            "location": "/map/Counter/#counter", 
+            "text": "Implementation of a counter.", 
+            "title": "Counter"
+        }, 
+        {
+            "location": "/map/Counter/#counter9595init", 
+            "text": "View source  Constructor.", 
+            "title": "Counter:__init()"
+        }, 
+        {
+            "location": "/map/Counter/#counteraddkey-count", 
+            "text": "View source  Increments the count for a key.  Arguments:   key  ( any ): key to increment count for.  count  ( int ): how much to increment count by.   Returns:   ( int ) the new count", 
+            "title": "Counter:add(key, count)"
+        }, 
+        {
+            "location": "/map/Counter/#countergetkey", 
+            "text": "View source  Arguments:   key  ( any ): key to return count for.   Returns:   ( int ) the count for the key   If  key  has not been added to the counter, then returns 0.", 
+            "title": "Counter:get(key)"
+        }, 
+        {
+            "location": "/map/Counter/#counterreset", 
+            "text": "View source  Clears the counter.  Returns:   ( Counter ) the modified counter", 
+            "title": "Counter:reset()"
+        }, 
+        {
+            "location": "/map/HashMap/", 
+            "text": "HashMap\n\n\nImplementation of hash map.\nThis is a subclass of \nMap", 
+            "title": "HashMap"
+        }, 
+        {
+            "location": "/map/HashMap/#hashmap", 
+            "text": "Implementation of hash map.\nThis is a subclass of  Map", 
+            "title": "HashMap"
+        }, 
+        {
+            "location": "/list/List/", 
+            "text": "List\n\n\nAbstract list implementation.\n\n\nList:__init(values)\n\n\nView source\n\n\nConstructor.\n\n\nArguments:\n\n\n\n\nvalues\n (\ntable[any]\n): used to initialize the list. Optional.\n\n\n\n\nList:add(val, index)\n\n\nView source\n\n\nAdds element to list.\n\n\nArguments:\n\n\n\n\nval\n (\nany\n): value to add.\n\n\nindex\n (\nint\n): index to add value at. Optional, Default: \nend\n.\n\n\n\n\nReturns:\n\n\n\n\n(\nList\n) - modified list\n\n\n\n\nList:get(index)\n\n\nView source\n\n\nArguments:\n\n\n\n\nindex\n (\nint\n): index to retrieve value for.\n\n\n\n\nReturns:\n\n\n\n\n(\nany\n) - value at index\n\n\n\n\nAsserts error if \nindex\n is out of bounds.\n\n\nList:set(index, val)\n\n\nView source\n\n\nSets the value at index.\n\n\nArguments:\n\n\n\n\nindex\n (\nint\n): inde to set value for.\n\n\nval\n (\nany\n): value to set.\n\n\n\n\nReturns:\n\n\n\n\n(\nList\n) - modified list\n\n\n\n\nAsserts error if \nindex\n is out of bounds.\n\n\nList:remove(index)\n\n\nView source\n\n\nArguments:\n\n\n\n\nindex\n (\nint\n): index to remove at.\n\n\n\n\nReturns:\n\n\n\n\n(\nany\n) - value at index\n\n\n\n\nElements after \nindex\n will be shifted to the left by 1.\n\n\nAsserts error if \nindex\n is out of bounds.\n\n\nList:equals(another)\n\n\nView source\n\n\nCompares two lists.\n\n\nArguments:\n\n\n\n\nanother\n (\nList\n): another list to compare to.\n\n\n\n\nReturns:\n\n\n\n\n(\nboolean\n) whether this list is equal to \nanother\n\n\n\n\nLists are considered equal if their values match at every position.\n\n\nList:swap(i, j)\n\n\nView source\n\n\nSwaps value at two indices.\n\n\nArguments:\n\n\n\n\ni\n (\nint\n): first index.\n\n\nj\n (\nint\n): second index.\n\n\n\n\nReturns:\n\n\n\n\n(\nList\n) - modified list\n\n\n\n\nList:totable()\n\n\nView source\n\n\nReturns the list in table form.\n\n\nReturns:\n\n\n\n\n(\ntable[any]\n) a table containing the values in the list.\n\n\n\n\nList:assertValidIndex(index)\n\n\nView source\n\n\nAsserts that index is inside the list.\n\n\nArguments:\n\n\n\n\nindex\n (\nint\n): index to check.\n\n\n\n\nList:size()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\nint\n) size of the list\n\n\n\n\nList:addMany(...)\n\n\nView source\n\n\nAdds items to the list.\n\n\nArguments:\n\n\n\n\nvararg\n (\nvararg[any]\n): values to add to the list.\n\n\n\n\nReturns:\n\n\n\n\n(\nList\n) modified list\n\n\n\n\nList:contains(val)\n\n\nView source\n\n\nReturns whether the list contains a value.\n\n\nArguments:\n\n\n\n\nval\n (\nany\n): value to check.\n\n\n\n\nReturns:\n\n\n\n\n(\nboolean\n) whether \nval\n is in the list\n\n\n\n\nList:copy()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\nList\n) a copy of this list\n\n\n\n\nList:isEmpty()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\nboolean\n) whether the list is empty\n\n\n\n\nList:sublist(start, finish)\n\n\nView source\n\n\nReturns a copy of a segment of this list.\n\n\nArguments:\n\n\n\n\nstart\n (\nint\n): start of the segment.\n\n\nfinish\n (\nint\n): start of the segment. Optional, Default: \nend\n.\n\n\n\n\nList:sort(start, finish)\n\n\nView source\n\n\nSorts the list in place.\n\n\nArguments:\n\n\n\n\nstart\n (\nint\n): start index of the sort. Optional, Default: \n1\n.\n\n\nfinish\n (\nint\n): end index of the sort. Optional, Default: \nend\n.\n\n\n\n\nList:__tostring__()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\nstring\n) string representation", 
+            "title": "List"
+        }, 
+        {
+            "location": "/list/List/#list", 
+            "text": "Abstract list implementation.", 
+            "title": "List"
+        }, 
+        {
+            "location": "/list/List/#list9595initvalues", 
+            "text": "View source  Constructor.  Arguments:   values  ( table[any] ): used to initialize the list. Optional.", 
+            "title": "List:__init(values)"
+        }, 
+        {
+            "location": "/list/List/#listaddval-index", 
+            "text": "View source  Adds element to list.  Arguments:   val  ( any ): value to add.  index  ( int ): index to add value at. Optional, Default:  end .   Returns:   ( List ) - modified list", 
+            "title": "List:add(val, index)"
+        }, 
+        {
+            "location": "/list/List/#listgetindex", 
+            "text": "View source  Arguments:   index  ( int ): index to retrieve value for.   Returns:   ( any ) - value at index   Asserts error if  index  is out of bounds.", 
+            "title": "List:get(index)"
+        }, 
+        {
+            "location": "/list/List/#listsetindex-val", 
+            "text": "View source  Sets the value at index.  Arguments:   index  ( int ): inde to set value for.  val  ( any ): value to set.   Returns:   ( List ) - modified list   Asserts error if  index  is out of bounds.", 
+            "title": "List:set(index, val)"
+        }, 
+        {
+            "location": "/list/List/#listremoveindex", 
+            "text": "View source  Arguments:   index  ( int ): index to remove at.   Returns:   ( any ) - value at index   Elements after  index  will be shifted to the left by 1.  Asserts error if  index  is out of bounds.", 
+            "title": "List:remove(index)"
+        }, 
+        {
+            "location": "/list/List/#listequalsanother", 
+            "text": "View source  Compares two lists.  Arguments:   another  ( List ): another list to compare to.   Returns:   ( boolean ) whether this list is equal to  another   Lists are considered equal if their values match at every position.", 
+            "title": "List:equals(another)"
+        }, 
+        {
+            "location": "/list/List/#listswapi-j", 
+            "text": "View source  Swaps value at two indices.  Arguments:   i  ( int ): first index.  j  ( int ): second index.   Returns:   ( List ) - modified list", 
+            "title": "List:swap(i, j)"
+        }, 
+        {
+            "location": "/list/List/#listtotable", 
+            "text": "View source  Returns the list in table form.  Returns:   ( table[any] ) a table containing the values in the list.", 
+            "title": "List:totable()"
+        }, 
+        {
+            "location": "/list/List/#listassertvalidindexindex", 
+            "text": "View source  Asserts that index is inside the list.  Arguments:   index  ( int ): index to check.", 
+            "title": "List:assertValidIndex(index)"
+        }, 
+        {
+            "location": "/list/List/#listsize", 
+            "text": "View source  Returns:   ( int ) size of the list", 
+            "title": "List:size()"
+        }, 
+        {
+            "location": "/list/List/#listaddmany", 
+            "text": "View source  Adds items to the list.  Arguments:   vararg  ( vararg[any] ): values to add to the list.   Returns:   ( List ) modified list", 
+            "title": "List:addMany(...)"
+        }, 
+        {
+            "location": "/list/List/#listcontainsval", 
+            "text": "View source  Returns whether the list contains a value.  Arguments:   val  ( any ): value to check.   Returns:   ( boolean ) whether  val  is in the list", 
+            "title": "List:contains(val)"
+        }, 
+        {
+            "location": "/list/List/#listcopy", 
+            "text": "View source  Returns:   ( List ) a copy of this list", 
+            "title": "List:copy()"
+        }, 
+        {
+            "location": "/list/List/#listisempty", 
+            "text": "View source  Returns:   ( boolean ) whether the list is empty", 
+            "title": "List:isEmpty()"
+        }, 
+        {
+            "location": "/list/List/#listsubliststart-finish", 
+            "text": "View source  Returns a copy of a segment of this list.  Arguments:   start  ( int ): start of the segment.  finish  ( int ): start of the segment. Optional, Default:  end .", 
+            "title": "List:sublist(start, finish)"
+        }, 
+        {
+            "location": "/list/List/#listsortstart-finish", 
+            "text": "View source  Sorts the list in place.  Arguments:   start  ( int ): start index of the sort. Optional, Default:  1 .  finish  ( int ): end index of the sort. Optional, Default:  end .", 
+            "title": "List:sort(start, finish)"
+        }, 
+        {
+            "location": "/list/List/#list9595tostring9595", 
+            "text": "View source  Returns:   ( string ) string representation", 
+            "title": "List:__tostring__()"
+        }, 
+        {
+            "location": "/list/Heap/", 
+            "text": "Heap\n\n\nMax heap implementation.\nThis is a subclass of \nList\n.\n\n\nHeap.parent(i)\n\n\nView source\n\n\nArguments:\n\n\n\n\ni\n (\nint\n): index to compute parent for.\n\n\n\n\nReturns:\n\n\n\n\n(\nint\n) parent index of \ni\n\n\n\n\nHeap.left(i)\n\n\nView source\n\n\nArguments:\n\n\n\n\ni\n (\nint\n): index to compute left child for.\n\n\n\n\nReturns:\n\n\n\n\n(\nint\n) left child index of \ni\n\n\n\n\nHeap.right(i)\n\n\nView source\n\n\nArguments:\n\n\n\n\ni\n (\nint\n): index to compute right child for.\n\n\n\n\nReturns:\n\n\n\n\n(\nint\n) right child index of \ni\n\n\n\n\nHeap:maxHeapify(i, effectiveSize)\n\n\nView source\n\n\nRestores max heap condition at the \ni\nth index.\n\n\nArguments:\n\n\n\n\ni\n (\nint\n): index at which to restore max heap condition.\n\n\neffectiveSize\n (\nint\n): effective size of the heap (eg. number of valid elements). Optional, Default: \nsize\n.\n\n\n\n\nReturns:\n\n\n\n\n(\nHeap\n) modified heap\n\n\n\n\nRecursively swaps down the node at \ni\n until the max heap condition is restored at \na[i]\n.\n\n\nNote: this function assumes that the binary trees rooted at left and right are max heaps but\n\n\na[i]\n may violate the max-heap condition.\n\n\nHeap:sort()\n\n\nView source\n\n\nSorts the heap using heap sort.\n\n\nReturns:\n\n\n\n\n(\nHeap\n) sorted heap\n\n\n\n\nHeap:push(key, val)\n\n\nView source\n\n\nAdds an element to the heap while keeping max heap property.\n\n\nArguments:\n\n\n\n\nkey\n (\nnumber\n): priority to add with.\n\n\nval\n (\nany\n): element to add to heap.\n\n\n\n\nReturns:\n\n\n\n\n(\nHeap\n) modified heap\n\n\n\n\nHeap:pop()\n\n\nView source\n\n\nRemoves and returns the max priority element from the heap.\n\n\nReturns:\n\n\n\n\n(\nany\n) removed element\n\n\n\n\nHeap:peek()\n\n\nView source\n\n\n{any} max priority element from the heap\n\n\nNote: the element is not removed.", 
+            "title": "Heap"
+        }, 
+        {
+            "location": "/list/Heap/#heap", 
+            "text": "Max heap implementation.\nThis is a subclass of  List .", 
+            "title": "Heap"
+        }, 
+        {
+            "location": "/list/Heap/#heapparenti", 
+            "text": "View source  Arguments:   i  ( int ): index to compute parent for.   Returns:   ( int ) parent index of  i", 
+            "title": "Heap.parent(i)"
+        }, 
+        {
+            "location": "/list/Heap/#heaplefti", 
+            "text": "View source  Arguments:   i  ( int ): index to compute left child for.   Returns:   ( int ) left child index of  i", 
+            "title": "Heap.left(i)"
+        }, 
+        {
+            "location": "/list/Heap/#heaprighti", 
+            "text": "View source  Arguments:   i  ( int ): index to compute right child for.   Returns:   ( int ) right child index of  i", 
+            "title": "Heap.right(i)"
+        }, 
+        {
+            "location": "/list/Heap/#heapmaxheapifyi-effectivesize", 
+            "text": "View source  Restores max heap condition at the  i th index.  Arguments:   i  ( int ): index at which to restore max heap condition.  effectiveSize  ( int ): effective size of the heap (eg. number of valid elements). Optional, Default:  size .   Returns:   ( Heap ) modified heap   Recursively swaps down the node at  i  until the max heap condition is restored at  a[i] .  Note: this function assumes that the binary trees rooted at left and right are max heaps but  a[i]  may violate the max-heap condition.", 
+            "title": "Heap:maxHeapify(i, effectiveSize)"
+        }, 
+        {
+            "location": "/list/Heap/#heapsort", 
+            "text": "View source  Sorts the heap using heap sort.  Returns:   ( Heap ) sorted heap", 
+            "title": "Heap:sort()"
+        }, 
+        {
+            "location": "/list/Heap/#heappushkey-val", 
+            "text": "View source  Adds an element to the heap while keeping max heap property.  Arguments:   key  ( number ): priority to add with.  val  ( any ): element to add to heap.   Returns:   ( Heap ) modified heap", 
+            "title": "Heap:push(key, val)"
+        }, 
+        {
+            "location": "/list/Heap/#heappop", 
+            "text": "View source  Removes and returns the max priority element from the heap.  Returns:   ( any ) removed element", 
+            "title": "Heap:pop()"
+        }, 
+        {
+            "location": "/list/Heap/#heappeek", 
+            "text": "View source  {any} max priority element from the heap  Note: the element is not removed.", 
+            "title": "Heap:peek()"
+        }, 
+        {
+            "location": "/list/LinkedList/", 
+            "text": "LinkedList\n\n\nArray list implementation.\nThis is a subclass of \nList\n.\n\n\nLinkedList:head()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\nLinkedList.Node\n) head of the linked list", 
+            "title": "LinkedList"
+        }, 
+        {
+            "location": "/list/LinkedList/#linkedlist", 
+            "text": "Array list implementation.\nThis is a subclass of  List .", 
+            "title": "LinkedList"
+        }, 
+        {
+            "location": "/list/LinkedList/#linkedlisthead", 
+            "text": "View source  Returns:   ( LinkedList.Node ) head of the linked list", 
+            "title": "LinkedList:head()"
+        }, 
+        {
+            "location": "/list/ArrayList/", 
+            "text": "ArrayList\n\n\nArray list implementation.\nThis is a subclass of \nList\n.", 
+            "title": "ArrayList"
+        }, 
+        {
+            "location": "/list/ArrayList/#arraylist", 
+            "text": "Array list implementation.\nThis is a subclass of  List .", 
+            "title": "ArrayList"
+        }, 
+        {
+            "location": "/list/Stack/", 
+            "text": "Stack\n\n\nStack implementation.\nThis is a subclass of \nList\n.\n\n\nStack:push(val)\n\n\nView source\n\n\nAdds a value to the stack.\n\n\nArguments:\n\n\n\n\nval\n (\nany\n): value to add.\n\n\n\n\nReturns:\n\n\n\n\n(\nStack\n) modified stack\n\n\n\n\nStack:pop()\n\n\nView source\n\n\nReturns and removes the value at the top of the stack.\n\n\nReturns:\n\n\n\n\n(\nany\n) removed value", 
+            "title": "Stack"
+        }, 
+        {
+            "location": "/list/Stack/#stack", 
+            "text": "Stack implementation.\nThis is a subclass of  List .", 
+            "title": "Stack"
+        }, 
+        {
+            "location": "/list/Stack/#stackpushval", 
+            "text": "View source  Adds a value to the stack.  Arguments:   val  ( any ): value to add.   Returns:   ( Stack ) modified stack", 
+            "title": "Stack:push(val)"
+        }, 
+        {
+            "location": "/list/Stack/#stackpop", 
+            "text": "View source  Returns and removes the value at the top of the stack.  Returns:   ( any ) removed value", 
+            "title": "Stack:pop()"
+        }, 
+        {
+            "location": "/list/Queue/", 
+            "text": "Queue\n\n\nQueue implementation.\nThis is a subclass of \nList\n.\n\n\nQueue:enqueue(val)\n\n\nView source\n\n\nAdds a value to the stack.\n\n\nArguments:\n\n\n\n\nval\n (\nany\n): value to add.\n\n\n\n\nReturns:\n\n\n\n\n(\nQueue\n) modified stack\n\n\n\n\nQueue:dequeue()\n\n\nView source\n\n\nReturns and removes the first value in the queue.\n\n\nReturns:\n\n\n\n\n(\nany\n) removed value", 
+            "title": "Queue"
+        }, 
+        {
+            "location": "/list/Queue/#queue", 
+            "text": "Queue implementation.\nThis is a subclass of  List .", 
+            "title": "Queue"
+        }, 
+        {
+            "location": "/list/Queue/#queueenqueueval", 
+            "text": "View source  Adds a value to the stack.  Arguments:   val  ( any ): value to add.   Returns:   ( Queue ) modified stack", 
+            "title": "Queue:enqueue(val)"
+        }, 
+        {
+            "location": "/list/Queue/#queuedequeue", 
+            "text": "View source  Returns and removes the first value in the queue.  Returns:   ( any ) removed value", 
+            "title": "Queue:dequeue()"
+        }, 
+        {
+            "location": "/set/Set/", 
+            "text": "Set\n\n\nImplementation of set.\n\n\nSet:__init(values)\n\n\nView source\n\n\nConstructor.\n\n\nArguments:\n\n\n\n\nvalues\n (\ntable[any]\n): used to initialize the set. Optional.\n\n\n\n\nSet.keyOf(val)\n\n\nView source\n\n\nArguments:\n\n\n\n\nval\n (\nany\n): value to produce a key for.\n\n\n\n\nReturns:\n\n\n\n\n(\ntorch.pointer\n) unique key for the value\n\n\n\n\nSet:size()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\nint\n) number of values in the set\n\n\n\n\nSet:add(val)\n\n\nView source\n\n\nAdds a value to the set.\n\n\nArguments:\n\n\n\n\nval\n (\nany\n): value to add to the set.\n\n\n\n\nReturns:\n\n\n\n\n(\nSet\n) modified set\n\n\n\n\nSet:addMany(...)\n\n\nView source\n\n\nAdds a variable number of values to the set.\n\n\nArguments:\n\n\n\n\nvararg\n (\nvararg\n): values to add to the set.\n\n\n\n\nReturns:\n\n\n\n\n(\nSet\n) modified set\n\n\n\n\nSet:copy()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\nSet\n) copy of the set\n\n\n\n\nSet:contains(val)\n\n\nView source\n\n\nArguments:\n\n\n\n\nval\n (\nany\n): value to check for.\n\n\n\n\nReturns:\n\n\n\n\n(\nboolean\n) whether the set contains \nval\n\n\n\n\nSet:remove(val)\n\n\nView source\n\n\nArguments:\n\n\n\n\nval\n (\nany\n): value to remove from the set.\n\n\n\n\nReturns:\n\n\n\n\n(\nSet\n) modified set\nIf \nval\n is not found then an error is raised.\n\n\n\n\nSet:totable()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\ntabl\n) the set in table format\n\n\n\n\nSet:equals(another)\n\n\nView source\n\n\nCompares two sets.\n\n\nArguments:\n\n\n\n\nanother\n (\nSet\n): another set.\n\n\n\n\nReturns:\n\n\n\n\n(\nboolean\n) whether this set and \nanother\n contain the same values\n\n\n\n\nSet:union(another)\n\n\nView source\n\n\nComputes the union of two sets.\n\n\nArguments:\n\n\n\n\nanother\n (\nSet\n): another set.\n\n\n\n\nReturns:\n\n\n\n\n(\nSet\n) a set of values that are in this set or in \nanother\n\n\n\n\nSet:intersect(another)\n\n\nView source\n\n\nComputes the intersection of two sets.\n\n\nArguments:\n\n\n\n\nanother\n (\nSet\n): another set.\n\n\n\n\nReturns:\n\n\n\n\n(\nSet\n) a set of values that are in this set and in \nanother\n\n\n\n\nSet:subtract(another)\n\n\nView source\n\n\nSubtracts another set from this one.\n\n\nArguments:\n\n\n\n\nanother\n (\nSet\n): another set.\n\n\n\n\nReturns:\n\n\n\n\n(\nSet\n) a set of values that are in this set but not in \nanother\n\n\n\n\nSet:__tostring__()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\nstring\n) string representation", 
+            "title": "Set"
+        }, 
+        {
+            "location": "/set/Set/#set", 
+            "text": "Implementation of set.", 
+            "title": "Set"
+        }, 
+        {
+            "location": "/set/Set/#set9595initvalues", 
+            "text": "View source  Constructor.  Arguments:   values  ( table[any] ): used to initialize the set. Optional.", 
+            "title": "Set:__init(values)"
+        }, 
+        {
+            "location": "/set/Set/#setkeyofval", 
+            "text": "View source  Arguments:   val  ( any ): value to produce a key for.   Returns:   ( torch.pointer ) unique key for the value", 
+            "title": "Set.keyOf(val)"
+        }, 
+        {
+            "location": "/set/Set/#setsize", 
+            "text": "View source  Returns:   ( int ) number of values in the set", 
+            "title": "Set:size()"
+        }, 
+        {
+            "location": "/set/Set/#setaddval", 
+            "text": "View source  Adds a value to the set.  Arguments:   val  ( any ): value to add to the set.   Returns:   ( Set ) modified set", 
+            "title": "Set:add(val)"
+        }, 
+        {
+            "location": "/set/Set/#setaddmany", 
+            "text": "View source  Adds a variable number of values to the set.  Arguments:   vararg  ( vararg ): values to add to the set.   Returns:   ( Set ) modified set", 
+            "title": "Set:addMany(...)"
+        }, 
+        {
+            "location": "/set/Set/#setcopy", 
+            "text": "View source  Returns:   ( Set ) copy of the set", 
+            "title": "Set:copy()"
+        }, 
+        {
+            "location": "/set/Set/#setcontainsval", 
+            "text": "View source  Arguments:   val  ( any ): value to check for.   Returns:   ( boolean ) whether the set contains  val", 
+            "title": "Set:contains(val)"
+        }, 
+        {
+            "location": "/set/Set/#setremoveval", 
+            "text": "View source  Arguments:   val  ( any ): value to remove from the set.   Returns:   ( Set ) modified set\nIf  val  is not found then an error is raised.", 
+            "title": "Set:remove(val)"
+        }, 
+        {
+            "location": "/set/Set/#settotable", 
+            "text": "View source  Returns:   ( tabl ) the set in table format", 
+            "title": "Set:totable()"
+        }, 
+        {
+            "location": "/set/Set/#setequalsanother", 
+            "text": "View source  Compares two sets.  Arguments:   another  ( Set ): another set.   Returns:   ( boolean ) whether this set and  another  contain the same values", 
+            "title": "Set:equals(another)"
+        }, 
+        {
+            "location": "/set/Set/#setunionanother", 
+            "text": "View source  Computes the union of two sets.  Arguments:   another  ( Set ): another set.   Returns:   ( Set ) a set of values that are in this set or in  another", 
+            "title": "Set:union(another)"
+        }, 
+        {
+            "location": "/set/Set/#setintersectanother", 
+            "text": "View source  Computes the intersection of two sets.  Arguments:   another  ( Set ): another set.   Returns:   ( Set ) a set of values that are in this set and in  another", 
+            "title": "Set:intersect(another)"
+        }, 
+        {
+            "location": "/set/Set/#setsubtractanother", 
+            "text": "View source  Subtracts another set from this one.  Arguments:   another  ( Set ): another set.   Returns:   ( Set ) a set of values that are in this set but not in  another", 
+            "title": "Set:subtract(another)"
+        }, 
+        {
+            "location": "/set/Set/#set9595tostring9595", 
+            "text": "View source  Returns:   ( string ) string representation", 
+            "title": "Set:__tostring__()"
+        }, 
+        {
+            "location": "/ml/Vocab/", 
+            "text": "Vocab\n\n\nImplementation of vocabulary\n\n\nVocab:__init(unk)\n\n\nView source\n\n\nConstructor.\n\n\nArguments:\n\n\n\n\nunk\n (\nstring\n): the symbol for the unknown token. Optional, Default: \n'UNK'\n.\n\n\n\n\nVocab:__tostring__()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\nstring\n) string representation\n\n\n\n\nVocab:contains(word)\n\n\nView source\n\n\nArguments:\n\n\n\n\nword\n (\nstring\n): word to query.\n\n\n\n\nReturns:\n\n\n\n\n(\nboolean\n) whether \nword\n is in the vocabulary\n\n\n\n\nVocab:count(word)\n\n\nView source\n\n\nArguments:\n\n\n\n\nword\n (\nstring\n): word to query.\n\n\n\n\nReturns:\n\n\n\n\n(\nint\n) count for \nword\n seen during training\n\n\n\n\nVocab:size()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\nint\n) how many distinct tokens are in the vocabulary\n\n\n\n\nVocab:add(word, count)\n\n\nView source\n\n\nAdds \nword\n \ncount\n time to the vocabulary.\n\n\nArguments:\n\n\n\n\nword\n (\nstring\n): word to add.\n\n\ncount\n (\nint\n): number of times to add. Optional, Default: \n1\n.\n\n\n\n\nReturns:\n\n\n\n\n(\nint\n) index of \nword\n\n\n\n\nVocab:indexOf(word, add)\n\n\nView source\n\n\nArguments:\n\n\n\n\nword\n (\nstring\n): word to query.\n\n\nadd\n (\nboolean\n): whether to add new word to the vocabulary\n\n\n\n\nIf the word is not found, then one of the following occurs:\n\n\n\n\n\n\nif \nadd\n is \ntrue\n, then \nword\n is added to the vocabulary with count 1 and the new index returned\n\n\n\n\n\n\notherwise, the index of the unknown token is returned\n\n\n\n\n\n\nExample:\n\n\nSuppose we have a vocabulary of words 'unk', 'foo' and 'bar'. Optional.\n\n\nReturns:\n\n\n\n\n(\nint\n) index of \nword\n.\n\n\n\n\nvocab:indexOf('foo') returns 2\nvocab:indexOf('bar') returns 3\nvocab:indexOf('hello') returns 1 corresponding to `unk` because `hello` is not in the vocabuarly\nvocab:indexOf('hello', true) returns 4 because `hello` is added to the vocabulary\n\n\n\n\nVocab:wordAt(index)\n\n\nView source\n\n\nArguments:\n\n\n\n\nindex\n (\nint\n): the index to query\n\n\n\n\nIf \nindex\n is out of bounds then an error will be raised.\n\n\nExample:\n\n\nSuppose we have a vocabulary with words 'unk', 'foo', and 'bar'.\n\n\nReturns:\n\n\n\n\n(\nstring\n) word at index \nindex\n\n\n\n\nvocab:wordAt(1) unk\nvocab:wordAt(2) foo\nvocab:wordAt(4) raises and error because there is no 4th word in the vocabulary\n\n\n\n\nVocab:indicesOf(words, add)\n\n\nView source\n\n\nindexOf\n on a table of words.\n\n\nArguments:\n\n\n\n\nwords\n (\ntable[string]\n): words to query.\n\n\nadd\n (\nboolean\n): whether to add new words to the vocabulary. Optional.\n\n\n\n\nReturns:\n\n\n\n\n(\ntable[int]\n) corresponding indices.\n\n\n\n\nExample:\n\n\nSuppose we have a vocabulary with words 'unk', 'foo', and 'bar'\n\n\nvocab:indicesOf{'foo', 'bar'} {2, 3}\n\n\n\n\nVocab:tensorIndicesOf(words, add)\n\n\nView source\n\n\nindexOf\n on a table of words.\n\n\nArguments:\n\n\n\n\nadd\n (\nboolean\n): whether to add new words to the vocabulary. Optional.\n\n\n\n\nReturns:\n\n\n\n\n(\ntorch.Tensor\n) tensor of corresponding indices\n\n\n\n\nExample:\n\n\nSuppose we have a vocabulary with words 'unk', 'foo', and 'bar'\n\n\n{table[string]} words - words to query\n\n\nvocab:tensorIndicesOf{'foo', 'bar'} torch.Tensor{2, 3}\nvocab:tensorIndicesOf{'foo', 'hi'} torch.Tensor{2, 1}, because `hi` is not in the vocabulary\n\n\n\n\nVocab:wordsAt(indices)\n\n\nView source\n\n\nwordAt\n on a table of indices.\n\n\nArguments:\n\n\n\n\nindices\n (\ntable[int]\n): indices to query.\n\n\n\n\nReturns:\n\n\n\n\n(\ntable[string]\n) corresponding words\n\n\n\n\nExample:\n\n\nSuppose we have a vocabulary with words 'unk', 'foo', and 'bar'\n\n\nvocab:wordsAt{1, 3} {'unk', 'bar'}\nvocab:wordsAt{1, 4} raises an error because there is no 4th word\n\n\n\n\nVocab:tensorWordsAt(indices)\n\n\nView source\n\n\nwordAt\n on a tensor of indices. Returns a table of corresponding words.\n\n\nExample:\n\n\nSuppose we have a vocabulary with words 'unk', 'foo', and 'bar'\n\n\nvocab:tensorWordsAt(torch.Tensor{1, 3}) {'unk', 'bar'}\nvocab:tensorWordsAt(torch.Tensor{1, 4}) raises an error because there is no 4th word\n\n\n\n\nVocab:copyAndPruneRares(cutoff)\n\n\nView source\n\n\nReturns a new vocabulary with words occurring less than \ncutoff\n times removed.\n\n\nArguments:\n\n\n\n\ncutoff\n (\nint\n): words with frequency below this number will be removed from the vocabulary.\n\n\n\n\nReturns:\n\n\n\n\n(\nVocab\n) modified vocabulary\n\n\n\n\nExample:\n\n\nSuppose we want to forget all words that occurred less than 5 times:\n\n\nsmaller_vocab = orig_vocab:copyAndPruneRares(5)", 
+            "title": "Vocab"
+        }, 
+        {
+            "location": "/ml/Vocab/#vocab", 
+            "text": "Implementation of vocabulary", 
+            "title": "Vocab"
+        }, 
+        {
+            "location": "/ml/Vocab/#vocab9595initunk", 
+            "text": "View source  Constructor.  Arguments:   unk  ( string ): the symbol for the unknown token. Optional, Default:  'UNK' .", 
+            "title": "Vocab:__init(unk)"
+        }, 
+        {
+            "location": "/ml/Vocab/#vocab9595tostring9595", 
+            "text": "View source  Returns:   ( string ) string representation", 
+            "title": "Vocab:__tostring__()"
+        }, 
+        {
+            "location": "/ml/Vocab/#vocabcontainsword", 
+            "text": "View source  Arguments:   word  ( string ): word to query.   Returns:   ( boolean ) whether  word  is in the vocabulary", 
+            "title": "Vocab:contains(word)"
+        }, 
+        {
+            "location": "/ml/Vocab/#vocabcountword", 
+            "text": "View source  Arguments:   word  ( string ): word to query.   Returns:   ( int ) count for  word  seen during training", 
+            "title": "Vocab:count(word)"
+        }, 
+        {
+            "location": "/ml/Vocab/#vocabsize", 
+            "text": "View source  Returns:   ( int ) how many distinct tokens are in the vocabulary", 
+            "title": "Vocab:size()"
+        }, 
+        {
+            "location": "/ml/Vocab/#vocabaddword-count", 
+            "text": "View source  Adds  word   count  time to the vocabulary.  Arguments:   word  ( string ): word to add.  count  ( int ): number of times to add. Optional, Default:  1 .   Returns:   ( int ) index of  word", 
+            "title": "Vocab:add(word, count)"
+        }, 
+        {
+            "location": "/ml/Vocab/#vocabindexofword-add", 
+            "text": "View source  Arguments:   word  ( string ): word to query.  add  ( boolean ): whether to add new word to the vocabulary   If the word is not found, then one of the following occurs:    if  add  is  true , then  word  is added to the vocabulary with count 1 and the new index returned    otherwise, the index of the unknown token is returned    Example:  Suppose we have a vocabulary of words 'unk', 'foo' and 'bar'. Optional.  Returns:   ( int ) index of  word .   vocab:indexOf('foo') returns 2\nvocab:indexOf('bar') returns 3\nvocab:indexOf('hello') returns 1 corresponding to `unk` because `hello` is not in the vocabuarly\nvocab:indexOf('hello', true) returns 4 because `hello` is added to the vocabulary", 
+            "title": "Vocab:indexOf(word, add)"
+        }, 
+        {
+            "location": "/ml/Vocab/#vocabwordatindex", 
+            "text": "View source  Arguments:   index  ( int ): the index to query   If  index  is out of bounds then an error will be raised.  Example:  Suppose we have a vocabulary with words 'unk', 'foo', and 'bar'.  Returns:   ( string ) word at index  index   vocab:wordAt(1) unk\nvocab:wordAt(2) foo\nvocab:wordAt(4) raises and error because there is no 4th word in the vocabulary", 
+            "title": "Vocab:wordAt(index)"
+        }, 
+        {
+            "location": "/ml/Vocab/#vocabindicesofwords-add", 
+            "text": "View source  indexOf  on a table of words.  Arguments:   words  ( table[string] ): words to query.  add  ( boolean ): whether to add new words to the vocabulary. Optional.   Returns:   ( table[int] ) corresponding indices.   Example:  Suppose we have a vocabulary with words 'unk', 'foo', and 'bar'  vocab:indicesOf{'foo', 'bar'} {2, 3}", 
+            "title": "Vocab:indicesOf(words, add)"
+        }, 
+        {
+            "location": "/ml/Vocab/#vocabtensorindicesofwords-add", 
+            "text": "View source  indexOf  on a table of words.  Arguments:   add  ( boolean ): whether to add new words to the vocabulary. Optional.   Returns:   ( torch.Tensor ) tensor of corresponding indices   Example:  Suppose we have a vocabulary with words 'unk', 'foo', and 'bar'  {table[string]} words - words to query  vocab:tensorIndicesOf{'foo', 'bar'} torch.Tensor{2, 3}\nvocab:tensorIndicesOf{'foo', 'hi'} torch.Tensor{2, 1}, because `hi` is not in the vocabulary", 
+            "title": "Vocab:tensorIndicesOf(words, add)"
+        }, 
+        {
+            "location": "/ml/Vocab/#vocabwordsatindices", 
+            "text": "View source  wordAt  on a table of indices.  Arguments:   indices  ( table[int] ): indices to query.   Returns:   ( table[string] ) corresponding words   Example:  Suppose we have a vocabulary with words 'unk', 'foo', and 'bar'  vocab:wordsAt{1, 3} {'unk', 'bar'}\nvocab:wordsAt{1, 4} raises an error because there is no 4th word", 
+            "title": "Vocab:wordsAt(indices)"
+        }, 
+        {
+            "location": "/ml/Vocab/#vocabtensorwordsatindices", 
+            "text": "View source  wordAt  on a tensor of indices. Returns a table of corresponding words.  Example:  Suppose we have a vocabulary with words 'unk', 'foo', and 'bar'  vocab:tensorWordsAt(torch.Tensor{1, 3}) {'unk', 'bar'}\nvocab:tensorWordsAt(torch.Tensor{1, 4}) raises an error because there is no 4th word", 
+            "title": "Vocab:tensorWordsAt(indices)"
+        }, 
+        {
+            "location": "/ml/Vocab/#vocabcopyandprunerarescutoff", 
+            "text": "View source  Returns a new vocabulary with words occurring less than  cutoff  times removed.  Arguments:   cutoff  ( int ): words with frequency below this number will be removed from the vocabulary.   Returns:   ( Vocab ) modified vocabulary   Example:  Suppose we want to forget all words that occurred less than 5 times:  smaller_vocab = orig_vocab:copyAndPruneRares(5)", 
+            "title": "Vocab:copyAndPruneRares(cutoff)"
+        }, 
+        {
+            "location": "/ml/VariableTensor/", 
+            "text": "VariableTensor\n\n\nImplementation of a variable tensor class to efficiently store tensors of varying lengths.\n\n\nVariableTensor:__init(opt)\n\n\nView source\n\n\nConstructor.\n\n\nArguments:\n\n\n\n\npreinit_size\n (\nint\n): how many indices to preallocate for. Optional, Default: \n1\n.\n\n\npreinit_store_size\n (\nint\n): how many elements to preallocate for. Optional, Default: \n1\n.\n\n\n\n\nVariableTensor:cuda()\n\n\nView source\n\n\nMoves the storage to cuda\n\n\nReturns:\n\n\n\n\n(\nVariableTensor\n) modified tensor\n\n\n\n\nVariableTensor:size()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\nint\n) sum of the size of each tensor in the storage\n\n\n\n\nVariableTensor:push(tensor)\n\n\nView source\n\n\nAppends a tensor to the storage.\n\n\nArguments:\n\n\n\n\ntensor\n (\ntorch.Tensor\n): tensor to add to storage.\n\n\n\n\nReturns:\n\n\n\n\n(\nVariableTensor\n) modified tensor\n\n\n\n\nVariableTensor:shuffle(indices)\n\n\nView source\n\n\nShuffles the indices.\n\n\nArguments:\n\n\n\n\nindices\n (\ntorch.Tensor\n): tensor that denotes how the new indices should be set. If not given, then a random\ntensor will be generated. Optional.\n\n\n\n\nReturns:\n\n\n\n\n(\ntorch.Tensor\n) the \nindices\n tensor used to shuffle\n\n\n\n\nVariableTensor:get(i)\n\n\nView source\n\n\nRetrieves the tensor at index \ni\n.\n\n\nArguments:\n\n\n\n\ni\n (\nint\n): index to query.\n\n\n\n\nReturns:\n\n\n\n\n(\ntorch.Tensor\n) tensor at index\n\n\n\n\nVariableTensor:batch(indices, pad)\n\n\nView source\n\n\nCreates a zero-padded batch from tensors at the indices \nindices\n.\n\n\nArguments:\n\n\n\n\nindices\n (\ntable\n): starting indices of tensors to pad.\n\n\npad\n (\nint\n): number to use to pad shorter tensors. Optional, Default: \n0\n.", 
+            "title": "VariableTensor"
+        }, 
+        {
+            "location": "/ml/VariableTensor/#variabletensor", 
+            "text": "Implementation of a variable tensor class to efficiently store tensors of varying lengths.", 
+            "title": "VariableTensor"
+        }, 
+        {
+            "location": "/ml/VariableTensor/#variabletensor9595initopt", 
+            "text": "View source  Constructor.  Arguments:   preinit_size  ( int ): how many indices to preallocate for. Optional, Default:  1 .  preinit_store_size  ( int ): how many elements to preallocate for. Optional, Default:  1 .", 
+            "title": "VariableTensor:__init(opt)"
+        }, 
+        {
+            "location": "/ml/VariableTensor/#variabletensorcuda", 
+            "text": "View source  Moves the storage to cuda  Returns:   ( VariableTensor ) modified tensor", 
+            "title": "VariableTensor:cuda()"
+        }, 
+        {
+            "location": "/ml/VariableTensor/#variabletensorsize", 
+            "text": "View source  Returns:   ( int ) sum of the size of each tensor in the storage", 
+            "title": "VariableTensor:size()"
+        }, 
+        {
+            "location": "/ml/VariableTensor/#variabletensorpushtensor", 
+            "text": "View source  Appends a tensor to the storage.  Arguments:   tensor  ( torch.Tensor ): tensor to add to storage.   Returns:   ( VariableTensor ) modified tensor", 
+            "title": "VariableTensor:push(tensor)"
+        }, 
+        {
+            "location": "/ml/VariableTensor/#variabletensorshuffleindices", 
+            "text": "View source  Shuffles the indices.  Arguments:   indices  ( torch.Tensor ): tensor that denotes how the new indices should be set. If not given, then a random\ntensor will be generated. Optional.   Returns:   ( torch.Tensor ) the  indices  tensor used to shuffle", 
+            "title": "VariableTensor:shuffle(indices)"
+        }, 
+        {
+            "location": "/ml/VariableTensor/#variabletensorgeti", 
+            "text": "View source  Retrieves the tensor at index  i .  Arguments:   i  ( int ): index to query.   Returns:   ( torch.Tensor ) tensor at index", 
+            "title": "VariableTensor:get(i)"
+        }, 
+        {
+            "location": "/ml/VariableTensor/#variabletensorbatchindices-pad", 
+            "text": "View source  Creates a zero-padded batch from tensors at the indices  indices .  Arguments:   indices  ( table ): starting indices of tensors to pad.  pad  ( int ): number to use to pad shorter tensors. Optional, Default:  0 .", 
+            "title": "VariableTensor:batch(indices, pad)"
+        }, 
+        {
+            "location": "/ml/Dataset/", 
+            "text": "Dataset\n\n\nImplementation of dataset container.\nThe goal of this class is to provide utilities for manipulating generic datasets. in particular, a\ndataset can be a list of examples, each with a fixed set of fields.\n\n\nDataset:__init(fields)\n\n\nView source\n\n\nConstructor.\n\n\nArguments:\n\n\n\n\nfields\n (\ntable[any:any]\n): a table containing key value pairs\n\n\n\n\nEach value is a list of tensors and \nvalue[i]\n contains the value corresponding to the \ni\nth example.\n\n\nExample:.\n\n\nSuppose we have two examples, with fields \nX\n and \nY\n. The first example has \nX=[1, 2, 3], Y=1\n while\n\n\nthe second example has \nX=[4, 5, 6, 7, 8}, Y=4\n. To create a dataset:\n\n\nX = {torch.Tensor{1, 2, 3}, torch.Tensor{4, 5, 6, 7, 8}}\nY = {1, 4}\nd = Dataset{X = X, Y = Y}\n\nOf course, in practice the fields can be arbitrary, so long as each field is a table and has an equal\nnumber of elements.\n\n\n\n\nDataset.from_conll(fname)\n\n\nView source\n\n\nCreates a dataset from CONLL format.\n\n\nArguments:\n\n\n\n\nfname\n (\nstring\n): path to CONLL file.\n\n\n\n\nReturns:\n\n\n\n\n(\nDataset\n) loaded dataset\n\n\n\n\nThe format is as follows:\n\n\n# word  subj  subj_ner  obj obj_ner stanford_pos  stanford_ner  stanford_dep_edge stanford_dep_governor\nper:city_of_birth\n- - - - - : O punct 1\n20  - - - - CD  DATE  ROOT  -1\n: - - - - : O punct 1\nAlexander SUBJECT PERSON  - - NNP PERSON  compound  4\nHaig  SUBJECT PERSON  - - NNP PERSON  dep 1\n, - - - - , O punct 4\nUS  - - - - NNP LOCATION  compound  7\nsecretary - - - - NN  O appos 4\n\nThat is, the first line is a tab delimited header, followed by examples separated by a blank line.\nThe first line of the example is the class label. The rest of the rows correspond to tokens and their associated attributes.\n\nExample:\n\n\n\n\ndataset = Dataset.from_conll('data.conll')\n\n\n\n\nDataset:__tostring__()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\nstring\n) string representation\n\n\n\n\nDataset:size()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\nint\n) number of examples in the dataset\n\n\n\n\nDataset:kfolds(k)\n\n\nView source\n\n\nReturns a table of \nk\n folds of the dataset.\n\n\nArguments:\n\n\n\n\nk\n (\nint\n): how many folds to create.\n\n\n\n\nReturns:\n\n\n\n\n(\ntable[table]\n) tables of indices corresponding to each fold\n\n\n\n\nEach fold consists of a random table of indices corresponding to the examples in the fold.\n\n\nDataset:view(...)\n\n\nView source\n\n\nCopies out a new Dataset which is a view into the current Dataset.\n\n\nArguments:\n\n\n\n\nvararg\n (\nvararg\n): each argument is a tables of integer indices corresponding to a view.\n\n\n\n\nReturns:\n\n\n\n\n(\nvararg(Datasets)\n) one dataset view for each list of indices\n\n\n\n\nExample:\n\n\nSuppose we already have a \ndataset\n and would like to split it into two datasets. We want\nthe first dataset \na\n to contain examples 1 and 3 of the original dataset. We want the\nsecond dataset \nb\n to contain examples 1, 2 and 3 (yes, duplicates are supported).\n\n\na, b = dataset:view({1, 3}, {1, 2, 3})\n\n\n\n\nDataset:train_dev_split(train_indices)\n\n\nView source\n\n\nCreates a train split and a test split given the train indices.\n\n\nArguments:\n\n\n\n\ntrain_indices\n (\ntable[int]\n): a table of integers corresponding to indices of training examples.\n\n\n\n\nReturns:\n\n\n\n\n(\nDataset, Dataset\n) train and test dataset views\n\n\n\n\nOther examples will be used as test examples.\n\n\nExample:\n\n\nSuppose we'd like to split a \ndataset\n and use its 1, 2, 4 and 5th examples for training.\n\n\ntrain, test = dataset:train_dev_split{1, 2, 4, 5}\n\n\n\n\nDataset:index(indices)\n\n\nView source\n\n\nReindexes the dataset accoring to the new indices.\n\n\nArguments:\n\n\n\n\nindices\n (\ntable[int]\n): indices to re-index the dataset with.\n\n\n\n\nReturns:\n\n\n\n\n(\nDataset\n) modified dataset\n\n\n\n\nExample:\n\n\nSuppose we have a \ndataset\n of 5 examples and want to swap example 1 with example 5.\n\n\ndataset:index{5, 2, 3, 4, 1}\n\n\n\n\nDataset:shuffle()\n\n\nView source\n\n\nShuffles the dataset in place\n\n\nReturns:\n\n\n\n\n(\nDataset\n) modified dataset\n\n\n\n\nDataset:sort_by_length(field)\n\n\nView source\n\n\nSorts the examples in place by the length of the requested field.\n\n\nArguments:\n\n\n\n\nfield\n (\nstring\n): field to sort with.\n\n\n\n\nReturns:\n\n\n\n\n(\nDataset\n) modified dataset\n\n\n\n\nIt is assumed that the field contains torch Tensors. Sorts in ascending order.\n\n\nDataset.pad(tensors, PAD)\n\n\nView source\n\n\nPrepends shorter tensors in a table of tensors with \nPAD\n such that each tensor in the batch are of the same length.\n\n\nArguments:\n\n\n\n\ntensors\n (\ntable[torch.Tensor]\n): tensors of varying lengths.\n\n\nPAD\n (\nint\n): index to pad missing elements with.\n\n\n\n\nExample:. Optional, Default: \n0\n.\n\n\nX = {torch.Tensor{1, 2, 3}, torch.Tensor{4}}\nY = Dataset.pad(X, 0)\n\n`Y` is now:\n\n\n\n\ntorch.Tensor{{1, 2, 3}, {0, 0, 4}}\n\n\n\n\nDataset:batches(batch_size)\n\n\nView source\n\n\nCreates a batch iterator over the dataset.\n\n\nArguments:\n\n\n\n\nbatch_size\n (\nint\n): maximum size of each batch\n\n\n\n\nExample:.\n\n\nd = Dataset{X=X, Y=Y}\nfor batch, batch_end in d:batches(5) do\n  print(batch.X)\n  print(batch.Y)\nend\n\n\n\n\nDataset:transform(transforms, in_place)\n\n\nView source\n\n\nApplies transformations to fields in the dataset.\n\n\nArguments:\n\n\n\n\ntransforms\n (\ntable[string:function]\n): a key-value map where a key is a field in the dataset and the corresponding value\nis a function that is to be applied to the requested field for each example.\n\n\nin_place\n (\nboolean\n): whether to apply the transformation in place or return a new dataset. Optional.\n\n\n\n\nExample:\n\n\ndataset = Dataset{names={'alice', 'bob', 'charlie'}, id={1, 2, 3}}\ndataset2 = dataset:transform{names=string.upper, id=function(x) return x+1 end}\n\n\n\n\ndataset2\n is now \nDataset{names={'ALICE', 'BOB', 'CHARLIE'}, id={2, 3, 4}}\n while \ndataset\n remains unchanged.\n\n\ndataset = Dataset{names={'alice', 'bob', 'charlie'}, id={1, 2, 3}}\ndataset2 = dataset:transform({names=string.upper}, true)\n\n\n\n\ndataset\n is now \nDataset{names={'ALICE', 'BOB', 'CHARLIE'}, id={1, 2, 3}}\n and \ndataset2\n refers to \ndataset\n.", 
+            "title": "Dataset"
+        }, 
+        {
+            "location": "/ml/Dataset/#dataset", 
+            "text": "Implementation of dataset container.\nThe goal of this class is to provide utilities for manipulating generic datasets. in particular, a\ndataset can be a list of examples, each with a fixed set of fields.", 
+            "title": "Dataset"
+        }, 
+        {
+            "location": "/ml/Dataset/#dataset9595initfields", 
+            "text": "View source  Constructor.  Arguments:   fields  ( table[any:any] ): a table containing key value pairs   Each value is a list of tensors and  value[i]  contains the value corresponding to the  i th example.  Example:.  Suppose we have two examples, with fields  X  and  Y . The first example has  X=[1, 2, 3], Y=1  while  the second example has  X=[4, 5, 6, 7, 8}, Y=4 . To create a dataset:  X = {torch.Tensor{1, 2, 3}, torch.Tensor{4, 5, 6, 7, 8}}\nY = {1, 4}\nd = Dataset{X = X, Y = Y}\n\nOf course, in practice the fields can be arbitrary, so long as each field is a table and has an equal\nnumber of elements.", 
+            "title": "Dataset:__init(fields)"
+        }, 
+        {
+            "location": "/ml/Dataset/#datasetfrom95conllfname", 
+            "text": "View source  Creates a dataset from CONLL format.  Arguments:   fname  ( string ): path to CONLL file.   Returns:   ( Dataset ) loaded dataset   The format is as follows:  # word  subj  subj_ner  obj obj_ner stanford_pos  stanford_ner  stanford_dep_edge stanford_dep_governor\nper:city_of_birth\n- - - - - : O punct 1\n20  - - - - CD  DATE  ROOT  -1\n: - - - - : O punct 1\nAlexander SUBJECT PERSON  - - NNP PERSON  compound  4\nHaig  SUBJECT PERSON  - - NNP PERSON  dep 1\n, - - - - , O punct 4\nUS  - - - - NNP LOCATION  compound  7\nsecretary - - - - NN  O appos 4\n\nThat is, the first line is a tab delimited header, followed by examples separated by a blank line.\nThe first line of the example is the class label. The rest of the rows correspond to tokens and their associated attributes.\n\nExample:  dataset = Dataset.from_conll('data.conll')", 
+            "title": "Dataset.from_conll(fname)"
+        }, 
+        {
+            "location": "/ml/Dataset/#dataset9595tostring9595", 
+            "text": "View source  Returns:   ( string ) string representation", 
+            "title": "Dataset:__tostring__()"
+        }, 
+        {
+            "location": "/ml/Dataset/#datasetsize", 
+            "text": "View source  Returns:   ( int ) number of examples in the dataset", 
+            "title": "Dataset:size()"
+        }, 
+        {
+            "location": "/ml/Dataset/#datasetkfoldsk", 
+            "text": "View source  Returns a table of  k  folds of the dataset.  Arguments:   k  ( int ): how many folds to create.   Returns:   ( table[table] ) tables of indices corresponding to each fold   Each fold consists of a random table of indices corresponding to the examples in the fold.", 
+            "title": "Dataset:kfolds(k)"
+        }, 
+        {
+            "location": "/ml/Dataset/#datasetview", 
+            "text": "View source  Copies out a new Dataset which is a view into the current Dataset.  Arguments:   vararg  ( vararg ): each argument is a tables of integer indices corresponding to a view.   Returns:   ( vararg(Datasets) ) one dataset view for each list of indices   Example:  Suppose we already have a  dataset  and would like to split it into two datasets. We want\nthe first dataset  a  to contain examples 1 and 3 of the original dataset. We want the\nsecond dataset  b  to contain examples 1, 2 and 3 (yes, duplicates are supported).  a, b = dataset:view({1, 3}, {1, 2, 3})", 
+            "title": "Dataset:view(...)"
+        }, 
+        {
+            "location": "/ml/Dataset/#datasettrain95dev95splittrain95indices", 
+            "text": "View source  Creates a train split and a test split given the train indices.  Arguments:   train_indices  ( table[int] ): a table of integers corresponding to indices of training examples.   Returns:   ( Dataset, Dataset ) train and test dataset views   Other examples will be used as test examples.  Example:  Suppose we'd like to split a  dataset  and use its 1, 2, 4 and 5th examples for training.  train, test = dataset:train_dev_split{1, 2, 4, 5}", 
+            "title": "Dataset:train_dev_split(train_indices)"
+        }, 
+        {
+            "location": "/ml/Dataset/#datasetindexindices", 
+            "text": "View source  Reindexes the dataset accoring to the new indices.  Arguments:   indices  ( table[int] ): indices to re-index the dataset with.   Returns:   ( Dataset ) modified dataset   Example:  Suppose we have a  dataset  of 5 examples and want to swap example 1 with example 5.  dataset:index{5, 2, 3, 4, 1}", 
+            "title": "Dataset:index(indices)"
+        }, 
+        {
+            "location": "/ml/Dataset/#datasetshuffle", 
+            "text": "View source  Shuffles the dataset in place  Returns:   ( Dataset ) modified dataset", 
+            "title": "Dataset:shuffle()"
+        }, 
+        {
+            "location": "/ml/Dataset/#datasetsort95by95lengthfield", 
+            "text": "View source  Sorts the examples in place by the length of the requested field.  Arguments:   field  ( string ): field to sort with.   Returns:   ( Dataset ) modified dataset   It is assumed that the field contains torch Tensors. Sorts in ascending order.", 
+            "title": "Dataset:sort_by_length(field)"
+        }, 
+        {
+            "location": "/ml/Dataset/#datasetpadtensors-pad", 
+            "text": "View source  Prepends shorter tensors in a table of tensors with  PAD  such that each tensor in the batch are of the same length.  Arguments:   tensors  ( table[torch.Tensor] ): tensors of varying lengths.  PAD  ( int ): index to pad missing elements with.   Example:. Optional, Default:  0 .  X = {torch.Tensor{1, 2, 3}, torch.Tensor{4}}\nY = Dataset.pad(X, 0)\n\n`Y` is now:  torch.Tensor{{1, 2, 3}, {0, 0, 4}}", 
+            "title": "Dataset.pad(tensors, PAD)"
+        }, 
+        {
+            "location": "/ml/Dataset/#datasetbatchesbatch95size", 
+            "text": "View source  Creates a batch iterator over the dataset.  Arguments:   batch_size  ( int ): maximum size of each batch   Example:.  d = Dataset{X=X, Y=Y}\nfor batch, batch_end in d:batches(5) do\n  print(batch.X)\n  print(batch.Y)\nend", 
+            "title": "Dataset:batches(batch_size)"
+        }, 
+        {
+            "location": "/ml/Dataset/#datasettransformtransforms-in95place", 
+            "text": "View source  Applies transformations to fields in the dataset.  Arguments:   transforms  ( table[string:function] ): a key-value map where a key is a field in the dataset and the corresponding value\nis a function that is to be applied to the requested field for each example.  in_place  ( boolean ): whether to apply the transformation in place or return a new dataset. Optional.   Example:  dataset = Dataset{names={'alice', 'bob', 'charlie'}, id={1, 2, 3}}\ndataset2 = dataset:transform{names=string.upper, id=function(x) return x+1 end}  dataset2  is now  Dataset{names={'ALICE', 'BOB', 'CHARLIE'}, id={2, 3, 4}}  while  dataset  remains unchanged.  dataset = Dataset{names={'alice', 'bob', 'charlie'}, id={1, 2, 3}}\ndataset2 = dataset:transform({names=string.upper}, true)  dataset  is now  Dataset{names={'ALICE', 'BOB', 'CHARLIE'}, id={1, 2, 3}}  and  dataset2  refers to  dataset .", 
+            "title": "Dataset:transform(transforms, in_place)"
+        }, 
+        {
+            "location": "/ml/Experiment/", 
+            "text": "Experiment\n\n\nExperiment container that is backed up to a Postgres instance.\n\n\nExample:\n\n\nSuppose we have already made a postgres database called \nmyexp\n.\n\n\nlocal c = Experiment.new('myexp')\nlocal run = c:create_run{dataset='foobar', lr=1.0, n_hid=10}\nprint(run:info())\nrun:submit_scores(1, {macro={f1=0.53, precision=0.52, recall=0.54}, micro={f1=0.10, precision=0.10, recall=0.10}})\nrun:submit_scores(2, {macro={f1=0.55, precision=0.55, recall=0.55}, micro={f1=0.10, precision=0.10, recall=0.10}})\nprint(run:scores())\n\nrun:submit_prediction(1, 'person', 'thing', {dataset='foobar'})\nrun:submit_prediction(2, 'person', 'person', {dataset='foobar'})\nrun:submit_prediction(3, 'person', 'thing', {dataset='foobar'})\nrun:submit_prediction(4, 'thing', 'thing', {dataset='foobar'})\nprint(run:predictions())\n\n\n\n\nExperiment:__init(name, username, password, hostname, port)\n\n\nView source\n\n\nConstructor.\n\n\nArguments:\n\n\n\n\nname\n (\nstring\n): name of the experiment.\n\n\n (\nusername\n): username for postgres. Optional.\n\n\n (\nhostname\n): hostname for postgres. Optional.\n\n\n (\nport\n): port for postgres\n\n\n\n\nIt is assumed that a database with this name also exists and the user has permission to connect to it.\nFor more information on the parameters for postgres, see:\n\n\nhttp://keplerproject.github.io/luasql/manual.html#postgres_extensions. Optional.\n\n\nExperiment:setup()\n\n\nView source\n\n\nCreates relevant tables.\n\n\nExperiment:delete()\n\n\nView source\n\n\nDrops tables for this experiment.\n\n\nExperiment:query(query, iterator)\n\n\nView source\n\n\nSubmits a query to the database and returns the result.\n\n\nArguments:\n\n\n\n\nquery\n (\nstring\n): query to run.\n\n\niterator\n (\nboolean\n): whether to return the result as an iterator or as a table. Optional.\n\n\n\n\nReturns:\n\n\n\n\n(\nconditional\n) if \ntrue\n, then an iterator will be returned. Otherwise, a table will be returned\n\n\n\n\nIf the result is not a number, then results will be returned. If the result is a number, then no result will\nbe returned.\n\n\nIf the query fails, then an error will be raised.\n\n\nExperiment:create_run(opt)\n\n\nView source\n\n\nCreates a new run for the experiment.\n\n\nArguments:\n\n\n\n\nopt\n (\ntable[any:any]\n): options for the run.\n\n\n\n\nReturns:\n\n\n\n\n(\ntable\n) a Run object\n\n\n\n\nThe Run object returned has the following functions:\n\n\n\n\n\n\nrun.id\n: the id for this run\n\n\n\n\n\n\nrun:info()\n: retrieves the row in the runs table.\n\n\n\n\n\n\nrun:scores()\n: retrieves the scores in the scores table.\n\n\n\n\n\n\nrun:submit_scores(epoch, scores)\n: submits scores.\n\n\n\n\n\n\nrun:predictions(example_id)\n: retrieves the predictions.\n\n\n\n\n\n\nrun:submit_prediction(example_id, pred, gold, info)\n: submits a single prediction.\n\n\n\n\n\n\nThese are merely convenience functions mapping to corresponding methods in \nExperiment\n.\n\n\nThey are convienient in the sense that one does not have to memorize the \nid\n of the Run to use them.\n\n\nExperiment:get_run_info(id)\n\n\nView source\n\n\nRetrieves the options for the requested run.\n\n\nArguments:\n\n\n\n\nid\n (\nint\n): ID of the run to retrieve.\n\n\n\n\nExperiment:submit_scores(run_id, epoch, scores)\n\n\nView source\n\n\nSubmits a score for the run.\n\n\nArguments:\n\n\n\n\nrun_id\n (\nint\n): ID of the run to submit scores for.\n\n\nepoch\n (\nint\n): epoch of the score.\n\n\nscores\n (\ntable[string:number]\n): scores to submit.\n\n\n\n\nExperiment:get_run_scores(id)\n\n\nView source\n\n\nRetrieves the scores for the requested run.\n\n\nArguments:\n\n\n\n\nid\n (\nint\n): ID of the run to retrieve.\n\n\n\n\nExperiment:submit_prediction(run_id, example_id, pred, gold, info)\n\n\nView source\n\n\nSubmits the prediction for a single example for a run.\n\n\nArguments:\n\n\n\n\nrun_id\n (\nint\n): ID for the run.\n\n\nexample_id\n (\nint\n): ID for the example.\n\n\npred\n (\nany\n): prediction.\n\n\ngold\n (\nany\n): ground truth. Optional.\n\n\ninfo\n (\ntable\n): information for the run. Optional.\n\n\n\n\nExperiment:get_predictions(run_id, example_id)\n\n\nView source\n\n\nRetrieves the prediction a run.\n\n\nArguments:\n\n\n\n\nrun_id\n (\nint\n): ID for the run.\n\n\nexample_id\n (\nint\n): ID for the example. If this is given then only the prediction for this example is returned. Optional.", 
+            "title": "Experiment"
+        }, 
+        {
+            "location": "/ml/Experiment/#experiment", 
+            "text": "Experiment container that is backed up to a Postgres instance.  Example:  Suppose we have already made a postgres database called  myexp .  local c = Experiment.new('myexp')\nlocal run = c:create_run{dataset='foobar', lr=1.0, n_hid=10}\nprint(run:info())\nrun:submit_scores(1, {macro={f1=0.53, precision=0.52, recall=0.54}, micro={f1=0.10, precision=0.10, recall=0.10}})\nrun:submit_scores(2, {macro={f1=0.55, precision=0.55, recall=0.55}, micro={f1=0.10, precision=0.10, recall=0.10}})\nprint(run:scores())\n\nrun:submit_prediction(1, 'person', 'thing', {dataset='foobar'})\nrun:submit_prediction(2, 'person', 'person', {dataset='foobar'})\nrun:submit_prediction(3, 'person', 'thing', {dataset='foobar'})\nrun:submit_prediction(4, 'thing', 'thing', {dataset='foobar'})\nprint(run:predictions())", 
+            "title": "Experiment"
+        }, 
+        {
+            "location": "/ml/Experiment/#experiment9595initname-username-password-hostname-port", 
+            "text": "View source  Constructor.  Arguments:   name  ( string ): name of the experiment.   ( username ): username for postgres. Optional.   ( hostname ): hostname for postgres. Optional.   ( port ): port for postgres   It is assumed that a database with this name also exists and the user has permission to connect to it.\nFor more information on the parameters for postgres, see:  http://keplerproject.github.io/luasql/manual.html#postgres_extensions. Optional.", 
+            "title": "Experiment:__init(name, username, password, hostname, port)"
+        }, 
+        {
+            "location": "/ml/Experiment/#experimentsetup", 
+            "text": "View source  Creates relevant tables.", 
+            "title": "Experiment:setup()"
+        }, 
+        {
+            "location": "/ml/Experiment/#experimentdelete", 
+            "text": "View source  Drops tables for this experiment.", 
+            "title": "Experiment:delete()"
+        }, 
+        {
+            "location": "/ml/Experiment/#experimentqueryquery-iterator", 
+            "text": "View source  Submits a query to the database and returns the result.  Arguments:   query  ( string ): query to run.  iterator  ( boolean ): whether to return the result as an iterator or as a table. Optional.   Returns:   ( conditional ) if  true , then an iterator will be returned. Otherwise, a table will be returned   If the result is not a number, then results will be returned. If the result is a number, then no result will\nbe returned.  If the query fails, then an error will be raised.", 
+            "title": "Experiment:query(query, iterator)"
+        }, 
+        {
+            "location": "/ml/Experiment/#experimentcreate95runopt", 
+            "text": "View source  Creates a new run for the experiment.  Arguments:   opt  ( table[any:any] ): options for the run.   Returns:   ( table ) a Run object   The Run object returned has the following functions:    run.id : the id for this run    run:info() : retrieves the row in the runs table.    run:scores() : retrieves the scores in the scores table.    run:submit_scores(epoch, scores) : submits scores.    run:predictions(example_id) : retrieves the predictions.    run:submit_prediction(example_id, pred, gold, info) : submits a single prediction.    These are merely convenience functions mapping to corresponding methods in  Experiment .  They are convienient in the sense that one does not have to memorize the  id  of the Run to use them.", 
+            "title": "Experiment:create_run(opt)"
+        }, 
+        {
+            "location": "/ml/Experiment/#experimentget95run95infoid", 
+            "text": "View source  Retrieves the options for the requested run.  Arguments:   id  ( int ): ID of the run to retrieve.", 
+            "title": "Experiment:get_run_info(id)"
+        }, 
+        {
+            "location": "/ml/Experiment/#experimentsubmit95scoresrun95id-epoch-scores", 
+            "text": "View source  Submits a score for the run.  Arguments:   run_id  ( int ): ID of the run to submit scores for.  epoch  ( int ): epoch of the score.  scores  ( table[string:number] ): scores to submit.", 
+            "title": "Experiment:submit_scores(run_id, epoch, scores)"
+        }, 
+        {
+            "location": "/ml/Experiment/#experimentget95run95scoresid", 
+            "text": "View source  Retrieves the scores for the requested run.  Arguments:   id  ( int ): ID of the run to retrieve.", 
+            "title": "Experiment:get_run_scores(id)"
+        }, 
+        {
+            "location": "/ml/Experiment/#experimentsubmit95predictionrun95id-example95id-pred-gold-info", 
+            "text": "View source  Submits the prediction for a single example for a run.  Arguments:   run_id  ( int ): ID for the run.  example_id  ( int ): ID for the example.  pred  ( any ): prediction.  gold  ( any ): ground truth. Optional.  info  ( table ): information for the run. Optional.", 
+            "title": "Experiment:submit_prediction(run_id, example_id, pred, gold, info)"
+        }, 
+        {
+            "location": "/ml/Experiment/#experimentget95predictionsrun95id-example95id", 
+            "text": "View source  Retrieves the prediction a run.  Arguments:   run_id  ( int ): ID for the run.  example_id  ( int ): ID for the example. If this is given then only the prediction for this example is returned. Optional.", 
+            "title": "Experiment:get_predictions(run_id, example_id)"
+        }, 
+        {
+            "location": "/ml/Model/", 
+            "text": "Model\n\n\nImplementation of model abstract class.\n\n\nThe idea of this class is to provide a standard interface for training/evaluating models and help avoid duplication of code.\nIt is set up in a modular fashion such that a model can overwrite key components of the training process (eg. the actual\nimplementation of the network via \nget_net\n, the criterion via \nget_criterion\n, how batches from the dataset are preprocessed\nvia \nprocess_batch\n).\n\n\nExample:\n\n\nlocal MyModel = torch.class('MyModel', 'tl.Model')\n\nfunction MyModel:required_params()\n  return {'d_in', 'd_hid'}\nend\n\nfunction MyModel:get_net()\n  return nn.Sequential()\n      :add(nn.Linear(self.opt.d_in, self.opt.d_hid))\n      :add(nn.Tanh())\n      :add(nn.Linear(self.opt.d_hid, 1))\nend\n\nfunction MyModel:get_criterion()\n  return nn.MSECriterion()\nend\n\n\n\n\nModel:__init(opt)\n\n\nView source\n\n\nConstructor.\n\n\nArguments:\n\n\n\n\nopt\n (\ntable\n): a key-value map of parameters for the model.\n\n\n\n\nIf you feel the need to have a more specific constructor, you should add to the \nimplementation of the child class. In practice, it is often sufficient to overwrite\nthe functions \nget_net\n, \nget_criterion\n, and \ninitialize\n.\n\n\nModel:initialize()\n\n\nView source\n\n\nInitializes the model.\n\n\nBy default, uniformly initializes all parameters to between -0.08 and 0.08 and resets gradients to 0.\n\n\nReturns:\n\n\n\n\n(\nModel\n) initialized model\n\n\n\n\nModel:required_params()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\ntable\n) required arguments for the constructor\n\n\n\n\nBy default returns empty table. If a required argument is not met, then the constructor will abort with an error.\n\n\nModel:get_net()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\ntorch.Module\n) implementation of the network.\n\n\n\n\nNote: You must overwrite this function.\n\n\nModel:get_criterion()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\ntorch.Module\n) implementation of the network.\n\n\n\n\nBy default returns \nnn.CrossEntropyCriterion()\n.\n\n\nModel:process_batch(batch, pad)\n\n\nView source\n\n\nApplies prepocessing to the batch object returned by \nDataset.batches\n.\n\n\nArguments:\n\n\n\n\nbatch\n (\ntable[string:table]\n): a map from \nDataset.batches\n.\n\n\npad\n (\nint\n): what to use to pad variably lengthed examples in \nbatch.X\n.\n\n\n\n\nReturns:\n\n\n\n\n(\ntable[string:table]\n) padded batch\n\n\n\n\nBy default, this pads the \nX\n field using \nDataset.pad\n and converts the \nY\n field to a \nTensor\n.\nYou may want to do different things here, such as convert tensors to CUDA, pad a different field etc.\n\n\nModel:train(dataset, opt, optimize, optim_opt)\n\n\nView source\n\n\nTrains on a \nDataset\n instance.\n\n\nArguments:\n\n\n\n\ndataset\n (\nDataset\n): dataset to train on.\n\n\nopt\n (\ntable\n): training options.\n\n\noptimize\n (\noptim.optimizer\n): optimizer for training. Optional, Default: \noptim.adam\n.\n\n\noptim_opt\n (\ntable\n): optimizer options. Optional.\n\n\n\n\nReturns:\n\n\n\n\n(\nnumber\n) average loss per example\n\n\n\n\nopt\n specifies:\n\n\n- `batch_size`: the number of examples per batch to fetch from `dataset`. By default this is `128`.\n\n- `silent`: whether to prevent progress updates (eg. via a progress bar). By default this is `false`.\n\n- `pad`: The integer used for padding variable lengthed sequences. By default this is `0`.\n\n\n\nExample:\n\n\nd = Dataset{X = X, Y = Y}\n loss = model:train(d, {silent=true, batch_size=10}, optim.adam, {learningRate=1e-3})\n\n\n\n\nModel:evaluate(dataset, opt)\n\n\nView source\n\n\nEvaluates on a \nDataset\n instance.\n\n\nArguments:\n\n\n\n\ndataset\n (\nDataset\n): dataset to evaluate on.\n\n\nopt\n (\ntable\n): evaluation options.\n\n\n\n\nReturns:\n\n\n\n\n(\nnumber, torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor\n) evaluation results\n\n\n\n\nopt\n specifies:\n\n\n\n\n\n\nbatch_size\n: the number of examples per batch to fetch from \ndataset\n. By default this is \n128\n.\n\n\n\n\n\n\nsilent\n: whether to prevent progress updates (eg. via a progress bar). By default this is \nfalse\n.\n\n\n\n\n\n\npad\n: The integer used for padding variable lengthed sequences. By default this is \n0\n.\n\n\n\n\n\n\nReturns the following:\n\n\n\n\n\n\nloss\n: average loss per example\n\n\n\n\n\n\npred\n: a \nTensor\n contintaing the predictions made\n\n\n\n\n\n\ntarg\n: a \nTensor\n contintaing the ground truth\n\n\n\n\n\n\nmax_scores\n: a \nTensor\n contintaing the max scores for each prediction\n\n\n\n\n\n\nraw_scores\n: a \nTensor\n contintaing the raw scores for each prediction\n\n\n\n\n\n\nExample:\n\n\nd = Dataset{X = X, Y = Y}\nloss, pred, targ, max_scores, raw_scores = model:evaluate(d, {silent=true, batch_size=10})\n\n\n\n\nModel:fit(dataset, opt, callbacks, progress, optim, optim_opt)\n\n\nView source\n\n\nTrains and evaluates a model.\n\n\nArguments:\n\n\n\n\ndataset\n (\ntable[string:Dataset]\n): a map of datasets.\n\n\nopt\n (\ntable\n): training options. Optional.\n\n\ncallbacks\n (\ntable[string:function]\n): a map of callback functions that are run after each epoch. Optional.\n\n\nprogress\n (\nfunction\n): returns whether this epoch is an improvement over the best results seen so far. Optional.\n\n\noptim\n (\noptim.optimizer\n): optimizer for \ntrain\n. Optional, Default: \noptim.adam\n.\n\n\noptim_opt\n (\ntable\n): optimizer options for \ntrain\n. Optional.\n\n\n\n\nReturns:\n\n\n\n\n(\ntable, table\n) best evaluation results seen during training and the training history of all evaluation results.\n\n\n\n\ndataset\n contains:\n\n\n\n\n\n\ntrain\n: the \nDataset\n to train on.\n\n\n\n\n\n\ndev\n: the development \nDataset\n to evaluate on. Used for early stopping\n\n\n\n\n\n\ntest\n: the \nDataset\n to test on. Optional. If specified, then will be evaluated on at the end of training.\n\n\n\n\n\n\nopt\n contains:\n\n\n\n\n\n\nbatch_size\n: the number of examples per batch to fetch from \ndataset\n. By default this is \n128\n.\n\n\n\n\n\n\nsilent\n: whether to prevent progress updates (eg. via a progress bar). By default this is \nfalse\n.\n\n\n\n\n\n\npatience\n: the number of sub-optimal epochs to tolerate before early stopping. Default is \n5\n.\n\n\n\n\n\n\nn_epoch\n: the maximum number of epochs to train for. Default is \n30\n.\n\n\n\n\n\n\nsave\n: where to save progress. If not specified then no saving will be done.\n\n\n\n\n\n\ncallbacks\n functions take the following arguments:\n\n\n\n\n\n\nsplit\n: the name of the split being run\n\n\n\n\n\n\nres\n: the evaluation results for the split\n\n\n\n\n\n\nIf a callback returns values, then the values will be stored in the evaluation results for that epoch\n\n\nand printed to stdout.\n\n\nprogress\n takes a function that takes as arguments:\n\n\n\n\n\n\ncurr\n: the evaluation results for the current epoch\n\n\n\n\n\n\nbest\n: the best evaluation result so far\n\n\n\n\n\n\nand returns whether \ncurr\n is better than \nbest\n. By default, this compares the \nloss\n field.\n\n\nd = {\n  train=Dataset{X = Xtrain, Y = Ytrain}, \n  dev=Dataset{X = Xdev, Y = Ydev}, \n  test=Dataset{X = Xtest, Y = Ytest}, \n}\nbest_scores, train_hist = model:fit(d, {silent=true, batch_size=10})", 
+            "title": "Model"
+        }, 
+        {
+            "location": "/ml/Model/#model", 
+            "text": "Implementation of model abstract class.  The idea of this class is to provide a standard interface for training/evaluating models and help avoid duplication of code.\nIt is set up in a modular fashion such that a model can overwrite key components of the training process (eg. the actual\nimplementation of the network via  get_net , the criterion via  get_criterion , how batches from the dataset are preprocessed\nvia  process_batch ).  Example:  local MyModel = torch.class('MyModel', 'tl.Model')\n\nfunction MyModel:required_params()\n  return {'d_in', 'd_hid'}\nend\n\nfunction MyModel:get_net()\n  return nn.Sequential()\n      :add(nn.Linear(self.opt.d_in, self.opt.d_hid))\n      :add(nn.Tanh())\n      :add(nn.Linear(self.opt.d_hid, 1))\nend\n\nfunction MyModel:get_criterion()\n  return nn.MSECriterion()\nend", 
+            "title": "Model"
+        }, 
+        {
+            "location": "/ml/Model/#model9595initopt", 
+            "text": "View source  Constructor.  Arguments:   opt  ( table ): a key-value map of parameters for the model.   If you feel the need to have a more specific constructor, you should add to the \nimplementation of the child class. In practice, it is often sufficient to overwrite\nthe functions  get_net ,  get_criterion , and  initialize .", 
+            "title": "Model:__init(opt)"
+        }, 
+        {
+            "location": "/ml/Model/#modelinitialize", 
+            "text": "View source  Initializes the model.  By default, uniformly initializes all parameters to between -0.08 and 0.08 and resets gradients to 0.  Returns:   ( Model ) initialized model", 
+            "title": "Model:initialize()"
+        }, 
+        {
+            "location": "/ml/Model/#modelrequired95params", 
+            "text": "View source  Returns:   ( table ) required arguments for the constructor   By default returns empty table. If a required argument is not met, then the constructor will abort with an error.", 
+            "title": "Model:required_params()"
+        }, 
+        {
+            "location": "/ml/Model/#modelget95net", 
+            "text": "View source  Returns:   ( torch.Module ) implementation of the network.   Note: You must overwrite this function.", 
+            "title": "Model:get_net()"
+        }, 
+        {
+            "location": "/ml/Model/#modelget95criterion", 
+            "text": "View source  Returns:   ( torch.Module ) implementation of the network.   By default returns  nn.CrossEntropyCriterion() .", 
+            "title": "Model:get_criterion()"
+        }, 
+        {
+            "location": "/ml/Model/#modelprocess95batchbatch-pad", 
+            "text": "View source  Applies prepocessing to the batch object returned by  Dataset.batches .  Arguments:   batch  ( table[string:table] ): a map from  Dataset.batches .  pad  ( int ): what to use to pad variably lengthed examples in  batch.X .   Returns:   ( table[string:table] ) padded batch   By default, this pads the  X  field using  Dataset.pad  and converts the  Y  field to a  Tensor .\nYou may want to do different things here, such as convert tensors to CUDA, pad a different field etc.", 
+            "title": "Model:process_batch(batch, pad)"
+        }, 
+        {
+            "location": "/ml/Model/#modeltraindataset-opt-optimize-optim95opt", 
+            "text": "View source  Trains on a  Dataset  instance.  Arguments:   dataset  ( Dataset ): dataset to train on.  opt  ( table ): training options.  optimize  ( optim.optimizer ): optimizer for training. Optional, Default:  optim.adam .  optim_opt  ( table ): optimizer options. Optional.   Returns:   ( number ) average loss per example   opt  specifies:  - `batch_size`: the number of examples per batch to fetch from `dataset`. By default this is `128`.\n\n- `silent`: whether to prevent progress updates (eg. via a progress bar). By default this is `false`.\n\n- `pad`: The integer used for padding variable lengthed sequences. By default this is `0`.  Example:  d = Dataset{X = X, Y = Y}\n loss = model:train(d, {silent=true, batch_size=10}, optim.adam, {learningRate=1e-3})", 
+            "title": "Model:train(dataset, opt, optimize, optim_opt)"
+        }, 
+        {
+            "location": "/ml/Model/#modelevaluatedataset-opt", 
+            "text": "View source  Evaluates on a  Dataset  instance.  Arguments:   dataset  ( Dataset ): dataset to evaluate on.  opt  ( table ): evaluation options.   Returns:   ( number, torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor ) evaluation results   opt  specifies:    batch_size : the number of examples per batch to fetch from  dataset . By default this is  128 .    silent : whether to prevent progress updates (eg. via a progress bar). By default this is  false .    pad : The integer used for padding variable lengthed sequences. By default this is  0 .    Returns the following:    loss : average loss per example    pred : a  Tensor  contintaing the predictions made    targ : a  Tensor  contintaing the ground truth    max_scores : a  Tensor  contintaing the max scores for each prediction    raw_scores : a  Tensor  contintaing the raw scores for each prediction    Example:  d = Dataset{X = X, Y = Y}\nloss, pred, targ, max_scores, raw_scores = model:evaluate(d, {silent=true, batch_size=10})", 
+            "title": "Model:evaluate(dataset, opt)"
+        }, 
+        {
+            "location": "/ml/Model/#modelfitdataset-opt-callbacks-progress-optim-optim95opt", 
+            "text": "View source  Trains and evaluates a model.  Arguments:   dataset  ( table[string:Dataset] ): a map of datasets.  opt  ( table ): training options. Optional.  callbacks  ( table[string:function] ): a map of callback functions that are run after each epoch. Optional.  progress  ( function ): returns whether this epoch is an improvement over the best results seen so far. Optional.  optim  ( optim.optimizer ): optimizer for  train . Optional, Default:  optim.adam .  optim_opt  ( table ): optimizer options for  train . Optional.   Returns:   ( table, table ) best evaluation results seen during training and the training history of all evaluation results.   dataset  contains:    train : the  Dataset  to train on.    dev : the development  Dataset  to evaluate on. Used for early stopping    test : the  Dataset  to test on. Optional. If specified, then will be evaluated on at the end of training.    opt  contains:    batch_size : the number of examples per batch to fetch from  dataset . By default this is  128 .    silent : whether to prevent progress updates (eg. via a progress bar). By default this is  false .    patience : the number of sub-optimal epochs to tolerate before early stopping. Default is  5 .    n_epoch : the maximum number of epochs to train for. Default is  30 .    save : where to save progress. If not specified then no saving will be done.    callbacks  functions take the following arguments:    split : the name of the split being run    res : the evaluation results for the split    If a callback returns values, then the values will be stored in the evaluation results for that epoch  and printed to stdout.  progress  takes a function that takes as arguments:    curr : the evaluation results for the current epoch    best : the best evaluation result so far    and returns whether  curr  is better than  best . By default, this compares the  loss  field.  d = {\n  train=Dataset{X = Xtrain, Y = Ytrain}, \n  dev=Dataset{X = Xdev, Y = Ydev}, \n  test=Dataset{X = Xtest, Y = Ytest}, \n}\nbest_scores, train_hist = model:fit(d, {silent=true, batch_size=10})", 
+            "title": "Model:fit(dataset, opt, callbacks, progress, optim, optim_opt)"
+        }, 
+        {
+            "location": "/ml/GloveVocab/", 
+            "text": "GloveVocab\n\n\nVocab object prepopulated with Glove embeddings by Pennington, Socher, and Manning.\nThis is a subclass of \nVocab\n.\nFor details, see:\n\n\nhttp://nlp.stanford.edu/projects/glove/.\n\n\nThis only supports the 50-d wikipedia/Giga-word version.\n\n\nThe download is from:\n\n\nhttps://dl.dropboxusercontent.com/u/9015381/datasets/torchnlp/glove.6B.50d.t7\n\n\nGloveVocab:load_words()\n\n\nView source\n\n\nRetrieves the word list and populates the vocabulary.\n\n\nGloveVocab:embeddings()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\ntorch.Tensor\n) pretrained embeddings for words in the vocabulary\n\n\n\n\nGloveVocab:__tostring__()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\nstring\n) string representation", 
+            "title": "GloveVocab"
+        }, 
+        {
+            "location": "/ml/GloveVocab/#glovevocab", 
+            "text": "Vocab object prepopulated with Glove embeddings by Pennington, Socher, and Manning.\nThis is a subclass of  Vocab .\nFor details, see:  http://nlp.stanford.edu/projects/glove/.  This only supports the 50-d wikipedia/Giga-word version.  The download is from:  https://dl.dropboxusercontent.com/u/9015381/datasets/torchnlp/glove.6B.50d.t7", 
+            "title": "GloveVocab"
+        }, 
+        {
+            "location": "/ml/GloveVocab/#glovevocabload95words", 
+            "text": "View source  Retrieves the word list and populates the vocabulary.", 
+            "title": "GloveVocab:load_words()"
+        }, 
+        {
+            "location": "/ml/GloveVocab/#glovevocabembeddings", 
+            "text": "View source  Returns:   ( torch.Tensor ) pretrained embeddings for words in the vocabulary", 
+            "title": "GloveVocab:embeddings()"
+        }, 
+        {
+            "location": "/ml/GloveVocab/#glovevocab9595tostring9595", 
+            "text": "View source  Returns:   ( string ) string representation", 
+            "title": "GloveVocab:__tostring__()"
+        }, 
+        {
+            "location": "/ml/ProbTable/", 
+            "text": "ProbTable\n\n\nImplementation of probability table using Torch tensor\n\n\nProbTable:__init(P, names)\n\n\nView source\n\n\nConstructor.\n\n\nArguments:\n\n\n\n\nP\n (\ntorch.tensor\n): probability Tensor, the \ni\nth dimension corresponds to the \ni\nth variable.\n\n\nnames\n (\ntable[string]\n): A table of names for the variables. By default theses will be assigned using indices.\n\n\n\n\nExample:. Optional.\n\n\nlocal t = ProbTable(torch.Tensor{{0.2, 0.8}, {0.4, 0.6}, {0.1, 0.9}}, {'a', 'b'})\nt:query{a=1, b=2}  0.8\nt:query{a=2}  Tensor{0.4, 0.6}\n\n\n\n\nProbTable:size()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\nint\n) number of variables in the table\n\n\n\n\nProbTable:query(dict)\n\n\nView source\n\n\nArguments:\n\n\n\n\ndict\n (\ntable[string\n): an assignment to consider\n\n\n\n\nExample:. Optional, Default: \nint]\n.\n\n\nReturns:\n\n\n\n\n(\ntorch.Tensor\n) probabilities for the assignments in \ndict\n.\n\n\n\n\nlocal t = ProbTable(torch.Tensor{{0.2, 0.8}, {0.4, 0.6}, {0.1, 0.9}}, {'a', 'b'})\nt:query{a=1, b=2}\nt:query{a=2}\n\n\n\n\nThe first query is \n0.8\n. The second query is \nTensor{0.4, 0.6}\n\n\nProbTable:clone()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\nProbTable\n) a copy\n\n\n\n\nProbTable:__tostring__()\n\n\nView source\n\n\nReturns:\n\n\n\n\n(\nstring\n) string representation\n\n\n\n\nProbTable:mul(B)\n\n\nView source\n\n\nReturns a new table that is the product of two tables.\n\n\nArguments:\n\n\n\n\nB\n (\nProbTable\n): another table.\n\n\n\n\nReturns:\n\n\n\n\n(\nProbTable\n) product of this and another table\n\n\n\n\nProbTable:marginalize(name)\n\n\nView source\n\n\nMarginalizes this probability table in place.\n\n\nArguments:\n\n\n\n\nname\n (\nstring\n): the variable to marginalize.\n\n\n\n\nReturns:\n\n\n\n\n(\nProbTable\n) this probability table with the variable \nname\n marginalized out\n\n\n\n\nProbTable:marginal(name)\n\n\nView source\n\n\nMarginalizes this probability table in place to calculate a marginal.\n\n\nArguments:\n\n\n\n\nname\n (\nstring\n): the variable to calculate.\n\n\n\n\nReturns:\n\n\n\n\n(\nProbTable\n) this probability table marginalizing all variables except \nname\n\n\n\n\nProbTable:normalize()\n\n\nView source\n\n\nNormalizes this table by dividing by the sum of all probabilities.\n\n\nReturns:\n\n\n\n\n(\nProbTable\n) normalized table", 
+            "title": "ProbTable"
+        }, 
+        {
+            "location": "/ml/ProbTable/#probtable", 
+            "text": "Implementation of probability table using Torch tensor", 
+            "title": "ProbTable"
+        }, 
+        {
+            "location": "/ml/ProbTable/#probtable9595initp-names", 
+            "text": "View source  Constructor.  Arguments:   P  ( torch.tensor ): probability Tensor, the  i th dimension corresponds to the  i th variable.  names  ( table[string] ): A table of names for the variables. By default theses will be assigned using indices.   Example:. Optional.  local t = ProbTable(torch.Tensor{{0.2, 0.8}, {0.4, 0.6}, {0.1, 0.9}}, {'a', 'b'})\nt:query{a=1, b=2}  0.8\nt:query{a=2}  Tensor{0.4, 0.6}", 
+            "title": "ProbTable:__init(P, names)"
+        }, 
+        {
+            "location": "/ml/ProbTable/#probtablesize", 
+            "text": "View source  Returns:   ( int ) number of variables in the table", 
+            "title": "ProbTable:size()"
+        }, 
+        {
+            "location": "/ml/ProbTable/#probtablequerydict", 
+            "text": "View source  Arguments:   dict  ( table[string ): an assignment to consider   Example:. Optional, Default:  int] .  Returns:   ( torch.Tensor ) probabilities for the assignments in  dict .   local t = ProbTable(torch.Tensor{{0.2, 0.8}, {0.4, 0.6}, {0.1, 0.9}}, {'a', 'b'})\nt:query{a=1, b=2}\nt:query{a=2}  The first query is  0.8 . The second query is  Tensor{0.4, 0.6}", 
+            "title": "ProbTable:query(dict)"
+        }, 
+        {
+            "location": "/ml/ProbTable/#probtableclone", 
+            "text": "View source  Returns:   ( ProbTable ) a copy", 
+            "title": "ProbTable:clone()"
+        }, 
+        {
+            "location": "/ml/ProbTable/#probtable9595tostring9595", 
+            "text": "View source  Returns:   ( string ) string representation", 
+            "title": "ProbTable:__tostring__()"
+        }, 
+        {
+            "location": "/ml/ProbTable/#probtablemulb", 
+            "text": "View source  Returns a new table that is the product of two tables.  Arguments:   B  ( ProbTable ): another table.   Returns:   ( ProbTable ) product of this and another table", 
+            "title": "ProbTable:mul(B)"
+        }, 
+        {
+            "location": "/ml/ProbTable/#probtablemarginalizename", 
+            "text": "View source  Marginalizes this probability table in place.  Arguments:   name  ( string ): the variable to marginalize.   Returns:   ( ProbTable ) this probability table with the variable  name  marginalized out", 
+            "title": "ProbTable:marginalize(name)"
+        }, 
+        {
+            "location": "/ml/ProbTable/#probtablemarginalname", 
+            "text": "View source  Marginalizes this probability table in place to calculate a marginal.  Arguments:   name  ( string ): the variable to calculate.   Returns:   ( ProbTable ) this probability table marginalizing all variables except  name", 
+            "title": "ProbTable:marginal(name)"
+        }, 
+        {
+            "location": "/ml/ProbTable/#probtablenormalize", 
+            "text": "View source  Normalizes this table by dividing by the sum of all probabilities.  Returns:   ( ProbTable ) normalized table", 
+            "title": "ProbTable:normalize()"
+        }, 
+        {
+            "location": "/ml/Scorer/", 
+            "text": "Scorer\n\n\nImplementation of a scorer to calculate precision/recall/f1.\n\n\nScorer:__init(gold_log, pred_log)\n\n\nView source\n\n\nConstructor.\n\n\nArguments:\n\n\n\n\ngold_log\n (\nstring\n): if given, gold labels will be written to this file. Optional.\n\n\npred_log\n (\nstring]\n): if given, predicted labels will be written to this file.\n\n\n\n\nScorer:add_pred(gold, pred, id)\n\n\nView source\n\n\nAdds a prediction/ground truth pair to the scorer.\n\n\nArguments:\n\n\n\n\ngold\n (\nstring\n): ground truth label.\n\n\npred\n (\nstring\n): corresponding predicted label.\n\n\nid\n (\nstring\n): corresponding identifier for this example\n\n\n\n\nIf the scorer was given the gold log and the pred log, then the pair will be written to their respective log files. Optional.\n\n\nScorer:reset()\n\n\nView source\n\n\nRemoves all remembered statistics from the scorer.\n\n\nScorer:precision_recall_f1(ignore)\n\n\nView source\n\n\nComputes the precision/recall/f1 statistics for the current batch of elements.\n\n\nArguments:\n\n\n\n\nignore\n (\nstring\n): if given, \nignore\n is taken to be the \"negative\" class and its statistics will be withheld\nfrom the computation. Optional.\n\n\n\n\nReturns:\n\n\n\n\n(\ntable, table, table\n) micro, macro, and class scores\n\n\n\n\nExample:\n\n\nlocal s = Scorer()\ns:add_pred('a', 'b', 1)\ns:add_pred('b', 'b', 2)\ns:add_pred('c', 'a', 3)\nlocal micro, macro, all_stats = s:precision_recall_f1(ignore)\n\n\n\n\nReturns the following\n\n\n\n\n\n\nmicro\n: the micro averaged precision/recall/f1 statistics\n\n\n\n\n\n\nmacro\n: the macro averaged precision/recall/f1 statistics\n\n\n\n\n\n\nclass_stats\n: the precision/recall/f1 for each class", 
+            "title": "Scorer"
+        }, 
+        {
+            "location": "/ml/Scorer/#scorer", 
+            "text": "Implementation of a scorer to calculate precision/recall/f1.", 
+            "title": "Scorer"
+        }, 
+        {
+            "location": "/ml/Scorer/#scorer9595initgold95log-pred95log", 
+            "text": "View source  Constructor.  Arguments:   gold_log  ( string ): if given, gold labels will be written to this file. Optional.  pred_log  ( string] ): if given, predicted labels will be written to this file.", 
+            "title": "Scorer:__init(gold_log, pred_log)"
+        }, 
+        {
+            "location": "/ml/Scorer/#scoreradd95predgold-pred-id", 
+            "text": "View source  Adds a prediction/ground truth pair to the scorer.  Arguments:   gold  ( string ): ground truth label.  pred  ( string ): corresponding predicted label.  id  ( string ): corresponding identifier for this example   If the scorer was given the gold log and the pred log, then the pair will be written to their respective log files. Optional.", 
+            "title": "Scorer:add_pred(gold, pred, id)"
+        }, 
+        {
+            "location": "/ml/Scorer/#scorerreset", 
+            "text": "View source  Removes all remembered statistics from the scorer.", 
+            "title": "Scorer:reset()"
+        }, 
+        {
+            "location": "/ml/Scorer/#scorerprecision95recall95f1ignore", 
+            "text": "View source  Computes the precision/recall/f1 statistics for the current batch of elements.  Arguments:   ignore  ( string ): if given,  ignore  is taken to be the \"negative\" class and its statistics will be withheld\nfrom the computation. Optional.   Returns:   ( table, table, table ) micro, macro, and class scores   Example:  local s = Scorer()\ns:add_pred('a', 'b', 1)\ns:add_pred('b', 'b', 2)\ns:add_pred('c', 'a', 3)\nlocal micro, macro, all_stats = s:precision_recall_f1(ignore)  Returns the following    micro : the micro averaged precision/recall/f1 statistics    macro : the macro averaged precision/recall/f1 statistics    class_stats : the precision/recall/f1 for each class", 
+            "title": "Scorer:precision_recall_f1(ignore)"
+        }
+    ]
+}

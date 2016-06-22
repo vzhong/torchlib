@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Victor Zhong (victor@victorzhong.com)">
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+
+	<title>Experiment - torchlib</title>
+
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="../..">torchlib</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">util <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../util/Download/">Download</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../util/global/">global</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../util/string/">string</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../util/table/">table</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">graph <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../graph/DirectedGraph/">DirectedGraph</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../graph/UndirectedGraph/">UndirectedGraph</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../graph/Graph/">Graph</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">tree <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../tree/Tree/">Tree</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../tree/BinarySearchTree/">BinarySearchTree</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../tree/BinaryTree/">BinaryTree</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">map <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../map/Map/">Map</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../map/Counter/">Counter</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../map/HashMap/">HashMap</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">list <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../list/List/">List</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../list/Heap/">Heap</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../list/LinkedList/">LinkedList</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../list/ArrayList/">ArrayList</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../list/Stack/">Stack</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../list/Queue/">Queue</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">set <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../set/Set/">Set</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">ml <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../Vocab/">Vocab</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../VariableTensor/">VariableTensor</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../Dataset/">Dataset</a>
+</li>
+
+                        
+                            
+<li class="active">
+    <a href="./">Experiment</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../Model/">Model</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../GloveVocab/">GloveVocab</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../ProbTable/">ProbTable</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../Scorer/">Scorer</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+            
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                
+                    <li >
+                        <a rel="next" href="../Dataset/">
+                            <i class="fa fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../Model/">
+                            Next <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a href="https://github.com/vzhong/torchlib">
+                            
+                                <i class="fa fa-github"></i>
+                            
+                            GitHub
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#experiment">Experiment</a></li>
+        
+            <li><a href="#experiment9595initname-username-password-hostname-port">Experiment:__init(name, username, password, hostname, port)</a></li>
+        
+            <li><a href="#experimentsetup">Experiment:setup()</a></li>
+        
+            <li><a href="#experimentdelete">Experiment:delete()</a></li>
+        
+            <li><a href="#experimentqueryquery-iterator">Experiment:query(query, iterator)</a></li>
+        
+            <li><a href="#experimentcreate95runopt">Experiment:create_run(opt)</a></li>
+        
+            <li><a href="#experimentget95run95infoid">Experiment:get_run_info(id)</a></li>
+        
+            <li><a href="#experimentsubmit95scoresrun95id-epoch-scores">Experiment:submit_scores(run_id, epoch, scores)</a></li>
+        
+            <li><a href="#experimentget95run95scoresid">Experiment:get_run_scores(id)</a></li>
+        
+            <li><a href="#experimentsubmit95predictionrun95id-example95id-pred-gold-info">Experiment:submit_prediction(run_id, example_id, pred, gold, info)</a></li>
+        
+            <li><a href="#experimentget95predictionsrun95id-example95id">Experiment:get_predictions(run_id, example_id)</a></li>
+        
+    
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="experiment">Experiment</h1>
+<p>Experiment container that is backed up to a Postgres instance.</p>
+<p>Example:</p>
+<p>Suppose we have already made a postgres database called <code>myexp</code>.</p>
+<pre><code class="lua">local c = Experiment.new('myexp')
+local run = c:create_run{dataset='foobar', lr=1.0, n_hid=10}
+print(run:info())
+run:submit_scores(1, {macro={f1=0.53, precision=0.52, recall=0.54}, micro={f1=0.10, precision=0.10, recall=0.10}})
+run:submit_scores(2, {macro={f1=0.55, precision=0.55, recall=0.55}, micro={f1=0.10, precision=0.10, recall=0.10}})
+print(run:scores())
+
+run:submit_prediction(1, 'person', 'thing', {dataset='foobar'})
+run:submit_prediction(2, 'person', 'person', {dataset='foobar'})
+run:submit_prediction(3, 'person', 'thing', {dataset='foobar'})
+run:submit_prediction(4, 'thing', 'thing', {dataset='foobar'})
+print(run:predictions())
+</code></pre>
+
+<h2 id="experiment9595initname-username-password-hostname-port">Experiment:__init(name, username, password, hostname, port)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//ml/Experiment.lua#L38">View source</a></p>
+<p>Constructor.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>name</code> (<code>string</code>): name of the experiment.</li>
+<li><code></code> (<code>username</code>): username for postgres. Optional.</li>
+<li><code></code> (<code>hostname</code>): hostname for postgres. Optional.</li>
+<li><code></code> (<code>port</code>): port for postgres</li>
+</ul>
+<p>It is assumed that a database with this name also exists and the user has permission to connect to it.
+For more information on the parameters for postgres, see:</p>
+<p>http://keplerproject.github.io/luasql/manual.html#postgres_extensions. Optional.</p>
+<h2 id="experimentsetup">Experiment:setup()</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//ml/Experiment.lua#L61">View source</a></p>
+<p>Creates relevant tables.</p>
+<h2 id="experimentdelete">Experiment:delete()</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//ml/Experiment.lua#L90">View source</a></p>
+<p>Drops tables for this experiment.</p>
+<h2 id="experimentqueryquery-iterator">Experiment:query(query, iterator)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//ml/Experiment.lua#L119">View source</a></p>
+<p>Submits a query to the database and returns the result.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>query</code> (<code>string</code>): query to run.</li>
+<li><code>iterator</code> (<code>boolean</code>): whether to return the result as an iterator or as a table. Optional.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>conditional</code>) if <code>true</code>, then an iterator will be returned. Otherwise, a table will be returned</li>
+</ul>
+<p>If the result is not a number, then results will be returned. If the result is a number, then no result will
+be returned.</p>
+<p>If the query fails, then an error will be raised.</p>
+<h2 id="experimentcreate95runopt">Experiment:create_run(opt)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//ml/Experiment.lua#L163">View source</a></p>
+<p>Creates a new run for the experiment.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>opt</code> (<code>table[any:any]</code>): options for the run.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>table</code>) a Run object</li>
+</ul>
+<p>The Run object returned has the following functions:</p>
+<ul>
+<li>
+<p><code>run.id</code>: the id for this run</p>
+</li>
+<li>
+<p><code>run:info()</code>: retrieves the row in the runs table.</p>
+</li>
+<li>
+<p><code>run:scores()</code>: retrieves the scores in the scores table.</p>
+</li>
+<li>
+<p><code>run:submit_scores(epoch, scores)</code>: submits scores.</p>
+</li>
+<li>
+<p><code>run:predictions(example_id)</code>: retrieves the predictions.</p>
+</li>
+<li>
+<p><code>run:submit_prediction(example_id, pred, gold, info)</code>: submits a single prediction.</p>
+</li>
+</ul>
+<p>These are merely convenience functions mapping to corresponding methods in <code>Experiment</code>.</p>
+<p>They are convienient in the sense that one does not have to memorize the <code>id</code> of the Run to use them.</p>
+<h2 id="experimentget95run95infoid">Experiment:get_run_info(id)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//ml/Experiment.lua#L181">View source</a></p>
+<p>Retrieves the options for the requested run.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>id</code> (<code>int</code>): ID of the run to retrieve.</li>
+</ul>
+<h2 id="experimentsubmit95scoresrun95id-epoch-scores">Experiment:submit_scores(run_id, epoch, scores)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//ml/Experiment.lua#L191">View source</a></p>
+<p>Submits a score for the run.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>run_id</code> (<code>int</code>): ID of the run to submit scores for.</li>
+<li><code>epoch</code> (<code>int</code>): epoch of the score.</li>
+<li><code>scores</code> (<code>table[string:number]</code>): scores to submit.</li>
+</ul>
+<h2 id="experimentget95run95scoresid">Experiment:get_run_scores(id)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//ml/Experiment.lua#L203">View source</a></p>
+<p>Retrieves the scores for the requested run.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>id</code> (<code>int</code>): ID of the run to retrieve.</li>
+</ul>
+<h2 id="experimentsubmit95predictionrun95id-example95id-pred-gold-info">Experiment:submit_prediction(run_id, example_id, pred, gold, info)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//ml/Experiment.lua#L214">View source</a></p>
+<p>Submits the prediction for a single example for a run.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>run_id</code> (<code>int</code>): ID for the run.</li>
+<li><code>example_id</code> (<code>int</code>): ID for the example.</li>
+<li><code>pred</code> (<code>any</code>): prediction.</li>
+<li><code>gold</code> (<code>any</code>): ground truth. Optional.</li>
+<li><code>info</code> (<code>table</code>): information for the run. Optional.</li>
+</ul>
+<h2 id="experimentget95predictionsrun95id-example95id">Experiment:get_predictions(run_id, example_id)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//ml/Experiment.lua#L237">View source</a></p>
+<p>Retrieves the prediction a run.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>run_id</code> (<code>int</code>): ID for the run.</li>
+<li><code>example_id</code> (<code>int</code>): ID for the example. If this is given then only the prediction for this example is returned. Optional.</li>
+</ul></div>
+            
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            
+                <p>Copyright 2016 Victor Zhong (victor@victorzhong.com)</p>
+            
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script>
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            From here you can search these documents. Enter
+                            your search terms below.
+                        </p>
+                        <form role="form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                            </div>
+                        </form>
+                        <div id="mkdocs-search-results"></div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

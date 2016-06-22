@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Victor Zhong (victor@victorzhong.com)">
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+
+	<title>Heap - torchlib</title>
+
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="../..">torchlib</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">util <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../util/Download/">Download</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../util/global/">global</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../util/string/">string</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../util/table/">table</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">graph <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../graph/DirectedGraph/">DirectedGraph</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../graph/UndirectedGraph/">UndirectedGraph</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../graph/Graph/">Graph</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">tree <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../tree/Tree/">Tree</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../tree/BinarySearchTree/">BinarySearchTree</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../tree/BinaryTree/">BinaryTree</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">map <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../map/Map/">Map</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../map/Counter/">Counter</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../map/HashMap/">HashMap</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">list <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../List/">List</a>
+</li>
+
+                        
+                            
+<li class="active">
+    <a href="./">Heap</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../LinkedList/">LinkedList</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../ArrayList/">ArrayList</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../Stack/">Stack</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../Queue/">Queue</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">set <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../set/Set/">Set</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">ml <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../ml/Vocab/">Vocab</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../ml/VariableTensor/">VariableTensor</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../ml/Dataset/">Dataset</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../ml/Experiment/">Experiment</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../ml/Model/">Model</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../ml/GloveVocab/">GloveVocab</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../ml/ProbTable/">ProbTable</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../ml/Scorer/">Scorer</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+            
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                
+                    <li >
+                        <a rel="next" href="../List/">
+                            <i class="fa fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../LinkedList/">
+                            Next <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a href="https://github.com/vzhong/torchlib">
+                            
+                                <i class="fa fa-github"></i>
+                            
+                            GitHub
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#heap">Heap</a></li>
+        
+            <li><a href="#heapparenti">Heap.parent(i)</a></li>
+        
+            <li><a href="#heaplefti">Heap.left(i)</a></li>
+        
+            <li><a href="#heaprighti">Heap.right(i)</a></li>
+        
+            <li><a href="#heapmaxheapifyi-effectivesize">Heap:maxHeapify(i, effectiveSize)</a></li>
+        
+            <li><a href="#heapsort">Heap:sort()</a></li>
+        
+            <li><a href="#heappushkey-val">Heap:push(key, val)</a></li>
+        
+            <li><a href="#heappop">Heap:pop()</a></li>
+        
+            <li><a href="#heappeek">Heap:peek()</a></li>
+        
+    
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="heap">Heap</h1>
+<p>Max heap implementation.
+This is a subclass of <code>List</code>.</p>
+<h2 id="heapparenti">Heap.parent(i)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//list/Heap.lua#L10">View source</a></p>
+<p>Arguments:</p>
+<ul>
+<li><code>i</code> (<code>int</code>): index to compute parent for.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>int</code>) parent index of <code>i</code></li>
+</ul>
+<h2 id="heaplefti">Heap.left(i)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//list/Heap.lua#L16">View source</a></p>
+<p>Arguments:</p>
+<ul>
+<li><code>i</code> (<code>int</code>): index to compute left child for.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>int</code>) left child index of <code>i</code></li>
+</ul>
+<h2 id="heaprighti">Heap.right(i)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//list/Heap.lua#L22">View source</a></p>
+<p>Arguments:</p>
+<ul>
+<li><code>i</code> (<code>int</code>): index to compute right child for.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>int</code>) right child index of <code>i</code></li>
+</ul>
+<h2 id="heapmaxheapifyi-effectivesize">Heap:maxHeapify(i, effectiveSize)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//list/Heap.lua#L35">View source</a></p>
+<p>Restores max heap condition at the <code>i</code>th index.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>i</code> (<code>int</code>): index at which to restore max heap condition.</li>
+<li><code>effectiveSize</code> (<code>int</code>): effective size of the heap (eg. number of valid elements). Optional, Default: <code>size</code>.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>Heap</code>) modified heap</li>
+</ul>
+<p>Recursively swaps down the node at <code>i</code> until the max heap condition is restored at <code>a[i]</code>.</p>
+<p>Note: this function assumes that the binary trees rooted at left and right are max heaps but</p>
+<p><code>a[i]</code> may violate the max-heap condition.</p>
+<h2 id="heapsort">Heap:sort()</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//list/Heap.lua#L65">View source</a></p>
+<p>Sorts the heap using heap sort.</p>
+<p>Returns:</p>
+<ul>
+<li>(<code>Heap</code>) sorted heap</li>
+</ul>
+<h2 id="heappushkey-val">Heap:push(key, val)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//list/Heap.lua#L79">View source</a></p>
+<p>Adds an element to the heap while keeping max heap property.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>key</code> (<code>number</code>): priority to add with.</li>
+<li><code>val</code> (<code>any</code>): element to add to heap.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>Heap</code>) modified heap</li>
+</ul>
+<h2 id="heappop">Heap:pop()</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//list/Heap.lua#L88">View source</a></p>
+<p>Removes and returns the max priority element from the heap.</p>
+<p>Returns:</p>
+<ul>
+<li>(<code>any</code>) removed element</li>
+</ul>
+<h2 id="heappeek">Heap:peek()</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//list/Heap.lua#L101">View source</a></p>
+<p>{any} max priority element from the heap</p>
+<p>Note: the element is not removed.</p></div>
+            
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            
+                <p>Copyright 2016 Victor Zhong (victor@victorzhong.com)</p>
+            
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script>
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            From here you can search these documents. Enter
+                            your search terms below.
+                        </p>
+                        <form role="form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                            </div>
+                        </form>
+                        <div id="mkdocs-search-results"></div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

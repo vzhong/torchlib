@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Victor Zhong (victor@victorzhong.com)">
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+
+	<title>Graph - torchlib</title>
+
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="../..">torchlib</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">util <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../util/Download/">Download</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../util/global/">global</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../util/string/">string</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../util/table/">table</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">graph <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../DirectedGraph/">DirectedGraph</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../UndirectedGraph/">UndirectedGraph</a>
+</li>
+
+                        
+                            
+<li class="active">
+    <a href="./">Graph</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">tree <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../tree/Tree/">Tree</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../tree/BinarySearchTree/">BinarySearchTree</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../tree/BinaryTree/">BinaryTree</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">map <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../map/Map/">Map</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../map/Counter/">Counter</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../map/HashMap/">HashMap</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">list <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../list/List/">List</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../list/Heap/">Heap</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../list/LinkedList/">LinkedList</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../list/ArrayList/">ArrayList</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../list/Stack/">Stack</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../list/Queue/">Queue</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">set <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../set/Set/">Set</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">ml <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../ml/Vocab/">Vocab</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../ml/VariableTensor/">VariableTensor</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../ml/Dataset/">Dataset</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../ml/Experiment/">Experiment</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../ml/Model/">Model</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../ml/GloveVocab/">GloveVocab</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../ml/ProbTable/">ProbTable</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../ml/Scorer/">Scorer</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+            
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                
+                    <li >
+                        <a rel="next" href="../UndirectedGraph/">
+                            <i class="fa fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../../tree/Tree/">
+                            Next <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a href="https://github.com/vzhong/torchlib">
+                            
+                                <i class="fa fa-github"></i>
+                            
+                            GitHub
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#graph">Graph</a></li>
+        
+            <li><a href="#graphnode9595initval">GraphNode:__init(val)</a></li>
+        
+            <li><a href="#graphnode9595tostring9595">GraphNode:__tostring__()</a></li>
+        
+            <li><a href="#graph9595init">Graph:__init()</a></li>
+        
+            <li><a href="#graphsize">Graph:size()</a></li>
+        
+            <li><a href="#graphassertvalidnodenode">Graph:assertValidNode(node)</a></li>
+        
+            <li><a href="#graphaddnodeval">Graph:addNode(val)</a></li>
+        
+            <li><a href="#graphconnectionsofnode">Graph:connectionsOf(node)</a></li>
+        
+            <li><a href="#graphnodeset">Graph:nodeSet()</a></li>
+        
+            <li><a href="#graphresetstate">Graph:resetState()</a></li>
+        
+            <li><a href="#graphbreadthfirstsearchsource-callbacks">Graph:breadthFirstSearch(source, callbacks)</a></li>
+        
+            <li><a href="#graphshortestpathsource-destination-skipbfs">Graph:shortestPath(source, destination, skipBFS)</a></li>
+        
+            <li><a href="#graphdepthfirstsearchnodes-callbacks">Graph:depthFirstSearch(nodes, callbacks)</a></li>
+        
+    
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="graph">Graph</h1>
+<p>Abstract graph implementation.</p>
+<p>A <code>Graph</code> consists of <code>GraphNode</code>s. Each <code>GraphNode</code> can be in three states:
+  - <code>UNDISCOVERED</code>
+  - <code>VISITED</code>
+  - <code>FINISHED</code></p>
+<h2 id="graphnode9595initval">GraphNode:__init(val)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//graph/Graph.lua#L26">View source</a></p>
+<p>Constructor.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>val</code> (<code>any</code>): value for the new node.</li>
+</ul>
+<h2 id="graphnode9595tostring9595">GraphNode:__tostring__()</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//graph/Graph.lua#L31">View source</a></p>
+<p>Returns:</p>
+<ul>
+<li>(<code>string</code>) string representation</li>
+</ul>
+<h2 id="graph9595init">Graph:__init()</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//graph/Graph.lua#L36">View source</a></p>
+<p>Constructor.</p>
+<h2 id="graphsize">Graph:size()</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//graph/Graph.lua#L41">View source</a></p>
+<p>Returns:</p>
+<ul>
+<li>(<code>int</code>) number of nodes in the graph.</li>
+</ul>
+<h2 id="graphassertvalidnodenode">Graph:assertValidNode(node)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//graph/Graph.lua#L47">View source</a></p>
+<p>Verifies that the node is in the graph</p>
+<p>Arguments:</p>
+<ul>
+<li><code>node</code> (<code>Graph.Node</code>): the node to verify.</li>
+</ul>
+<h2 id="graphaddnodeval">Graph:addNode(val)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//graph/Graph.lua#L54">View source</a></p>
+<p>Adds a node with given value to the graph.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>val</code> (<code>any</code>): value for the new node.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>Graph.Node</code>) </li>
+</ul>
+<h2 id="graphconnectionsofnode">Graph:connectionsOf(node)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//graph/Graph.lua#L63">View source</a></p>
+<p>Returns neighbours of a given node.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>node</code> (<code>Graph.Node</code>): the node to find neighbours for.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>table(Graph.Node)</code>) </li>
+</ul>
+<h2 id="graphnodeset">Graph:nodeSet()</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//graph/Graph.lua#L70">View source</a></p>
+<p>Returns a set of nodes in the graph.</p>
+<p>Returns:</p>
+<ul>
+<li>(<code>Set(Graph.Node)</code>) </li>
+</ul>
+<h2 id="graphresetstate">Graph:resetState()</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//graph/Graph.lua#L78">View source</a></p>
+<p>Initializes all nodes to <code>Graph.state.UNDISCOVERED</code>.</p>
+<p>Returns:</p>
+<ul>
+<li>(<code>Graph</code>) </li>
+</ul>
+<p>The graph will be returned</p>
+<h2 id="graphbreadthfirstsearchsource-callbacks">Graph:breadthFirstSearch(source, callbacks)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//graph/Graph.lua#L99">View source</a></p>
+<p>Performs breadth first search.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>source</code> (<code>Graph.Node</code>): the source node to start BFS.</li>
+<li><code>callbacks</code> (<code>table[string:function]</code>): a map with optional callbacks</li>
+</ul>
+<p>Available callbacks:. Optional.</p>
+<ul>
+<li>
+<p><code>discover = function(Graph.Node)</code>: called when a node is initially encountered</p>
+</li>
+<li>
+<p><code>finish = function(Graph.Node)</code>: called when a node has been fully explored (eg. its connected nodes have all been visited)</p>
+</li>
+</ul>
+<h2 id="graphshortestpathsource-destination-skipbfs">Graph:shortestPath(source, destination, skipBFS)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//graph/Graph.lua#L138">View source</a></p>
+<p>Returns the shortest path from source to destination</p>
+<p>Arguments:</p>
+<ul>
+<li><code>source</code> (<code>Graph.Node</code>): starting node.</li>
+<li><code>destination</code> (<code>Graph.Node</code>): end node.</li>
+<li><code>skipBFS</code> (<code>boolean</code>): whether BFS has already been performned. Optional.</li>
+</ul>
+<p>Note: This function relies on the results from a BFS call. By default, a BFS is performed before</p>
+<p>retrieving the shortest path. Alternatively, if the caller has already performed BFS, then</p>
+<p>this BFS can be skipped by passing in <code>skipBFS = true</code>.</p>
+<h2 id="graphdepthfirstsearchnodes-callbacks">Graph:depthFirstSearch(nodes, callbacks)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//graph/Graph.lua#L167">View source</a></p>
+<p>Performs depth first search.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>nodes</code> (<code>table[Graph.Node]</code>): the table of nodes on which to perform DFS. If not set, then all nodes in the graph are used.</li>
+<li><code>callbacks</code> (<code>table[string:function]</code>): a map with optional callbacks</li>
+</ul>
+<p>Available callbacks:. Optional.</p>
+<ul>
+<li>
+<p><code>discover = function(Graph.Node)</code>: called when a node is initially encountered</p>
+</li>
+<li>
+<p><code>finish = function(Graph.Node)</code>: called when a node has been fully explored (eg. its connected nodes have all been visited)</p>
+</li>
+</ul></div>
+            
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            
+                <p>Copyright 2016 Victor Zhong (victor@victorzhong.com)</p>
+            
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script>
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            From here you can search these documents. Enter
+                            your search terms below.
+                        </p>
+                        <form role="form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                            </div>
+                        </form>
+                        <div id="mkdocs-search-results"></div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

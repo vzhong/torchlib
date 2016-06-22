@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Victor Zhong (victor@victorzhong.com)">
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+
+	<title>Set - torchlib</title>
+
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="../..">torchlib</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">util <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../util/Download/">Download</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../util/global/">global</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../util/string/">string</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../util/table/">table</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">graph <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../graph/DirectedGraph/">DirectedGraph</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../graph/UndirectedGraph/">UndirectedGraph</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../graph/Graph/">Graph</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">tree <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../tree/Tree/">Tree</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../tree/BinarySearchTree/">BinarySearchTree</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../tree/BinaryTree/">BinaryTree</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">map <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../map/Map/">Map</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../map/Counter/">Counter</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../map/HashMap/">HashMap</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">list <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../list/List/">List</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../list/Heap/">Heap</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../list/LinkedList/">LinkedList</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../list/ArrayList/">ArrayList</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../list/Stack/">Stack</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../list/Queue/">Queue</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">set <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li class="active">
+    <a href="./">Set</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">ml <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../ml/Vocab/">Vocab</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../ml/VariableTensor/">VariableTensor</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../ml/Dataset/">Dataset</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../ml/Experiment/">Experiment</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../ml/Model/">Model</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../ml/GloveVocab/">GloveVocab</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../ml/ProbTable/">ProbTable</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../ml/Scorer/">Scorer</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+            
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                
+                    <li >
+                        <a rel="next" href="../../list/Queue/">
+                            <i class="fa fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../../ml/Vocab/">
+                            Next <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a href="https://github.com/vzhong/torchlib">
+                            
+                                <i class="fa fa-github"></i>
+                            
+                            GitHub
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#set">Set</a></li>
+        
+            <li><a href="#set9595initvalues">Set:__init(values)</a></li>
+        
+            <li><a href="#setkeyofval">Set.keyOf(val)</a></li>
+        
+            <li><a href="#setsize">Set:size()</a></li>
+        
+            <li><a href="#setaddval">Set:add(val)</a></li>
+        
+            <li><a href="#setaddmany">Set:addMany(...)</a></li>
+        
+            <li><a href="#setcopy">Set:copy()</a></li>
+        
+            <li><a href="#setcontainsval">Set:contains(val)</a></li>
+        
+            <li><a href="#setremoveval">Set:remove(val)</a></li>
+        
+            <li><a href="#settotable">Set:totable()</a></li>
+        
+            <li><a href="#setequalsanother">Set:equals(another)</a></li>
+        
+            <li><a href="#setunionanother">Set:union(another)</a></li>
+        
+            <li><a href="#setintersectanother">Set:intersect(another)</a></li>
+        
+            <li><a href="#setsubtractanother">Set:subtract(another)</a></li>
+        
+            <li><a href="#set9595tostring9595">Set:__tostring__()</a></li>
+        
+    
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="set">Set</h1>
+<p>Implementation of set.</p>
+<h2 id="set9595initvalues">Set:__init(values)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//set/Set.lua#L9">View source</a></p>
+<p>Constructor.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>values</code> (<code>table[any]</code>): used to initialize the set. Optional.</li>
+</ul>
+<h2 id="setkeyofval">Set.keyOf(val)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//set/Set.lua#L18">View source</a></p>
+<p>Arguments:</p>
+<ul>
+<li><code>val</code> (<code>any</code>): value to produce a key for.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>torch.pointer</code>) unique key for the value</li>
+</ul>
+<h2 id="setsize">Set:size()</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//set/Set.lua#L27">View source</a></p>
+<p>Returns:</p>
+<ul>
+<li>(<code>int</code>) number of values in the set</li>
+</ul>
+<h2 id="setaddval">Set:add(val)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//set/Set.lua#L34">View source</a></p>
+<p>Adds a value to the set.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>val</code> (<code>any</code>): value to add to the set.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>Set</code>) modified set</li>
+</ul>
+<h2 id="setaddmany">Set:addMany(...)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//set/Set.lua#L46">View source</a></p>
+<p>Adds a variable number of values to the set.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>vararg</code> (<code>vararg</code>): values to add to the set.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>Set</code>) modified set</li>
+</ul>
+<h2 id="setcopy">Set:copy()</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//set/Set.lua#L55">View source</a></p>
+<p>Returns:</p>
+<ul>
+<li>(<code>Set</code>) copy of the set</li>
+</ul>
+<h2 id="setcontainsval">Set:contains(val)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//set/Set.lua#L61">View source</a></p>
+<p>Arguments:</p>
+<ul>
+<li><code>val</code> (<code>any</code>): value to check for.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>boolean</code>) whether the set contains <code>val</code></li>
+</ul>
+<h2 id="setremoveval">Set:remove(val)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//set/Set.lua#L69">View source</a></p>
+<p>Arguments:</p>
+<ul>
+<li><code>val</code> (<code>any</code>): value to remove from the set.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>Set</code>) modified set
+If <code>val</code> is not found then an error is raised.</li>
+</ul>
+<h2 id="settotable">Set:totable()</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//set/Set.lua#L78">View source</a></p>
+<p>Returns:</p>
+<ul>
+<li>(<code>tabl</code>) the set in table format</li>
+</ul>
+<h2 id="setequalsanother">Set:equals(another)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//set/Set.lua#L89">View source</a></p>
+<p>Compares two sets.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>another</code> (<code>Set</code>): another set.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>boolean</code>) whether this set and <code>another</code> contain the same values</li>
+</ul>
+<h2 id="setunionanother">Set:union(another)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//set/Set.lua#L105">View source</a></p>
+<p>Computes the union of two sets.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>another</code> (<code>Set</code>): another set.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>Set</code>) a set of values that are in this set or in <code>another</code></li>
+</ul>
+<h2 id="setintersectanother">Set:intersect(another)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//set/Set.lua#L116">View source</a></p>
+<p>Computes the intersection of two sets.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>another</code> (<code>Set</code>): another set.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>Set</code>) a set of values that are in this set and in <code>another</code></li>
+</ul>
+<h2 id="setsubtractanother">Set:subtract(another)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//set/Set.lua#L129">View source</a></p>
+<p>Subtracts another set from this one.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>another</code> (<code>Set</code>): another set.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>Set</code>) a set of values that are in this set but not in <code>another</code></li>
+</ul>
+<h2 id="set9595tostring9595">Set:__tostring__()</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//set/Set.lua#L140">View source</a></p>
+<p>Returns:</p>
+<ul>
+<li>(<code>string</code>) string representation</li>
+</ul></div>
+            
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            
+                <p>Copyright 2016 Victor Zhong (victor@victorzhong.com)</p>
+            
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script>
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            From here you can search these documents. Enter
+                            your search terms below.
+                        </p>
+                        <form role="form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                            </div>
+                        </form>
+                        <div id="mkdocs-search-results"></div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

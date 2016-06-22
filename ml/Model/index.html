@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Victor Zhong (victor@victorzhong.com)">
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+
+	<title>Model - torchlib</title>
+
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="../..">torchlib</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">util <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../util/Download/">Download</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../util/global/">global</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../util/string/">string</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../util/table/">table</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">graph <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../graph/DirectedGraph/">DirectedGraph</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../graph/UndirectedGraph/">UndirectedGraph</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../graph/Graph/">Graph</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">tree <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../tree/Tree/">Tree</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../tree/BinarySearchTree/">BinarySearchTree</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../tree/BinaryTree/">BinaryTree</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">map <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../map/Map/">Map</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../map/Counter/">Counter</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../map/HashMap/">HashMap</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">list <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../list/List/">List</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../list/Heap/">Heap</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../list/LinkedList/">LinkedList</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../list/ArrayList/">ArrayList</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../list/Stack/">Stack</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../list/Queue/">Queue</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">set <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../set/Set/">Set</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">ml <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../Vocab/">Vocab</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../VariableTensor/">VariableTensor</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../Dataset/">Dataset</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../Experiment/">Experiment</a>
+</li>
+
+                        
+                            
+<li class="active">
+    <a href="./">Model</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../GloveVocab/">GloveVocab</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../ProbTable/">ProbTable</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../Scorer/">Scorer</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+            
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                
+                    <li >
+                        <a rel="next" href="../Experiment/">
+                            <i class="fa fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../GloveVocab/">
+                            Next <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a href="https://github.com/vzhong/torchlib">
+                            
+                                <i class="fa fa-github"></i>
+                            
+                            GitHub
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#model">Model</a></li>
+        
+            <li><a href="#model9595initopt">Model:__init(opt)</a></li>
+        
+            <li><a href="#modelinitialize">Model:initialize()</a></li>
+        
+            <li><a href="#modelrequired95params">Model:required_params()</a></li>
+        
+            <li><a href="#modelget95net">Model:get_net()</a></li>
+        
+            <li><a href="#modelget95criterion">Model:get_criterion()</a></li>
+        
+            <li><a href="#modelprocess95batchbatch-pad">Model:process_batch(batch, pad)</a></li>
+        
+            <li><a href="#modeltraindataset-opt-optimize-optim95opt">Model:train(dataset, opt, optimize, optim_opt)</a></li>
+        
+            <li><a href="#modelevaluatedataset-opt">Model:evaluate(dataset, opt)</a></li>
+        
+            <li><a href="#modelfitdataset-opt-callbacks-progress-optim-optim95opt">Model:fit(dataset, opt, callbacks, progress, optim, optim_opt)</a></li>
+        
+    
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="model">Model</h1>
+<p>Implementation of model abstract class.</p>
+<p>The idea of this class is to provide a standard interface for training/evaluating models and help avoid duplication of code.
+It is set up in a modular fashion such that a model can overwrite key components of the training process (eg. the actual
+implementation of the network via <code>get_net</code>, the criterion via <code>get_criterion</code>, how batches from the dataset are preprocessed
+via <code>process_batch</code>).</p>
+<p>Example:</p>
+<pre><code class="lua">local MyModel = torch.class('MyModel', 'tl.Model')
+
+function MyModel:required_params()
+  return {'d_in', 'd_hid'}
+end
+
+function MyModel:get_net()
+  return nn.Sequential()
+      :add(nn.Linear(self.opt.d_in, self.opt.d_hid))
+      :add(nn.Tanh())
+      :add(nn.Linear(self.opt.d_hid, 1))
+end
+
+function MyModel:get_criterion()
+  return nn.MSECriterion()
+end
+</code></pre>
+
+<h2 id="model9595initopt">Model:__init(opt)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//ml/Model.lua#L46">View source</a></p>
+<p>Constructor.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>opt</code> (<code>table</code>): a key-value map of parameters for the model.</li>
+</ul>
+<p>If you feel the need to have a more specific constructor, you should add to the 
+implementation of the child class. In practice, it is often sufficient to overwrite
+the functions <code>get_net</code>, <code>get_criterion</code>, and <code>initialize</code>.</p>
+<h2 id="modelinitialize">Model:initialize()</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//ml/Model.lua#L61">View source</a></p>
+<p>Initializes the model.</p>
+<p>By default, uniformly initializes all parameters to between -0.08 and 0.08 and resets gradients to 0.</p>
+<p>Returns:</p>
+<ul>
+<li>(<code>Model</code>) initialized model</li>
+</ul>
+<h2 id="modelrequired95params">Model:required_params()</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//ml/Model.lua#L70">View source</a></p>
+<p>Returns:</p>
+<ul>
+<li>(<code>table</code>) required arguments for the constructor</li>
+</ul>
+<p>By default returns empty table. If a required argument is not met, then the constructor will abort with an error.</p>
+<h2 id="modelget95net">Model:get_net()</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//ml/Model.lua#L77">View source</a></p>
+<p>Returns:</p>
+<ul>
+<li>(<code>torch.Module</code>) implementation of the network.</li>
+</ul>
+<p>Note: You must overwrite this function.</p>
+<h2 id="modelget95criterion">Model:get_criterion()</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//ml/Model.lua#L84">View source</a></p>
+<p>Returns:</p>
+<ul>
+<li>(<code>torch.Module</code>) implementation of the network.</li>
+</ul>
+<p>By default returns <code>nn.CrossEntropyCriterion()</code>.</p>
+<h2 id="modelprocess95batchbatch-pad">Model:process_batch(batch, pad)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//ml/Model.lua#L95">View source</a></p>
+<p>Applies prepocessing to the batch object returned by <code>Dataset.batches</code>.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>batch</code> (<code>table[string:table]</code>): a map from <code>Dataset.batches</code>.</li>
+<li><code>pad</code> (<code>int</code>): what to use to pad variably lengthed examples in <code>batch.X</code>.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>table[string:table]</code>) padded batch</li>
+</ul>
+<p>By default, this pads the <code>X</code> field using <code>Dataset.pad</code> and converts the <code>Y</code> field to a <code>Tensor</code>.
+You may want to do different things here, such as convert tensors to CUDA, pad a different field etc.</p>
+<h2 id="modeltraindataset-opt-optimize-optim95opt">Model:train(dataset, opt, optimize, optim_opt)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//ml/Model.lua#L122">View source</a></p>
+<p>Trains on a <code>Dataset</code> instance.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>dataset</code> (<code>Dataset</code>): dataset to train on.</li>
+<li><code>opt</code> (<code>table</code>): training options.</li>
+<li><code>optimize</code> (<code>optim.optimizer</code>): optimizer for training. Optional, Default: <code>optim.adam</code>.</li>
+<li><code>optim_opt</code> (<code>table</code>): optimizer options. Optional.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>number</code>) average loss per example</li>
+</ul>
+<p><code>opt</code> specifies:</p>
+<pre><code>- `batch_size`: the number of examples per batch to fetch from `dataset`. By default this is `128`.
+
+- `silent`: whether to prevent progress updates (eg. via a progress bar). By default this is `false`.
+
+- `pad`: The integer used for padding variable lengthed sequences. By default this is `0`.
+</code></pre>
+<p>Example:</p>
+<pre><code class="lua">d = Dataset{X = X, Y = Y}
+ loss = model:train(d, {silent=true, batch_size=10}, optim.adam, {learningRate=1e-3})
+</code></pre>
+
+<h2 id="modelevaluatedataset-opt">Model:evaluate(dataset, opt)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//ml/Model.lua#L187">View source</a></p>
+<p>Evaluates on a <code>Dataset</code> instance.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>dataset</code> (<code>Dataset</code>): dataset to evaluate on.</li>
+<li><code>opt</code> (<code>table</code>): evaluation options.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>number, torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor</code>) evaluation results</li>
+</ul>
+<p><code>opt</code> specifies:</p>
+<ul>
+<li>
+<p><code>batch_size</code>: the number of examples per batch to fetch from <code>dataset</code>. By default this is <code>128</code>.</p>
+</li>
+<li>
+<p><code>silent</code>: whether to prevent progress updates (eg. via a progress bar). By default this is <code>false</code>.</p>
+</li>
+<li>
+<p><code>pad</code>: The integer used for padding variable lengthed sequences. By default this is <code>0</code>.</p>
+</li>
+</ul>
+<p>Returns the following:</p>
+<ul>
+<li>
+<p><code>loss</code>: average loss per example</p>
+</li>
+<li>
+<p><code>pred</code>: a <code>Tensor</code> contintaing the predictions made</p>
+</li>
+<li>
+<p><code>targ</code>: a <code>Tensor</code> contintaing the ground truth</p>
+</li>
+<li>
+<p><code>max_scores</code>: a <code>Tensor</code> contintaing the max scores for each prediction</p>
+</li>
+<li>
+<p><code>raw_scores</code>: a <code>Tensor</code> contintaing the raw scores for each prediction</p>
+</li>
+</ul>
+<p>Example:</p>
+<pre><code class="lua">d = Dataset{X = X, Y = Y}
+loss, pred, targ, max_scores, raw_scores = model:evaluate(d, {silent=true, batch_size=10})
+</code></pre>
+
+<h2 id="modelfitdataset-opt-callbacks-progress-optim-optim95opt">Model:fit(dataset, opt, callbacks, progress, optim, optim_opt)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//ml/Model.lua#L271">View source</a></p>
+<p>Trains and evaluates a model.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>dataset</code> (<code>table[string:Dataset]</code>): a map of datasets.</li>
+<li><code>opt</code> (<code>table</code>): training options. Optional.</li>
+<li><code>callbacks</code> (<code>table[string:function]</code>): a map of callback functions that are run after each epoch. Optional.</li>
+<li><code>progress</code> (<code>function</code>): returns whether this epoch is an improvement over the best results seen so far. Optional.</li>
+<li><code>optim</code> (<code>optim.optimizer</code>): optimizer for <code>train</code>. Optional, Default: <code>optim.adam</code>.</li>
+<li><code>optim_opt</code> (<code>table</code>): optimizer options for <code>train</code>. Optional.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>table, table</code>) best evaluation results seen during training and the training history of all evaluation results.</li>
+</ul>
+<p><code>dataset</code> contains:</p>
+<ul>
+<li>
+<p><code>train</code>: the <code>Dataset</code> to train on.</p>
+</li>
+<li>
+<p><code>dev</code>: the development <code>Dataset</code> to evaluate on. Used for early stopping</p>
+</li>
+<li>
+<p><code>test</code>: the <code>Dataset</code> to test on. Optional. If specified, then will be evaluated on at the end of training.</p>
+</li>
+</ul>
+<p><code>opt</code> contains:</p>
+<ul>
+<li>
+<p><code>batch_size</code>: the number of examples per batch to fetch from <code>dataset</code>. By default this is <code>128</code>.</p>
+</li>
+<li>
+<p><code>silent</code>: whether to prevent progress updates (eg. via a progress bar). By default this is <code>false</code>.</p>
+</li>
+<li>
+<p><code>patience</code>: the number of sub-optimal epochs to tolerate before early stopping. Default is <code>5</code>.</p>
+</li>
+<li>
+<p><code>n_epoch</code>: the maximum number of epochs to train for. Default is <code>30</code>.</p>
+</li>
+<li>
+<p><code>save</code>: where to save progress. If not specified then no saving will be done.</p>
+</li>
+</ul>
+<p><code>callbacks</code> functions take the following arguments:</p>
+<ul>
+<li>
+<p><code>split</code>: the name of the split being run</p>
+</li>
+<li>
+<p><code>res</code>: the evaluation results for the split</p>
+</li>
+</ul>
+<p>If a callback returns values, then the values will be stored in the evaluation results for that epoch</p>
+<p>and printed to stdout.</p>
+<p><code>progress</code> takes a function that takes as arguments:</p>
+<ul>
+<li>
+<p><code>curr</code>: the evaluation results for the current epoch</p>
+</li>
+<li>
+<p><code>best</code>: the best evaluation result so far</p>
+</li>
+</ul>
+<p>and returns whether <code>curr</code> is better than <code>best</code>. By default, this compares the <code>loss</code> field.</p>
+<pre><code class="lua">d = {
+  train=Dataset{X = Xtrain, Y = Ytrain}, 
+  dev=Dataset{X = Xdev, Y = Ydev}, 
+  test=Dataset{X = Xtest, Y = Ytest}, 
+}
+best_scores, train_hist = model:fit(d, {silent=true, batch_size=10})
+</code></pre></div>
+            
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            
+                <p>Copyright 2016 Victor Zhong (victor@victorzhong.com)</p>
+            
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script>
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            From here you can search these documents. Enter
+                            your search terms below.
+                        </p>
+                        <form role="form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                            </div>
+                        </form>
+                        <div id="mkdocs-search-results"></div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

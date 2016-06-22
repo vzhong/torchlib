@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Victor Zhong (victor@victorzhong.com)">
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+
+	<title>List - torchlib</title>
+
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="../..">torchlib</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">util <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../util/Download/">Download</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../util/global/">global</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../util/string/">string</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../util/table/">table</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">graph <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../graph/DirectedGraph/">DirectedGraph</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../graph/UndirectedGraph/">UndirectedGraph</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../graph/Graph/">Graph</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">tree <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../tree/Tree/">Tree</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../tree/BinarySearchTree/">BinarySearchTree</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../tree/BinaryTree/">BinaryTree</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">map <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../map/Map/">Map</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../map/Counter/">Counter</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../map/HashMap/">HashMap</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">list <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li class="active">
+    <a href="./">List</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../Heap/">Heap</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../LinkedList/">LinkedList</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../ArrayList/">ArrayList</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../Stack/">Stack</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../Queue/">Queue</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">set <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../set/Set/">Set</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">ml <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../ml/Vocab/">Vocab</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../ml/VariableTensor/">VariableTensor</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../ml/Dataset/">Dataset</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../ml/Experiment/">Experiment</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../ml/Model/">Model</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../ml/GloveVocab/">GloveVocab</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../ml/ProbTable/">ProbTable</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../ml/Scorer/">Scorer</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+            
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                
+                    <li >
+                        <a rel="next" href="../../map/HashMap/">
+                            <i class="fa fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../Heap/">
+                            Next <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a href="https://github.com/vzhong/torchlib">
+                            
+                                <i class="fa fa-github"></i>
+                            
+                            GitHub
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#list">List</a></li>
+        
+            <li><a href="#list9595initvalues">List:__init(values)</a></li>
+        
+            <li><a href="#listaddval-index">List:add(val, index)</a></li>
+        
+            <li><a href="#listgetindex">List:get(index)</a></li>
+        
+            <li><a href="#listsetindex-val">List:set(index, val)</a></li>
+        
+            <li><a href="#listremoveindex">List:remove(index)</a></li>
+        
+            <li><a href="#listequalsanother">List:equals(another)</a></li>
+        
+            <li><a href="#listswapi-j">List:swap(i, j)</a></li>
+        
+            <li><a href="#listtotable">List:totable()</a></li>
+        
+            <li><a href="#listassertvalidindexindex">List:assertValidIndex(index)</a></li>
+        
+            <li><a href="#listsize">List:size()</a></li>
+        
+            <li><a href="#listaddmany">List:addMany(...)</a></li>
+        
+            <li><a href="#listcontainsval">List:contains(val)</a></li>
+        
+            <li><a href="#listcopy">List:copy()</a></li>
+        
+            <li><a href="#listisempty">List:isEmpty()</a></li>
+        
+            <li><a href="#listsubliststart-finish">List:sublist(start, finish)</a></li>
+        
+            <li><a href="#listsortstart-finish">List:sort(start, finish)</a></li>
+        
+            <li><a href="#list9595tostring9595">List:__tostring__()</a></li>
+        
+    
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="list">List</h1>
+<p>Abstract list implementation.</p>
+<h2 id="list9595initvalues">List:__init(values)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//list/List.lua#L9">View source</a></p>
+<p>Constructor.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>values</code> (<code>table[any]</code>): used to initialize the list. Optional.</li>
+</ul>
+<h2 id="listaddval-index">List:add(val, index)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//list/List.lua#L17">View source</a></p>
+<p>Adds element to list.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>val</code> (<code>any</code>): value to add.</li>
+<li><code>index</code> (<code>int</code>): index to add value at. Optional, Default: <code>end</code>.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>List</code>) - modified list</li>
+</ul>
+<h2 id="listgetindex">List:get(index)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//list/List.lua#L25">View source</a></p>
+<p>Arguments:</p>
+<ul>
+<li><code>index</code> (<code>int</code>): index to retrieve value for.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>any</code>) - value at index</li>
+</ul>
+<p>Asserts error if <code>index</code> is out of bounds.</p>
+<h2 id="listsetindex-val">List:set(index, val)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//list/List.lua#L35">View source</a></p>
+<p>Sets the value at index.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>index</code> (<code>int</code>): inde to set value for.</li>
+<li><code>val</code> (<code>any</code>): value to set.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>List</code>) - modified list</li>
+</ul>
+<p>Asserts error if <code>index</code> is out of bounds.</p>
+<h2 id="listremoveindex">List:remove(index)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//list/List.lua#L44">View source</a></p>
+<p>Arguments:</p>
+<ul>
+<li><code>index</code> (<code>int</code>): index to remove at.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>any</code>) - value at index</li>
+</ul>
+<p>Elements after <code>index</code> will be shifted to the left by 1.</p>
+<p>Asserts error if <code>index</code> is out of bounds.</p>
+<h2 id="listequalsanother">List:equals(another)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//list/List.lua#L53">View source</a></p>
+<p>Compares two lists.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>another</code> (<code>List</code>): another list to compare to.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>boolean</code>) whether this list is equal to <code>another</code></li>
+</ul>
+<p>Lists are considered equal if their values match at every position.</p>
+<h2 id="listswapi-j">List:swap(i, j)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//list/List.lua#L61">View source</a></p>
+<p>Swaps value at two indices.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>i</code> (<code>int</code>): first index.</li>
+<li><code>j</code> (<code>int</code>): second index.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>List</code>) - modified list</li>
+</ul>
+<h2 id="listtotable">List:totable()</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//list/List.lua#L67">View source</a></p>
+<p>Returns the list in table form.</p>
+<p>Returns:</p>
+<ul>
+<li>(<code>table[any]</code>) a table containing the values in the list.</li>
+</ul>
+<h2 id="listassertvalidindexindex">List:assertValidIndex(index)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//list/List.lua#L73">View source</a></p>
+<p>Asserts that index is inside the list.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>index</code> (<code>int</code>): index to check.</li>
+</ul>
+<h2 id="listsize">List:size()</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//list/List.lua#L78">View source</a></p>
+<p>Returns:</p>
+<ul>
+<li>(<code>int</code>) size of the list</li>
+</ul>
+<h2 id="listaddmany">List:addMany(...)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//list/List.lua#L85">View source</a></p>
+<p>Adds items to the list.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>vararg</code> (<code>vararg[any]</code>): values to add to the list.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>List</code>) modified list</li>
+</ul>
+<h2 id="listcontainsval">List:contains(val)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//list/List.lua#L96">View source</a></p>
+<p>Returns whether the list contains a value.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>val</code> (<code>any</code>): value to check.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>boolean</code>) whether <code>val</code> is in the list</li>
+</ul>
+<h2 id="listcopy">List:copy()</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//list/List.lua#L106">View source</a></p>
+<p>Returns:</p>
+<ul>
+<li>(<code>List</code>) a copy of this list</li>
+</ul>
+<h2 id="listisempty">List:isEmpty()</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//list/List.lua#L111">View source</a></p>
+<p>Returns:</p>
+<ul>
+<li>(<code>boolean</code>) whether the list is empty</li>
+</ul>
+<h2 id="listsubliststart-finish">List:sublist(start, finish)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//list/List.lua#L119">View source</a></p>
+<p>Returns a copy of a segment of this list.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>start</code> (<code>int</code>): start of the segment.</li>
+<li><code>finish</code> (<code>int</code>): start of the segment. Optional, Default: <code>end</code>.</li>
+</ul>
+<h2 id="listsortstart-finish">List:sort(start, finish)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//list/List.lua#L131">View source</a></p>
+<p>Sorts the list in place.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>start</code> (<code>int</code>): start index of the sort. Optional, Default: <code>1</code>.</li>
+<li><code>finish</code> (<code>int</code>): end index of the sort. Optional, Default: <code>end</code>.</li>
+</ul>
+<h2 id="list9595tostring9595">List:__tostring__()</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//list/List.lua#L156">View source</a></p>
+<p>Returns:</p>
+<ul>
+<li>(<code>string</code>) string representation</li>
+</ul></div>
+            
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            
+                <p>Copyright 2016 Victor Zhong (victor@victorzhong.com)</p>
+            
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script>
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            From here you can search these documents. Enter
+                            your search terms below.
+                        </p>
+                        <form role="form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                            </div>
+                        </form>
+                        <div id="mkdocs-search-results"></div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>

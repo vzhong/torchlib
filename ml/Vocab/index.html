@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Victor Zhong (victor@victorzhong.com)">
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+
+	<title>Vocab - torchlib</title>
+
+        <link href="../../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../../css/highlight.css">
+
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+
+        
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            
+
+            <!-- Main title -->
+            <a class="navbar-brand" href="../..">torchlib</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+            
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                
+                
+                    <li >
+                        <a href="../..">Home</a>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">util <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../util/Download/">Download</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../util/global/">global</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../util/string/">string</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../util/table/">table</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">graph <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../graph/DirectedGraph/">DirectedGraph</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../graph/UndirectedGraph/">UndirectedGraph</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../graph/Graph/">Graph</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">tree <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../tree/Tree/">Tree</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../tree/BinarySearchTree/">BinarySearchTree</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../tree/BinaryTree/">BinaryTree</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">map <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../map/Map/">Map</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../map/Counter/">Counter</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../map/HashMap/">HashMap</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">list <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../list/List/">List</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../list/Heap/">Heap</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../list/LinkedList/">LinkedList</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../list/ArrayList/">ArrayList</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../list/Stack/">Stack</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../../list/Queue/">Queue</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">set <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li >
+    <a href="../../set/Set/">Set</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                
+                    <li class="dropdown active">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">ml <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                        
+                            
+<li class="active">
+    <a href="./">Vocab</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../VariableTensor/">VariableTensor</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../Dataset/">Dataset</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../Experiment/">Experiment</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../Model/">Model</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../GloveVocab/">GloveVocab</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../ProbTable/">ProbTable</a>
+</li>
+
+                        
+                            
+<li >
+    <a href="../Scorer/">Scorer</a>
+</li>
+
+                        
+                        </ul>
+                    </li>
+                
+                
+                </ul>
+            
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                
+                    <li >
+                        <a rel="next" href="../../set/Set/">
+                            <i class="fa fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../VariableTensor/">
+                            Next <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+                
+                
+                    <li>
+                        <a href="https://github.com/vzhong/torchlib">
+                            
+                                <i class="fa fa-github"></i>
+                            
+                            GitHub
+                        </a>
+                    </li>
+                
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+            
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+    
+        <li class="main active"><a href="#vocab">Vocab</a></li>
+        
+            <li><a href="#vocab9595initunk">Vocab:__init(unk)</a></li>
+        
+            <li><a href="#vocab9595tostring9595">Vocab:__tostring__()</a></li>
+        
+            <li><a href="#vocabcontainsword">Vocab:contains(word)</a></li>
+        
+            <li><a href="#vocabcountword">Vocab:count(word)</a></li>
+        
+            <li><a href="#vocabsize">Vocab:size()</a></li>
+        
+            <li><a href="#vocabaddword-count">Vocab:add(word, count)</a></li>
+        
+            <li><a href="#vocabindexofword-add">Vocab:indexOf(word, add)</a></li>
+        
+            <li><a href="#vocabwordatindex">Vocab:wordAt(index)</a></li>
+        
+            <li><a href="#vocabindicesofwords-add">Vocab:indicesOf(words, add)</a></li>
+        
+            <li><a href="#vocabtensorindicesofwords-add">Vocab:tensorIndicesOf(words, add)</a></li>
+        
+            <li><a href="#vocabwordsatindices">Vocab:wordsAt(indices)</a></li>
+        
+            <li><a href="#vocabtensorwordsatindices">Vocab:tensorWordsAt(indices)</a></li>
+        
+            <li><a href="#vocabcopyandprunerarescutoff">Vocab:copyAndPruneRares(cutoff)</a></li>
+        
+    
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h1 id="vocab">Vocab</h1>
+<p>Implementation of vocabulary</p>
+<h2 id="vocab9595initunk">Vocab:__init(unk)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//ml/Vocab.lua#L9">View source</a></p>
+<p>Constructor.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>unk</code> (<code>string</code>): the symbol for the unknown token. Optional, Default: <code>'UNK'</code>.</li>
+</ul>
+<h2 id="vocab9595tostring9595">Vocab:__tostring__()</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//ml/Vocab.lua#L22">View source</a></p>
+<p>Returns:</p>
+<ul>
+<li>(<code>string</code>) string representation</li>
+</ul>
+<h2 id="vocabcontainsword">Vocab:contains(word)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//ml/Vocab.lua#L28">View source</a></p>
+<p>Arguments:</p>
+<ul>
+<li><code>word</code> (<code>string</code>): word to query.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>boolean</code>) whether <code>word</code> is in the vocabulary</li>
+</ul>
+<h2 id="vocabcountword">Vocab:count(word)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//ml/Vocab.lua#L34">View source</a></p>
+<p>Arguments:</p>
+<ul>
+<li><code>word</code> (<code>string</code>): word to query.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>int</code>) count for <code>word</code> seen during training</li>
+</ul>
+<h2 id="vocabsize">Vocab:size()</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//ml/Vocab.lua#L40">View source</a></p>
+<p>Returns:</p>
+<ul>
+<li>(<code>int</code>) how many distinct tokens are in the vocabulary</li>
+</ul>
+<h2 id="vocabaddword-count">Vocab:add(word, count)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//ml/Vocab.lua#L48">View source</a></p>
+<p>Adds <code>word</code> <code>count</code> time to the vocabulary.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>word</code> (<code>string</code>): word to add.</li>
+<li><code>count</code> (<code>int</code>): number of times to add. Optional, Default: <code>1</code>.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>int</code>) index of <code>word</code></li>
+</ul>
+<h2 id="vocabindexofword-add">Vocab:indexOf(word, add)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//ml/Vocab.lua#L79">View source</a></p>
+<p>Arguments:</p>
+<ul>
+<li><code>word</code> (<code>string</code>): word to query.</li>
+<li><code>add</code> (<code>boolean</code>): whether to add new word to the vocabulary</li>
+</ul>
+<p>If the word is not found, then one of the following occurs:</p>
+<ul>
+<li>
+<p>if <code>add</code> is <code>true</code>, then <code>word</code> is added to the vocabulary with count 1 and the new index returned</p>
+</li>
+<li>
+<p>otherwise, the index of the unknown token is returned</p>
+</li>
+</ul>
+<p>Example:</p>
+<p>Suppose we have a vocabulary of words 'unk', 'foo' and 'bar'. Optional.</p>
+<p>Returns:</p>
+<ul>
+<li>(<code>int</code>) index of <code>word</code>.</li>
+</ul>
+<pre><code class="lua">vocab:indexOf('foo') returns 2
+vocab:indexOf('bar') returns 3
+vocab:indexOf('hello') returns 1 corresponding to `unk` because `hello` is not in the vocabuarly
+vocab:indexOf('hello', true) returns 4 because `hello` is added to the vocabulary
+</code></pre>
+
+<h2 id="vocabwordatindex">Vocab:wordAt(index)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//ml/Vocab.lua#L105">View source</a></p>
+<p>Arguments:</p>
+<ul>
+<li><code>index</code> (<code>int</code>): the index to query</li>
+</ul>
+<p>If <code>index</code> is out of bounds then an error will be raised.</p>
+<p>Example:</p>
+<p>Suppose we have a vocabulary with words 'unk', 'foo', and 'bar'.</p>
+<p>Returns:</p>
+<ul>
+<li>(<code>string</code>) word at index <code>index</code></li>
+</ul>
+<pre><code class="lua">vocab:wordAt(1) unk
+vocab:wordAt(2) foo
+vocab:wordAt(4) raises and error because there is no 4th word in the vocabulary
+</code></pre>
+
+<h2 id="vocabindicesofwords-add">Vocab:indicesOf(words, add)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//ml/Vocab.lua#L122">View source</a></p>
+<p><code>indexOf</code> on a table of words.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>words</code> (<code>table[string]</code>): words to query.</li>
+<li><code>add</code> (<code>boolean</code>): whether to add new words to the vocabulary. Optional.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>table[int]</code>) corresponding indices.</li>
+</ul>
+<p>Example:</p>
+<p>Suppose we have a vocabulary with words 'unk', 'foo', and 'bar'</p>
+<pre><code class="lua">vocab:indicesOf{'foo', 'bar'} {2, 3}
+</code></pre>
+
+<h2 id="vocabtensorindicesofwords-add">Vocab:tensorIndicesOf(words, add)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//ml/Vocab.lua#L144">View source</a></p>
+<p><code>indexOf</code> on a table of words.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>add</code> (<code>boolean</code>): whether to add new words to the vocabulary. Optional.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>torch.Tensor</code>) tensor of corresponding indices</li>
+</ul>
+<p>Example:</p>
+<p>Suppose we have a vocabulary with words 'unk', 'foo', and 'bar'</p>
+<p>{table[string]} words - words to query</p>
+<pre><code class="lua">vocab:tensorIndicesOf{'foo', 'bar'} torch.Tensor{2, 3}
+vocab:tensorIndicesOf{'foo', 'hi'} torch.Tensor{2, 1}, because `hi` is not in the vocabulary
+</code></pre>
+
+<h2 id="vocabwordsatindices">Vocab:wordsAt(indices)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//ml/Vocab.lua#L165">View source</a></p>
+<p><code>wordAt</code> on a table of indices.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>indices</code> (<code>table[int]</code>): indices to query.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>table[string]</code>) corresponding words</li>
+</ul>
+<p>Example:</p>
+<p>Suppose we have a vocabulary with words 'unk', 'foo', and 'bar'</p>
+<pre><code class="lua">vocab:wordsAt{1, 3} {'unk', 'bar'}
+vocab:wordsAt{1, 4} raises an error because there is no 4th word
+</code></pre>
+
+<h2 id="vocabtensorwordsatindices">Vocab:tensorWordsAt(indices)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//ml/Vocab.lua#L182">View source</a></p>
+<p><code>wordAt</code> on a tensor of indices. Returns a table of corresponding words.</p>
+<p>Example:</p>
+<p>Suppose we have a vocabulary with words 'unk', 'foo', and 'bar'</p>
+<pre><code class="lua">vocab:tensorWordsAt(torch.Tensor{1, 3}) {'unk', 'bar'}
+vocab:tensorWordsAt(torch.Tensor{1, 4}) raises an error because there is no 4th word
+</code></pre>
+
+<h2 id="vocabcopyandprunerarescutoff">Vocab:copyAndPruneRares(cutoff)</h2>
+<p><a href="http://github.com/vzhong/torchlib/blob/master/src//ml/Vocab.lua#L201">View source</a></p>
+<p>Returns a new vocabulary with words occurring less than <code>cutoff</code> times removed.</p>
+<p>Arguments:</p>
+<ul>
+<li><code>cutoff</code> (<code>int</code>): words with frequency below this number will be removed from the vocabulary.</li>
+</ul>
+<p>Returns:</p>
+<ul>
+<li>(<code>Vocab</code>) modified vocabulary</li>
+</ul>
+<p>Example:</p>
+<p>Suppose we want to forget all words that occurred less than 5 times:</p>
+<pre><code class="lua">smaller_vocab = orig_vocab:copyAndPruneRares(5)
+</code></pre></div>
+            
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            
+                <p>Copyright 2016 Victor Zhong (victor@victorzhong.com)</p>
+            
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+
+        <script src="../../js/jquery-1.10.2.min.js"></script>
+        <script src="../../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../../js/highlight.pack.js"></script>
+        <script>var base_url = '../..';</script>
+        <script data-main="../../mkdocs/js/search.js" src="../../mkdocs/js/require.js"></script>
+        <script src="../../js/base.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                            From here you can search these documents. Enter
+                            your search terms below.
+                        </p>
+                        <form role="form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                            </div>
+                        </form>
+                        <div id="mkdocs-search-results"></div>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>
